@@ -99,7 +99,6 @@ def perform_average(lista_valori):
             totalav += valoare
             counter += 1
     print(f'total de {totalav} / {counter} valori = ')
-    print(sum(lista_valori))
     return totalav/counter
 
 
