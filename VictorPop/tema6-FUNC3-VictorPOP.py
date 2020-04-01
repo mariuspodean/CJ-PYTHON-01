@@ -1,4 +1,3 @@
-import pycodestyle
 import country_converter as coco
 cc = coco.CountryConverter()
 
@@ -50,67 +49,57 @@ raw_data = [
 ]
 
 
-def str_int(unstr):
-    if unstr == ': ': return -1
-    return int(unstr[:-1])
-
-
-def list_dict_mici(lista_val):
-    return [{
-        'year': description[1][indexu][:-1],
-        'coverage': str_int(lista_val[indexu])
-        }
-       for indexu in range(len(lista_val))
-       ]
-
-
 def raw_to_dataset():
+    def str_int(little_string):
+        if little_string == "":
+            return None
+        return int(little_string)
     return {
-        cc.convert(country, to='name_short'): list_dict_mici(covdata)
-        for country, covdata in raw_data
+        cc.convert(country, to='name_short'): [{
+                'year': year_data.strip(),
+                'coverage': str_int(coverage_data.strip(': b'))
+                }
+            for year_data, coverage_data in zip(description[1], cov_data)
+            ]
+
+        for country, cov_data in raw_data
     }
 
 
-def get_year_data(dset, an):
-    print(f'\nget_year_data for {an}')
+def get_year_data(dset, imp_year):
+    print(f'\nget_year_data for {imp_year}')
     return {
-        an: [(otara,valoare['coverage'])
-             for otara in dset.keys()
-             for valoare in dset[otara]
-             if valoare['year'] == an]
+        imp_year: [(country_name, value_coverage['coverage'])
+                   for country_name in dset.keys()
+                   for value_coverage in dset[country_name]
+                   if value_coverage['year'] == imp_year]
     }
 
 
-def get_country_data(dset, tara):
-    print(f'\n get_country_data for {tara}')
+def get_country_data(dset, imp_country):
+    print(f'\n get_country_data for {imp_country}')
     return {
-        tara: [(dictionar['year'], dictionar['coverage'])
-               for dictionar in dset[tara]]
+        imp_country: [(little_dict['year'], little_dict['coverage'])
+                      for little_dict in dset[imp_country]]
     }
 
 
-def perform_average(lista_valori):
-    print('\n perform_average')
-    print(lista_valori)
-    totalav = counter = 0
-    for (elem, valoare) in lista_valori:
-        print(f'{elem} - {valoare}')
-        if valoare > 0:
-            totalav += valoare
-            counter += 1
-    print(f'total de {totalav} / {counter} valori = ')
-    return totalav/counter
+def perform_average(list_values):
+    print(f'\n perform_average for :')
+    print(list_values)
+    coverage_val = [value[1] for value in list_values if value[1]]
+    return sum(coverage_val)/len(coverage_val)
 
 
 dataset = raw_to_dataset()
-num_an = input('\nan [2011-2019]: ')
+name_year = input('\nyear [2011-2019]: ')
 print(dataset.keys())
-num_tara = input('\ntara din lista: ')
-an20xx = get_year_data(dataset, num_an)
-print(an20xx)
-taraxx = get_country_data(dataset, num_tara)
-print(taraxx)
-av2000 = perform_average(an20xx[num_an])
+name_country = input('\ncountry from list: ')
+year_temp = get_year_data(dataset, name_year)
+print(year_temp)
+country_temp = get_country_data(dataset, name_country)
+print(country_temp)
+av2000 = perform_average(year_temp[name_year])
 print(av2000)
-avTARA = perform_average(taraxx[num_tara])
+avTARA = perform_average(country_temp[name_country])
 print(avTARA)
