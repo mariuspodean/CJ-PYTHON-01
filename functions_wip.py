@@ -55,19 +55,33 @@ raw_data = [
 
 _, year = description
 
-raw_data_unzip = [[i for i, j in raw_data],
-                  [j for i, j in raw_data]]
 
-country, coverage = raw_data_unzip
 
 def dataset_func(raw_data):
     dataset = {
                country: [
-                        {'year': y, 'coverage': c}
-                        for c, y in zip(coverage, year)
+                        {'year': year_val.strip(), 'coverage': coverage_val.strip()}
+                        for coverage_val, year_val in zip(coverage, year)
                         ]
                for country, coverage in raw_data
-               }
-    print(dataset)
+              }
+    pprint(dataset)
     return dataset
+
+dataset = dataset_func(raw_data)
+
+def get_year_data(dataset, year):
+    year_data= {
+        year: [
+            [country, data_cov['coverage']]
+               for country in dataset
+                   for data_cov in dataset[country]
+                       if data_cov['year'] == year
+              ]
+            }
+    return year_data
+
+year_data = get_year_data(dataset, '2019')
+
+pprint(year_data)
 
