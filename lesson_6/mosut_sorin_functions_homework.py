@@ -1,11 +1,13 @@
 # import pakcage for Excel files
 import csv
 import pep8
+from pprint import pprint
 
 fchecker = pep8.Checker('functions_homework.py', show_source=True)
 file_errors = fchecker.check_all()
 
-print("Found %s errors (and warnings)" % file_errors)
+if file_errors:
+    print("Found %s errors (and warnings)" % file_errors)
 
 # python object for Excel file
 
@@ -18,6 +20,8 @@ cuntryes_abr_list = [
                       [line[0], line[1]]
                       for line in csv_reader_object
                     ]
+
+cuntryes_abr_file.close()
 
 # data set
 
@@ -114,15 +118,16 @@ def create_dataset_dict(arg_dict):
             if arg_dict[iter_2][0] == country_abr[0]
             }
 
+
 dict_dataset = create_dataset_dict(raw_data)
 
 for print_data in dict_dataset:
-    print('\n', print_data, '\n')
+    print('\n\n', print_data, '\n')
     iter_1 = 0
     for print_data2 in dict_dataset[print_data]:
         print(print_data2, end=' ')
         iter_1 += 1
-        if iter_1 % 3 == 0:
+        if iter_1 % 3 == 0 and iter_1 < len(dict_dataset[print_data]):
             print()
 
 # get_year_data function to retrieve data for a year introduced by user
