@@ -51,9 +51,7 @@ raw_data = [
 
 def raw_to_dataset():
     def str_int(little_string):
-        if little_string == "":
-            return None
-        return int(little_string)
+        return int(little_string) if little_string != "" else None
     return {
         cc.convert(country, to='name_short'): [{
                 'year': year_data.strip(),
@@ -61,7 +59,6 @@ def raw_to_dataset():
                 }
             for year_data, coverage_data in zip(description[1], cov_data)
             ]
-
         for country, cov_data in raw_data
     }
 
