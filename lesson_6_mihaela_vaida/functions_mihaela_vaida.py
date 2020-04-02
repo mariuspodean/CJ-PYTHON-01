@@ -1,11 +1,11 @@
-'''For this exercise we will perform some data aggregation tasks, on data from eurostat regarding
-internet access coverage.
-Tasks:
-• Average/year
-• Average/country'''
+# For this exercise we will perform some data aggregation tasks, on data from eurostat regarding
+# internet access coverage.
+# Tasks:
+# Average/year
+# Average/country
 
 from pprint import pprint
-description = ('Country', [
+description = ('Country',  [
 '2011 ', '2012 ', '2013 ', '2014 ', '2015 ', '2016 ', '2017 ', '2018 ',
 '2019 '
 ])
@@ -51,27 +51,16 @@ raw_data = [
 ('UK', ['83 ', '87 ', '88 ', '90 ', '91 ', '93 ', '94 ', '95 ', '96 ']),
 ('XK', [': ', ': ', ': ', ': ', ': ', ': ', '89 ', '93 ', '93 '])
 ]
-'''years=description[1]
 
-countries=[]
-for i in range(len(raw_data)):
-    
-    countries.append(raw_data[i][0])'''
-
-
-'''coverages=[]
-for i in range(len(raw_data)):
-    coverages.append(raw_data[i][1])'''
-    
 def get_country(country_code):
-    country = \
-        'Albania' if country_code == 'AL' else \
-        'Romania' if country_code == 'RO' else \
-        'United Kingdom' if country_code == 'UK' \
-        else country_code
+    country = {
+        'Albania' if country_code == 'AL' else
+        'Romania' if country_code == 'RO' else
+        'United Kingdom' if country_code == 'UK'
+        else country_code }
     return country_code               
                
-def prepare_dataset(desc, raw_data):
+def prepare_dataset(description, raw_data):
     data = {}
 
     country_year_data = []
@@ -79,7 +68,7 @@ def prepare_dataset(desc, raw_data):
         country = get_country(row[0])
         year_data = row[1]
 
-        country_year_data = [{'year': int(y), 'coverage': c} for y, c in zip(desc[1], year_data)]
+        country_year_data = [{'year': int(y), 'coverage': c} for y, c in zip(description[1], year_data)]
         data[country] = country_year_data
 
     return data               
@@ -88,9 +77,9 @@ def get_year_data(prepared_dataset, year):
     result = []
     for country, data in prepared_dataset.items():
         coverage = None        
-        for d in data:            
-            if d['year'] == year:
-                coverage = d['coverage']
+        for dt in data:
+            if dt['year'] == year:
+                coverage = dt['coverage']
         result.append((get_country(country), coverage))
 
     return {str(year): result}
@@ -112,29 +101,26 @@ def get_country_data(prepared_dataset, country):
     return {country: country_data}        
 
 def perform_average(some_list):
-    """
-    coverage is on the second position in the tuple from the dict 
 
-    {'2019': [('AL', ': '),
-          ('AT', '90 '),
-          ('BA', '72 '),
-          ...
-    or
-    {'RO': [(2011, '47 '),
-        (2012, '54 '),
-        (2013, '58 '),
-        ...
+#    coverage is on the second position in the tuple from the dict
 
-    """
-    print (f"some_list: {some_list}")
-    coverages = [int(x[1]) if x[1] != ": " else 0 for x in some_list]
-    lung=len(coverages)
-    for cov in coverages:
+#          ('AT', '90 '),
+#          ('BA', '72 '),
+#          ...
+#   {'RO': [(2011, '47 '),
+#        (2012, '54 '),
+#        (2013, '58 '),
+#        ...
+
+   print (f"some_list: {some_list}")
+   coverages = [int(x[1]) if x[1] != ": " else 0 for x in some_list]
+   lung=len(coverages)
+   for cov in coverages:
         if cov==0:
             lung-=1
-    avg = sum(coverages)/lung
+   avg = sum(coverages)/lung
     
-    return avg            
+   return avg
 prepared_dataset = prepare_dataset(description, raw_data)
 
 pprint(prepared_dataset)
