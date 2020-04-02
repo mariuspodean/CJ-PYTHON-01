@@ -3,6 +3,7 @@ import csv
 import pep8
 from pprint import pprint
 
+# clean code check
 fchecker = pep8.Checker('functions_homework.py', show_source=True)
 file_errors = fchecker.check_all()
 
@@ -10,21 +11,17 @@ if file_errors:
     print("Found %s errors (and warnings)" % file_errors)
 
 # python object for Excel file
-
-cuntryes_abr_file = open('countryes_abrev.csv')
-csv_reader_object = csv.reader(cuntryes_abr_file)
+countryes_abr = open('countryes_abrev.csv')
+csv_reader_object = csv.reader(countryes_abr)
 
 # list with data from Excel file with countryes names and abreviations
-
-cuntryes_abr_list = [
-                      [line[0], line[1]]
-                      for line in csv_reader_object
-                    ]
-
-cuntryes_abr_file.close()
+countryes_abr_list = [
+    [line[0], line[1]]
+    for line in csv_reader_object
+]
+countryes_abr.close()
 
 # data set
-
 description = ('Country', ['2011 ', '2012 ', '2013 ', '2014 ', '2015 ',
                            '2016 ', '2017 ', '2018 ', '2019 '])
 
@@ -70,137 +67,104 @@ raw_data = [
     ('XK', [': ', ': ', ': ', ': ', ': ', ': ', '89 ', '93 ', '93 b']),
 ]
 
-# check_cover function check each 'coverage' value and formates it
+
+# list_dict_yearcoverage function creates a list of disct with year and coverage as values
 
 
-def check_cover_value(cover_in):
-    cover = ''
-    if str.isnumeric(cover_in):
-        return int(cover_in)
-    elif cover_in.find(':') != -1:
-        return 0
-    else:
-        for iter_0 in range(len(cover_in)):
-            if str.isnumeric(cover_in[iter_0]):
-                cover += cover_in[iter_0]
-            else:
-                break
-        return cover
-
-# cover_value_int lamda function convert the 'coverage' value in integer
-
-cover_value_int = lambda arg_1, arg_2: int(check_cover_value(
-    str.strip(raw_data[arg_1][1][len(raw_data[1][1]) - 1 - arg_2])))
-
-"""
-dict_year_cover function creates a list of dicts with key = year and
-value = coverage for each year
-"""
-
-
-def list_dict_year_cover(arg_iter_1):
+def list_dict_yearcoverage(raw_data_in, tara):
     return [
-             {
-                'year': str.strip(description[1]
-                                  [len(raw_data[1][1]) - 1 - iter_2]),
-                'coverage': cover_value_int(arg_iter_1, iter_2)
-              }
-             for iter_2 in range(len(raw_data[1][1]))
-            ]
+        {
+            'year': str.strip(description[1][z[0]]),
+            'coverage': z[1].strip(" :b")
 
-# create_dataset_dict function creates the main dict with al dates
+        }
+
+        for x in enumerate(raw_data_in)
+        for z in enumerate(x[1][1])
+        if tara == x[1][0]
+    ]
 
 
-def create_dataset_dict(arg_dict):
-    return {country_abr[1]: list_dict_year_cover(iter_2)
-            for iter_2 in range(len(arg_dict))
-            for country_abr in cuntryes_abr_list
-            if arg_dict[iter_2][0] == country_abr[0]
+# dataset_dict function creates the main dataset dict
+
+
+def dataset_dict(raw_data_in):
+    return {tara2[1]: list_dict_yearcoverage(raw_data_in, tara[0])
+            for tara in raw_data_in
+            for tara2 in countryes_abr_list
+            if tara[0] == tara2[0]
             }
 
 
-dict_dataset = create_dataset_dict(raw_data)
-
-for print_data in dict_dataset:
-    print('\n\n', print_data, '\n')
-    iter_1 = 0
-    for print_data2 in dict_dataset[print_data]:
-        print(print_data2, end=' ')
-        iter_1 += 1
-        if iter_1 % 3 == 0 and iter_1 < len(dict_dataset[print_data]):
-            print()
-
-# get_year_data function to retrieve data for a year introduced by user
-
-year_in = input('\nIntroduceti anul pentru care'
-                'doriti sa obtineti valorile acoperirii : ')
+# get_year_data function to retrieve coverage data for a year introduced by user
 
 
-def get_year_data(dataset, year):
-    return {year: [[country, data_cover['coverage']]
-                   for country in dataset
-                   for data_cover in dataset[country]
-                   if data_cover['year'] == str(year)
+def get_year_data(data_set, year):
+    return {year: [[country, data_coverage['coverage']]
+                   for country in data_set
+                   for data_coverage in data_set[country]
+                   if data_coverage['year'] == str(year)
                    ]
             }
 
-dict_year_data = get_year_data(create_dataset_dict(raw_data), year_in)
 
-for print_data in dict_year_data:
-    print('\n', print_data, ':\n')
-    print('Country'.ljust(25), 'Coverage\n')
-    for print_data2 in dict_year_data[print_data]:
-        print(print_data2[0].ljust(25), ' = ', print_data2[1])
-
-"""
-get_country_data function to retrieve data for a
-specific country name introduced by user
-"""
-
-country_in = input('\nIntroduceti tara pentru care doriti'
-                   'sa obtineti valorile anuale ale acoperirii : ').title()
+# get_country_data function to retrieve data for a specific country name introduced by user
 
 
-def get_country_data(dataset, country_arg):
+def get_country_data(data_set, country_arg):
     return {country_arg: [[data_country['year'], data_country['coverage']]
-                          for data_country in dataset[country_arg]
+                          for data_country in data_set[country_arg]
                           ]
             }
 
-dict_coutry_year_data = get_country_data(create_dataset_dict(raw_data),
-                                         country_in)
 
-for print_data in dict_coutry_year_data:
-    print('\n', print_data, '\n')
-    print('Year'.ljust(6), 'Coverage\n')
-    for print_data2 in dict_coutry_year_data[print_data]:
-        print(print_data2[0], ' = ', print_data2[1])
-
-# input country for wich to calculte the average
-
-country = input('\nIntroduceti tara pentru care'
-                'doriti sa obtineti media acoperirii : ').title()
-
-# country_data list with values for calculation of the average
-
-country_data = [data_list[1] for data_list in get_country_data
-                (create_dataset_dict(raw_data), country)[country]]
-
-"""
-perform_average function , return the average of coverage in a period of time
-for a individual country
-"""
+# perform_average_country function calculate the average of coverage for a specified country on all years
 
 
-def perform_average(*cover_values):
-    contor = 0
-    for values_dif_zero in cover_values[0]:
-        if values_dif_zero > 0:
-            contor += 1
-    return sum(cover_values[0]) / contor
+def perform_average_country(country_year_data, country_in):
+    coverage_list = [cover_iter[1] for cover_iter in country_year_data[country_in]]
+    coverage_list = [int(cover_iter) for cover_iter in coverage_list if cover_iter]
+    average = sum(coverage_list) / len(coverage_list)
+    return average
 
-average = perform_average(country_data)
 
-print('\nMedia acoperiri in {} in perioada {}- {} este {:.2f}'.
-      format(country, description[1][0],
-             description[1][len(description[1])-1], average))
+# perform_average_year function calculate the average of coverage for a specified country on all years
+
+
+def perform_average_year(country_coverage_in, year):
+    coverage_list = [cover_iter[1] for cover_iter in country_coverage_in[year]]
+    coverage_list = [int(cover_iter) for cover_iter in coverage_list if cover_iter]
+    average = sum(coverage_list) / len(coverage_list)
+    return average
+
+
+# create dataset main dic
+dict_dataset = dataset_dict(raw_data)
+pprint(dict_dataset)
+
+# input year for wich to print the coverage values
+year_in = input('\nIntroduceti anul pentru care doriti sa obtineti valorile acoperirii: ')
+
+# obtain the dict with the values for the year specified above
+dict_year_data = get_year_data(dataset_dict(raw_data), year_in)
+print()
+pprint(dict_year_data)
+
+# input country for wich to print the coverage values
+country_in = input('\nIntroduceti tara pentru care doriti sa obtineti valorile anuale ale acoperirii: ').title()
+
+# obtain the dict with values for the country specified above
+dict_coutry_year_data = get_country_data(dataset_dict(raw_data), country_in)
+print()
+pprint(dict_coutry_year_data)
+# input country for wich to calculte the average, obtain the value and print it
+country = input('\nIntroduceti tara pentru care doriti sa obtineti media acoperirii: ').title()
+country_average = perform_average_country(dict_coutry_year_data, country)
+print('\nMedia acoperiri in {} in perioada {}- {} este: {:.2f}'.format
+      (country, description[1][0], description[1][len(description[1]) - 1], country_average))
+
+# input year for wich to calculte the average, obtain the value and print it
+year = input('\nIntroduceti anul pentru care doriti sa obtineti media acoperirii : ')
+country_coverage = get_year_data(dict_dataset, year)
+year_average = perform_average_year(country_coverage, year)
+print('\nMedia acoperiri in Europa pentru anul {} este: {:.2f}'.format(year, year_average))
