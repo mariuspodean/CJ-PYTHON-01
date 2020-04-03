@@ -6,12 +6,12 @@ pp = pprint.PrettyPrinter(indent=4)
 # too lazy for manual country code mapping
 try:
     with open("country_codes.json") as json_file:
-        country_codes = json.load(json_file)
+        country_code = json.load(json_file)
 except EnvironmentError:
     print("File country_codes.json required in same folder as app.py to run")
     exit()
 
-description = ('Country', [
+description_ = ('Country', [
     '2011 ', '2012 ', '2013 ', '2014 ', '2015 ', '2016 ', '2017 ', '2018 ',
     '2019 '
 ])
@@ -60,15 +60,15 @@ raw_data = [
 
 
 # function that prepares the dataset
-def data_set(country_codes, descr, data):
+def data_set(country_codes, description, data):
     # generate a new raw data with year/coverage association
-    new_raw_data = {raw_data_tuple[0]: list(zip(descr[1], raw_data_tuple[1])) for raw_data_tuple in data}
+    new_raw_data = {raw_data_tuple[0]: list(zip(description[1], raw_data_tuple[1])) for raw_data_tuple in data}
 
     # based on new data, generate final dataset
     data = {}
-    for new_raw_data_key, new_raw_data_vals in new_raw_data.items():
+    for new_raw_data_key, new_raw_data_val in new_raw_data.items():
         data.update(
-            {new_raw_data_key: [{'year': year.strip(), 'coverage': coverage} for year, coverage in new_raw_data_vals]})
+            {new_raw_data_key: [{'year': year.strip(), 'coverage': coverage} for year, coverage in new_raw_data_val]})
 
     # replace specified country codes with country names and convert 'coverages' in integer
     new_data = {}
@@ -87,10 +87,10 @@ def data_set(country_codes, descr, data):
 # function to retrieve data for each year
 def get_year_data(dataset, year):
     country_list = []
-    for key, val in dataset.items():
-        for coverage_dict in val:
+    for country, year_ in dataset.items():
+        for coverage_dict in year_:
             if year == coverage_dict['year']:
-                country_list.append(tuple([key, coverage_dict['coverage']]))
+                country_list.append((country, coverage_dict['coverage']))
     return {year: country_list}
 
 
@@ -98,7 +98,7 @@ def get_year_data(dataset, year):
 def get_country_data(dataset, country):
     year_coverage = []
     for coverage_dict in dataset[country]:
-        year_coverage.append(tuple([coverage_dict['year'], coverage_dict['coverage']]))
+        year_coverage.append((coverage_dict['year'], coverage_dict['coverage']))
     return {country: year_coverage}
 
 
@@ -107,16 +107,16 @@ def perform_average(dataset):
     return sum(coverage_list) / len(coverage_list)
 
 
-dataset = data_set(country_codes, description, raw_data)
+data_set = data_set(country_code, description_, raw_data)
 print('\n 1.Generate dataset from raw data:')
-pp.pprint(dataset)
+pp.pprint(data_set)
 
 print('\n 2.Retrieve data for each year:')
-print(get_year_data(dataset, "2011"))
+print(get_year_data(data_set, "2011"))
 
 print('\n 3.Retrieve data for each country:')
-print(get_country_data(dataset, "Switzerland"))
+print(get_country_data(data_set, "Switzerland"))
 
 print('\n 4.Perform average from an iterable:')
-country_data = get_country_data(dataset, "Switzerland")
+country_data = get_country_data(data_set, "Switzerland")
 print(perform_average(country_data['Switzerland']))
