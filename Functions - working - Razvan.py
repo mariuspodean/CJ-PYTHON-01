@@ -4,7 +4,10 @@ Tasks:
 Average/year
 Average/country
 """
+<<<<<<< Updated upstream
 from collections import defaultdict
+=======
+>>>>>>> Stashed changes
 
 description = ['Country', [
     '2011 ', '2012 ', '2013 ', '2014 ', '2015 ', '2016 ', '2017 ', '2018 ',
@@ -36,7 +39,11 @@ raw_data = [
     ('IS', ['93 ', '95 ', '96 ', '96 ', ': ', ': ', '98 ', '99 ', '98 ']),
     ('IT', ['62 ', '63 ', '69 ', '73 ', '75 ', '79 ', '81 ', '84 ', '85 ']),
     ('LT', ['60 ', '60 ', '65 ', '66 ', '68 ', '72 ', '75 ', '78 ', '82 ']),
+<<<<<<< Updated upstream
     ('LU', ['91 ', '93 ', '94 ', '96 ', '97 ', '97 ', '97 ', '93 b', '95 ']),
+=======
+    ('LU', ['91 ', '93 ', '94 ', '96 ', '97 ', '97 ', '97 ', '93 ', '95 ']),
+>>>>>>> Stashed changes
     ('LV', ['64 ', '69 ', '72 ', '73 ', '76 ', '77 b', '79 ', '82 ', '85 ']),
     ('ME', [': ', '55 ', ': ', ': ', ': ', ': ', '71 ', '72 ', '74 ']),
     ('MK', [': ', '58 ', '65 ', '68 ', '69 ', '75 ', '74 ', '79 ', '82 ']),
@@ -55,6 +62,7 @@ raw_data = [
     ('XK', [': ', ': ', ': ', ': ', ': ', ': ', '89 ', '93 ', '93 ']),
 ]
 
+<<<<<<< Updated upstream
 type_average_list = ['Year', 'Country']
 
 # create global variables that can be used in perform_average function
@@ -63,14 +71,22 @@ list_year = []
 len_list_year = []
 list_country = []
 len_list_country = []
+=======
+
+# type_average_list = ['Year', 'Country']
+>>>>>>> Stashed changes
 
 
 # This function will take the raw dataset as an argument
 # This function will return a dict with the following structure FAIL !!!
 # # {'Romania': [{'year': '2019','coverage': 84}, {'year': '2018','coverage': 67},..., {'year': '2011','coverage': 72}],
 
+<<<<<<< Updated upstream
 def listToDict(rawdata_input):
     global dataset1
+=======
+def list_to_dict(rawdata_input):
+>>>>>>> Stashed changes
     # create dataset
     dataset1 = {country: dict(zip(description[1], coverage)) for country, coverage in rawdata_input}
     return dataset1
@@ -78,6 +94,7 @@ def listToDict(rawdata_input):
 
 # function to retrieve data for each year
 # This function will take the dataset and year as an argument.
+<<<<<<< Updated upstream
 
 def retrieve_data_for_year(year):
     global len_list_year, dataset1, list_year
@@ -86,10 +103,21 @@ def retrieve_data_for_year(year):
         list_year.append((item1, dataset1[item1][year]))
         len_list_year = len(list_year)
     return [f'Data for {year} is: {list_year}']
+=======
+# We don't really need two positional arguments; I'm trying to use argument given by user and
+# previously created dataset
+def retrieve_data_for_year(year):
+    list_year = []
+    # loop through dataset keys; bu default a dictionary is iterated by keys
+    for item1 in datas:
+        list_year.append((item1, datas[item1][year]))
+    return list_year
+>>>>>>> Stashed changes
 
 
 # function to retrieve data for each country
 # This function will take the dataset and country as an argument.
+<<<<<<< Updated upstream
 
 def retrieve_data_for_country(country):
     global len_list_country, dataset1, list_country
@@ -113,12 +141,53 @@ def perform_average():
 
 
 datas = listToDict(raw_data)
+=======
+# We don't really need two positional arguments; I'm trying to use argument given by user and
+# previously created dataset
+def retrieve_data_for_country(country):
+    list_country = []
+    for item2 in datas[country]:
+        list_country.append((item2, datas[country][item2]))
+    return list(list_country)
+
+
+#  function to perform average from an iterable(of year data)
+def perform_average_year(year, list_year):
+    # strip every second value of each tuple from list_year
+    list_year_average = []
+    for (item, value) in list_year:
+        if value != ': ':
+            list_year_average.append(str(value).strip())
+    # all values from previous list to integers
+    list_year_average_s = []
+    for item in list_year_average:
+        list_year_average_s.append(int(item))
+    return round((sum(list_year_average_s) / len(list_year_average_s)), 2)
+
+
+#  function to perform average from an iterable(of country data)
+def perform_average_country(year, data_for_country):
+    # strip every second value of each tuple from list_country
+    list_country_average = []
+    for (item, value) in data_for_country:
+        if value != ': ':
+            list_country_average.append(str(value).strip())
+    # all values from previous list to integers
+    list_country_average_s = []
+    for item in list_country_average_s:
+        list_country_average_s.append(int(item))
+    return round((sum(list_country_average_s) / len(list_country_average_s)), 2)
+
+
+datas = list_to_dict(raw_data)
+>>>>>>> Stashed changes
 print(datas)
 print()
 
 year = '2018 '
 country = 'AT'
 data_for_year = retrieve_data_for_year(year)
+<<<<<<< Updated upstream
 print(data_for_year)
 print(len_list_year)
 print()
@@ -128,3 +197,17 @@ print(data_for_country)
 print(len_list_country)
 print()
 print(perform_average())
+=======
+# data_for_year_coverage = list_year()
+print(f' Datas for {year} is: {data_for_year}')
+print()
+
+data_for_country = retrieve_data_for_country(country)
+print(f' Datas for {country} is: {data_for_country}')
+print()
+
+print(f' Average for {year} is: {perform_average_year(year, data_for_year)}')
+print()
+
+print(f' Average for {country} is: {perform_average_year(year, data_for_country)}')
+>>>>>>> Stashed changes
