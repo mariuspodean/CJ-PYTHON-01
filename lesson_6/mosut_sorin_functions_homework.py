@@ -112,9 +112,11 @@ def get_year_data(data_set, year):
 
 
 def get_country_data(data_set, country_arg):
-    return {country_arg: [[data_country['year'], data_country['coverage']]
-                          for data_country in data_set[country_arg]
-                          ]
+    return {
+                country_arg: [
+                               [data_country['year'], data_country['coverage']]
+                                for data_country in data_set[country_arg]
+                             ]
             }
 
 
