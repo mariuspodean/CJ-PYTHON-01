@@ -45,72 +45,66 @@ raw_data = [
 ]
 
 
-# A function to build the smaller dictionaries on coverages and coresponding years
+# the sort function
 
-def coverage_by_year(description,coverage_list):
-    year = description[1]
-    intermediary_container = []
-    for i in range(len(year)):
-        matrix = ((year[i],coverage_list[i]))
-        d = dict([matrix])
-        intermediary_container.append(d)
-    return(intermediary_container)
-
-# A function to build the dictionary - makes use of the above function
-
-def arange_data_as_requested(description_by_year,initial_raw_dataset):
-    arranged_data={
-        country:coverage_by_year(description_by_year,coverage_list)
-        for country,coverage_list in initial_raw_dataset
+def arranged_data(raw_data):
+    coaleted_data= {
+        country: [
+            {
+                "year" : year,
+                "coverage" : coverage.strip()
+        }
+        for year, coverage in enumerate(data, start=2011)
+    ]
+    for country,data in raw_data
     }
-    return(arranged_data)
+    return(coaleted_data)
 
-sorted_data=arange_data_as_requested(description,raw_data)
+sorted_data = arranged_data(raw_data)
 
 # get_year_data(dataset, "2019")
 # >>> {'2019': [('Romania', 84), ('Germany', 95), ..., ('Latvia', 85)]}
 
 def get_year_data(data_set, requested_year):
-    intermediary_list_container = []
-    for country,coverage_list in data_set.items():
-        for i in coverage_list:
-            for year,coverage in i.items():
-                if year == requested_year:
-                    intermediary_tuple_containe = (country,coverage)
-                    intermediary_list_container.append( intermediary_tuple_containe )
-    get_year_iterm = [(requested_year,intermediary_list_container)]
-    get_year = dict(get_year_iterm)
-    return(get_year)
+    coverage_by_year=[]
+    for country,data in data_set.items():
+        for coverage in data:
+                    if str(coverage["year"]) == requested_year:
+                        coverage_by_year.append((country, coverage["coverage"]))
+    year_data = {requested_year:coverage_by_year}
+    return(year_data)
 
-year_data=get_year_data(sorted_data, "2019 ")
+requested_year_data = get_year_data(sorted_data, "2019")
 
 
-# get_country_data(dataset, "Romania")
+# get_country_data(dataset, "RO")
 # >>> {'Romania': [('2019', 84), ('2018', 86), ..., ('2011', 72)]}
 
-def get_country_coverage(dataset, requested_country):
-    country_data = dataset.get(requested_country)
-    return {
-            requested_country: [value for i in country_data for key, value in i.items()]
-		}
+def get_country_data(data_set,requested_country):
+    coverage_by_country=[]
+    for country,data in data_set.items():
+        for coverage in data:
+                    if country == requested_country:
+                        coverage_by_country.append((coverage["year"], coverage["coverage"]))
+    country_data = {requested_country:coverage_by_country}
+    return(country_data)
 
-coverage_for_country = get_country_coverage(sorted_data, "RO")
+country_coverages = get_country_data(sorted_data,"RO")
 
 
-# get_country_data(dataset, "Romania")
-# >>> {'Romania': [('2019', 84), ('2018', 86), ..., ('2011', 72)]}
+# perform_average(country_data['Romania'])
+# >>> 79.4
 
-def coverage_average(dataset):
-    coverage = list(dataset.values())[0]
-    coverage = [i.replace(":", "0") for i in coverage]
-    integer_coverage=[]
-    for i in coverage:
-        integer_coverage.append(int(i))
+def perform_average(data_set):
+    year_and_coverage = list(data_set.values())[0]
+    coverage_data=[]
+    for (year, coverage) in year_and_coverage:
+        coverage_data.append(int(coverage.replace(":", "0")))
 
-    coverage_sum = sum(integer_coverage)
-    coverage_len = len(integer_coverage)
+    coverage_sum = sum(coverage_data)
+    coverage_len = len(coverage_data)
 
     average = coverage_sum / coverage_len
-    return(average)
+    return (average)
 
- average_coverage_for_country = coverage_average(coverage_for_country)
+country_average = perform_average(country_coverages)for_country)
