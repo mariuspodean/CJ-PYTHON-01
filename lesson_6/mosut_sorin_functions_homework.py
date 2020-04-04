@@ -73,26 +73,25 @@ raw_data = [
 
 def list_dict_yearcoverage(raw_data_in, tara):
     return [
-        {
-            'year': str.strip(description[1][z[0]]),
-            'coverage': z[1].strip(" :b")
-
-        }
-
-        for x in enumerate(raw_data_in)
-        for z in enumerate(x[1][1])
-        if tara == x[1][0]
-    ]
+              {
+                   'year': str.strip(description[1][z[0]]),
+                   'coverage': z[1].strip(" :b")
+               }
+                     for x in enumerate(raw_data_in)
+                     for z in enumerate(x[1][1])
+                     if tara == x[1][0]
+            ]
 
 
 # dataset_dict function creates the main dataset dict
 
 
 def dataset_dict(raw_data_in):
-    return {tara2[1]: list_dict_yearcoverage(raw_data_in, tara[0])
-            for tara in raw_data_in
-            for tara2 in countryes_abr_list
-            if tara[0] == tara2[0]
+    return {
+              tara2[1]: list_dict_yearcoverage(raw_data_in, tara[0])
+                  for tara in raw_data_in
+                  for tara2 in countryes_abr_list
+                  if tara[0] == tara2[0]
             }
 
 
@@ -100,11 +99,13 @@ def dataset_dict(raw_data_in):
 
 
 def get_year_data(data_set, year):
-    return {year: [[country, data_coverage['coverage']]
-                   for country in data_set
-                   for data_coverage in data_set[country]
-                   if data_coverage['year'] == str(year)
-                   ]
+    return {
+              year: [
+                 [country, data_coverage['coverage']]
+                 for country in data_set
+                 for data_coverage in data_set[country]
+                 if data_coverage['year'] == str(year)
+                     ]
             }
 
 
@@ -113,10 +114,10 @@ def get_year_data(data_set, year):
 
 def get_country_data(data_set, country_arg):
     return {
-                country_arg: [
-                       [data_country['year'], data_country['coverage']]
-                        for data_country in data_set[country_arg]
-                             ]
+              country_arg: [
+                     [data_country['year'], data_country['coverage']]
+                      for data_country in data_set[country_arg]
+                           ]
             }
 
 
