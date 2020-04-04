@@ -47,8 +47,8 @@ raw_data = [
 
 # A function to build the smaller dictionaries on coverages and coresponding years
 
-def coverage_by_year(year_list,coverage_list):
-    year = year_list[1]
+def coverage_by_year(description,coverage_list):
+    year = description[1]
     intermediary_container = []
     for i in range(len(year)):
         matrix = ((year[i],coverage_list[i]))
@@ -65,6 +65,7 @@ def arange_data_as_requested(description_by_year,initial_raw_dataset):
     }
     return(arranged_data)
 
+sorted_data=arange_data_as_requested(description,raw_data)
 
 # get_year_data(dataset, "2019")
 # >>> {'2019': [('Romania', 84), ('Germany', 95), ..., ('Latvia', 85)]}
@@ -81,5 +82,35 @@ def get_year_data(data_set, requested_year):
     get_year = dict(get_year_iterm)
     return(get_year)
 
-coaleted_data = arange_data_as_requested(description,raw_data)
+year_data=get_year_data(sorted_data, "2019 ")
 
+
+# get_country_data(dataset, "Romania")
+# >>> {'Romania': [('2019', 84), ('2018', 86), ..., ('2011', 72)]}
+
+def get_country_coverage(dataset, requested_country):
+    country_data = dataset.get(requested_country)
+    return {
+            requested_country: [value for i in country_data for key, value in i.items()]
+		}
+
+coverage_for_country = get_country_coverage(sorted_data, "RO")
+
+
+# get_country_data(dataset, "Romania")
+# >>> {'Romania': [('2019', 84), ('2018', 86), ..., ('2011', 72)]}
+
+def coverage_average(dataset):
+    coverage = list(dataset.values())[0]
+    coverage = [i.replace(":", "0") for i in coverage]
+    integer_coverage=[]
+    for i in coverage:
+        integer_coverage.append(int(i))
+
+    coverage_sum = sum(integer_coverage)
+    coverage_len = len(integer_coverage)
+
+    average = coverage_sum / coverage_len
+    return(average)
+
+ average_coverage_for_country = coverage_average(coverage_for_country)
