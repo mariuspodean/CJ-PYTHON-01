@@ -99,7 +99,6 @@ def get_country_data(prepared_dataset, country):
 
     return {country: country_data}
 
-
 def perform_average(some_list):
     #    coverage is on the second position in the tuple from the dict
 
