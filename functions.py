@@ -69,4 +69,5 @@ dataset = {
 ]
     for row in raw_data
 }
+print('DATASET: ')
 print(dataset)
