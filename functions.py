@@ -25,3 +25,40 @@ result = {
                 {'year': '2018', 'coverage': 67},
     ],
 }
+years_clear = [
+        int(elem.strip(' '))
+        for elem in description[1]
+    ]
+print('Clear years are: YEARS_CLEAR')
+print(years_clear)
+
+#gasim lista coresponzatoare tarii raw_data[(tara[lista_cu_cov._data_points])]
+def get_coverage_cc(cc):
+    for row in raw_data:
+        if cc in row:
+            return(row[1])
+print(get_coverage_cc('BE'))
+
+
+
+def get_index_country(cc):
+    for row in raw_data:
+        if cc in row:
+            return(raw_data.index(row))
+
+def get_index_year(yy):
+    for yyyy in description[1]:
+            return(description[1].index(yyyy))
+
+
+print(get_index_country('BE'))
+print(get_index_year('2001 '))
+#cov_clear = {
+#    cc : [
+#        {
+#            'year' : years_clear[get_index_country(cc)] ,
+#            'coverage':
+#            for indexu in rage(len(years_clear))
+#        }
+#
+#}
