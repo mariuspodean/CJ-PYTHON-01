@@ -24,12 +24,12 @@ input()
 
 # 1st solution
 health_index_2017 = {
-    geo+'_'+sex: [valoare]
+    '_'.join((geo, sex)): [valoare]
     for geo, timp, sex, valoare in datalist
     if timp == 2017
 }
 health_index_2018 = {
-    geo+'_'+sex: [valoare]
+    '_'.join((geo, sex)): [valoare]
     for geo, timp, sex, valoare in datalist
     if timp == 2018
 }
@@ -70,15 +70,15 @@ print(country)
 
 def hi_country(tara):
     tara = {
-        str(timp)+'_'+sex: [valoare]
+        '_'.join((str(timp), sex)): [valoare]
         for geo, timp, sex, valoare in datalist
         if geo == tara
     }
     return tara
 
 
-for otara in country:
-    print(otara+' '+str(hi_country(otara)))
+for a_country in country:
+    print(f'{a_country} - {hi_country(a_country)}')
 
 # germany ={
 #     str(timp)+'_'+sex: [valoare]
@@ -86,14 +86,14 @@ for otara in country:
 #     if geo == 'Germany'
 # }
 input()
-print('Germany'+str(hi_country('Germany')))
+print(f'Germany {hi_country("Germany")}')
 input()
 # one dict that grups all data by country and year,
 # by using year in the key together with the country name
 # health_index ={'France_2017': [year, sex, health_index]}
 
 health_index = {
-    geo+'_'+str(timp)+'_'+sex: [timp, sex, valoare]
+    "_".join((geo, str(timp), sex)): [timp, sex, valoare]
     for geo, timp, sex, valoare in datalist
 }
 print(health_index)
@@ -103,18 +103,18 @@ input()
 print('\nhealth_index > 5\n')
 for i in health_index.keys():
     if health_index[i][2] > 5:
-        print(i+' '+str(health_index[i]))
+        print(f'{i} {health_index[i]}')
 input()
 # starting from the previous health_index dict, display only
 # the data where the health_index > 5 and sex is 'F'
 print('\nhealth_index > 5 and sex is F\n')
 for j in health_index.keys():
     if(health_index[j][2] > 5) and (health_index[j][1] == 'F'):
-        print(j+' '+str(health_index[j]))
+        print(f'{j} {health_index[j]}')
 input()
 # starting from the previous health_index dict, create a for
 # loop to print the health_index
 print('\nhealth_index\n')
 for k in health_index.keys():
-    print(k+' '+str(health_index[k]))
+    print(f'{k} {health_index[k]}')
 input()
