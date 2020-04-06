@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Mar 28 15:13:59 2020
-
-@author: Marius
-"""
-
 from pprint import pprint
 
 description = ('Country', ['2011 ', '2012 ', '2013 ', '2014 ', '2015 ', '2016 ', '2017 ', '2018 ', '2019 '])
@@ -54,7 +47,7 @@ raw_data = [
 _, year = description
 
 raw_data_unzip = ([i for i, j in raw_data],
-                 [j for i, j in raw_data])
+                  [j for i, j in raw_data])
 country, coverage = raw_data_unzip
 
 
@@ -91,19 +84,18 @@ def get_year_data(dataset, year):
 
 
 def get_country_data(dataset, country):
-    country_data = dataset.get(country)
-    return {
+    country_data = {
         country: [
             (value["year"], value["coverage"])
             for value in country_data
         ]
     }
-
+    return country_data
 
 # perform_average(country_data['Romania'])
 
 def perform_average(country_data):
-    coverage_data = [int(cov) for cou, cov in country_data]
+    coverage_data = [int(c_cov_val) for c_year, c_coverage in country_data]
     average = sum(coverage_data) / len(coverage_data)
     print(coverage_data)
     return average
