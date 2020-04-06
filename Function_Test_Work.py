@@ -45,12 +45,18 @@ description = ('Country', [
 ])
 
 
+def clean_values(value):
+    return int(value.strip('')) if value else None
+
+
 def create():
     years = description[1]
 
     data = {
         country: [{
-            'year': year, 'coverage': coverage
+            'year': year,
+
+            'coverage': clean_values(coverage)
         }
             for coverage, year in zip(coverages, years)
         ]
@@ -66,13 +72,20 @@ def create():
 # >>> {'2019': [('Romania', 84), ('Germany', 95), ..., ('Latvia', 85)]}
 
 def year_data(dataset, year):
-    func2 = {
-        year: [(country, index['coverage'])
-               for country in dataset.keys()
-               for index in dataset[country]
-               if index['year'] == str(year)]
+    data_for_year = {
+
+        year: [
+
+            (country, index['coverage'])
+
+            for country in dataset.keys()
+
+            for index in dataset[country]
+
+            if index['year'] == str(year)
+        ]
     }
-    return func2
+    return data_for_year
 
 
 dataset = create()
@@ -85,17 +98,37 @@ print(data_year)
 # {'Romania': [('2019', 84), ('2018', 86), ..., ('2011', 72)]}
 
 def get_country_data(dataset, country):
-    func3 = {country: [(value['year'], value['coverage'])
+    data_for_country = {
 
-              for value in dataset[country]]
-              }
+        country: [
 
-    return func3
+            (value['year'], value['coverage'])
+
+            for value in dataset[country]
+        ]
+    }
+
+    return data_for_country
 
 
-data_country = get_country_data(dataset,'RO')
+data_country = get_country_data(dataset, 'RO')
 
 print(data_country)
 
-test = 1
-print(test)
+
+# perform_average(country_data['Romania'])
+
+def perform_average(data_country):
+    coverage_data = list(data_country.values())[0]
+    coverage_data = [value[1] for value in coverage_data if value[1]]
+
+    coverage_sum = sum(coverage_data)
+    coverage_len = len(coverage_data)
+
+    return coverage_sum / coverage_len
+
+
+ro = year_data(dataset, 2015)
+
+print(perform_average(ro))
+
