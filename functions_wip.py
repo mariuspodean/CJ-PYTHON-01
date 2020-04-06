@@ -59,43 +59,41 @@ def dataset_func(raw_data):
         ]
         for country, coverage in raw_data
     }
-
     return dataset
 
 
 # get_year_data(dataset, "2019")
 # {'2019': [('Romania', 84), ('Germany', 95), ..., ('Latvia', 85)]}
 
-
 def get_year_data(dataset, year):
-    prep_year_data = {
+    year_data = {
         year: [
-            [country, data_cov['coverage']]
+            [country, value['coverage']]
             for country in dataset
-            for data_cov in dataset[country]
-            if data_cov['year'] == year
+            for value in dataset[country]
+            if value['year'] == year
         ]
     }
-    return prep_year_data
+    return year_data
 
 
 # get_country_data(dataset, "Romania")
 # {'Romania': [('2019', 84), ('2018', 86), ..., ('2011', 72)]}
 
-
 def get_country_data(dataset, country):
-    country_data = {
+    country_data = dataset.get(country)
+    return {
         country: [
             (value["year"], value["coverage"])
             for value in country_data
         ]
     }
-    return country_data
+
 
 # perform_average(country_data['Romania'])
 
 def perform_average(country_data):
-    coverage_data = [int(c_cov_val) for c_year, c_coverage in country_data]
+    coverage_data = [int(c_coverage) for c_year, c_coverage in country_data]
     average = sum(coverage_data) / len(coverage_data)
     print(coverage_data)
     return average
