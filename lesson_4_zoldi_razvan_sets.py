@@ -1,7 +1,7 @@
-'''
+"""
 Create two sets with 10 numbers each (some of the numbers should be present in both sets). With these two sets,
 exemplify the following basic sets operations: union, intersection, difference and symmetric difference.
-'''
+"""
 
 # create set 1
 set1 = {1, 2, 3, 4, 5, 6, 3, 2, 7, 8, 9, 10}
