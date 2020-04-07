@@ -82,34 +82,34 @@ def year_data(dataset, year):
 
             for index in dataset[country]
 
-            if index['year'] == str(year)
+            if index['year'] == year
         ]
     }
     return data_for_year
 
-
 dataset = create()
 
-data_year = year_data(dataset, 2015)
+data_year = year_data(dataset, '2015')
 
 print(data_year)
+
 
 
 # {'Romania': [('2019', 84), ('2018', 86), ..., ('2011', 72)]}
 
 def get_country_data(dataset, country):
+
     data_for_country = {
 
         country: [
 
             (value['year'], value['coverage'])
 
-            for value in dataset[country]
-        ]
-    }
+                for value in dataset[country]
+            ]
+        }
 
     return data_for_country
-
 
 data_country = get_country_data(dataset, 'RO')
 
