@@ -25,3 +25,4 @@ for article in range (20):
 articles = hats + shirts + gloves + scarfs 
 len(articles)
 
+print(articles)
