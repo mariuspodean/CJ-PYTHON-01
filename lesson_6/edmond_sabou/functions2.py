@@ -47,11 +47,8 @@ def create():
 
     return {
         country: [
-            {"year": "2011", "coverage": data_list[0]}, {"year": "2012", "coverage": data_list[1]},
-            {"year": "2013", "coverage": data_list[2]}, {"year": "2014", "coverage": data_list[3]},
-            {"year": "2015", "coverage": data_list[4]}, {"year": "2016", "coverage": data_list[5]},
-            {"year": "2017", "coverage": data_list[6]}, {"year": "2018", "coverage": data_list[7]},
-            {"year": "2019", "coverage": data_list[8]}
+            {"year": str(year), "coverage": data}
+            for year, data in enumerate(data_list, start=2011)
         ]
         for country, data_list in new_dict.items()
     }
@@ -70,7 +67,7 @@ def get_year_data(new_data_set, year):
         year: [(country, index["coverage"])
                for country in new_data_set.keys()
                for index in new_data_set[country]
-               if index["year"] == str(year)]  # Q: De ce este nevoie sa pun str(year)??
+               if index["year"] == year]  # Q: De ce este nevoie sa pun str(year)??
     }  # fara str imi returneaza asta -> {2019: []}
 
     return new
@@ -91,24 +88,29 @@ def get_country_data(new_data_set, country):
 
 
 #######################################################################################################################
-def perform_average(country_data):  # e urat.. stiu, non-pythonic, dar numai asa am reusit
-    only_values = [x for x in country_data.values()]  # scoate din dict doar valorile. down-side: am lista in lista
-    print(only_values)
-    flat_list = [outer for inner in only_values for outer in inner]  # rezultatul este o lista de tuple
-    print(flat_list)
-    test = [x[1] for x in flat_list]  # scot a doua valoare din tupla
-    print(test)
-    normal_list = [int(i) for i in test]  # transform lista de str in int
-    print(normal_list)
+def perform_average(country_data):
+
+    # retrieve values only from the current dict. down-side: I have a list in a list
+    only_values = [x for x in country_data.values()]
+
+    # the result of this is a list of tuples
+    flat_list = [outer for inner in only_values for outer in inner]
+
+    # get the second value from the tuple which is the index need to calculate average
+    test = [x[1] for x in flat_list]
+
+    # transforms the list of str to int
+    normal_list = [int(i) for i in test]
+
     average = sum(normal_list) / len(normal_list)
-    print("\nThe average coverage per country is --> ", average)
+    print(f"\nThe average coverage per country is --> {average}")
 
 
 ##################################################################################
 new_data_set = create()
 print(new_data_set)
 
-test = get_year_data(new_data_set, 2016)
+test = get_year_data(new_data_set, "2016")
 print(test)
 
 get2 = get_country_data(new_data_set, "RO")
@@ -116,8 +118,3 @@ print(get2)
 
 country_data = get_country_data(new_data_set, "RO")
 perform_average(country_data)
-
-
-
-
-
