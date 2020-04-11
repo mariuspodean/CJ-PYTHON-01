@@ -11,7 +11,7 @@ def greet(name):
     return "Greetings {}!".format(name)
 
 print(greet("World"))
->>> "GREETINGS WORLD!"
+"GREETINGS WORLD!"
 
 
 def greet(name):
