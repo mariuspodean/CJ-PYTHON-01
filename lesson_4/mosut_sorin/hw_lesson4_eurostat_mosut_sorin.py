@@ -1,6 +1,14 @@
 # import pakcage for Excel files
 import csv
+import pep8
 from pprint import pprint
+
+# clean code check
+fchecker = pep8.Checker('functions_homework.py', show_source=True)
+file_errors = fchecker.check_all()
+
+if file_errors:
+    print("Found %s errors (and warnings)" % file_errors)
 
 # function to detect if a string can be converted into a float
 
