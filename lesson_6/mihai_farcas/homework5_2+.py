@@ -71,14 +71,14 @@ def get_country_data(dataset_get_country_data, country):
 
 
 def perform_average(dataset_country, country):
-    c = 0
-    d = 0
+    country_coverage = 0
+    country_coverage_divisor= 0
     for i in range(len(dataset_country[f"{country}"])):
         if int((dataset_country[f"{country}"][i]['coverage'])) != "0":
-            c += int((dataset_country[f"{country}"][i]['coverage']))
-            d += 1
+            country_coverage += int((dataset_country[f"{country}"][i]['coverage']))
+            country_coverage_divisor += 1
     print('\n====================average===============')
-    print(round(float(c / d), 2))
+    print(round(float(country_coverage / country_coverage_divisor), 2))
 
 
 def get_year_data(dataset_get_year_data, input_year):
