@@ -23,9 +23,7 @@ def uppercase(greet):
 
     def uppercase_in(*args):
 
-        z = str.upper(greet(*args))
-
-        return z
+        return str.upper(greet(*args))
 
     return uppercase_in
 
