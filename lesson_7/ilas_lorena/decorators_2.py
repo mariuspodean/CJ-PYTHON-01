@@ -6,8 +6,7 @@ def safe_divide(fnc):
     def check_result(arg1, arg2):
 
         try:
-            result = arg1 / arg2
-            return result
+            return arg1 / arg2
 
         except ZeroDivisionError:
             return 'Division cannot be performed!'

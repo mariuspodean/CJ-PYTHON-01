@@ -2,15 +2,14 @@
 # names.
 
 
+print_registry = []
+
+
 def register(fnc):
     
-    def updater(args):
-        print_registry.append(fnc.__name__)    
+    print_registry.append(fnc.__name__)
     
-    return updater
-
-
-print_registry = []
+    return fnc
 
 
 @register
