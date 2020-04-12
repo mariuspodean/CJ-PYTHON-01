@@ -39,13 +39,11 @@ print(print_registry)
 
 print_registry = []
 
-def register(fnc):
-    def iner_register(args):
-        fnc_name = str(fnc)
-        fnc_name = fnc_name.split(' ')
-        print_registry.append(fnc_name[1])
 
-    return iner_register
+def register(fnc):
+    fnc_name = str(fnc).split(' ')
+    print_registry.append(fnc_name[1])
+    return fnc
 
 
 @register
@@ -61,10 +59,8 @@ def say_hello(name):
 def say_goodbye(name):
     return "Goodbye {}!".format(name)
 
+print(greet('Sorin'))
+print(say_hello('Sorin'))
+print(say_goodbye('Sorin'))
 
-greet('Sorin')
-say_hello('Sorin')
-say_goodbye('Sorin')
-
-print(print_registry)
-
+print('\n',print_registry)
