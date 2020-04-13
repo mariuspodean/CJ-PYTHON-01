@@ -51,7 +51,7 @@ class Vehicle(object):
     def start(self):
         self.drive_interval = set_interval(self.drive, 1)
         self.accelerate()
-        print('Started the vehicle, miles: {}'.format(self.miles))
+        print('Started the vehicle, miles: {},'.format(self.miles))
 
     def stop(self):
         print('Stopped the vehicle, new mileage: {}'.format(self.miles))
