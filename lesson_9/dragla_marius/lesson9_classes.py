@@ -17,7 +17,7 @@ class Products(object):
 
     def category_check(self):
         if self.category is 'Laptop':
-            return f'Category: Computers'
+            return 'Category: Computers'
 
     def on_stock(self):
         if self.stock > 0:
