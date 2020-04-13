@@ -37,7 +37,7 @@ class Vehicle(object):
 
     def drive(self):
         if self.speed > 0:
-            self.miles += self.speed / (self.speed * 60 * 60)
+            self.miles += self.speed / (self.speed * 60) * 60
         print('Driving with {} miles/h'.format(self.speed))
 
     def accelerate(self):
@@ -59,7 +59,7 @@ class Vehicle(object):
 
 
 print('Adding vehicle class car : maserati')
-maserati = Vehicle('car', 230, 89000, 'green', 2020, 111111)
+maserati = Vehicle('car', 230, 0, 'green', 2020, 111111)
 maserati.vehicle_history()
 maserati.vehicle_information()
 
@@ -77,7 +77,7 @@ class Motorcycle(Vehicle):
 
 
 print('Adding vehicle class motorcycle : dodge')
-dodge = Motorcycle('bike', 333, 0, 'metallic green', 1989, 11111)
+dodge = Motorcycle('bike', 333, 69000, 'metallic green', 1989, 11111)
 dodge.vehicle_history()
-dodge.start()
 dodge.vehicle_top_speed()
+dodge.start()
