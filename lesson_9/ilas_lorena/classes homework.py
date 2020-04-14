@@ -36,13 +36,7 @@ class Dog(Animal):
         super().__init__(animal, name, n_legs, gender, speech_type)
 
     def check_breed(self):
-        if self.breed[0:1] == 'B':
-            return f'{self.name} is a {self.breed}'
-        elif self.breed[0:1] == 'G':
-            return f'{self.name} is a {self.breed}'
-        elif self.breed[0:1] == 'L':
-            return f'{self.name} is a {self.breed}'
-        elif self.breed[0:1] == "C":
+        if self.breed[0:1] in ('B', 'G' ,'L', 'C'):
             return f'{self.name} is a {self.breed}'
         else:
             return 'unknown breed'
