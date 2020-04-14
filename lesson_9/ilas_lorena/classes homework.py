@@ -36,14 +36,14 @@ class Dog(Animal):
         super().__init__(animal, name, n_legs, gender, speech_type)
 
     def check_breed(self):
-        if self.breed[0:1] in ('B', 'G' ,'L', 'C'):
+        if self.breed[0:1] in ('B', 'G', 'L', 'C'):
             return f'{self.name} is a {self.breed}'
         else:
-            return 'unknown breed'
+            return f'{self.name} is an unknown breed'
 
     def is_rescue_dog(self):
         if self.breed == 'German Shepherd':
-            return f'{self.name} is a {self.breed} hence it is rescue dog'
+            return f'{self.name} is a {self.breed} hence it is a rescue dog'
         else:
             return f'{self.name} is a {self.breed} hence it is not a rescue dog'
 
@@ -54,20 +54,23 @@ class Dog(Animal):
             return f'{self.name} is an old dog'
 
 
-Toby = Dog('dog', 'Toby', 4, 'M', 'bau', 'Beagle', 10)
-Grace = Dog('dog', 'Grace', 4, 'F', 'bau', 'German Shepherd', 5)
-Teddy = Dog('dog', 'Teddy', 4, 'M', 'bau', 'German Shepherd', 4)
-Sandy = Dog('dog', 'Sandy', 4, 'F', 'bau', 'Labrador', 15)
-Lola = Dog('dog', 'Lola', 4, 'M', 'bau', 'Chihuahua', 1)
+toby = Dog('dog', 'Toby', 4, 'M', 'bau', 'Beagle', 10)
+grace = Dog('dog', 'Grace', 4, 'F', 'bau', 'German Shepherd', 5)
+teddy = Dog('dog', 'Teddy', 4, 'M', 'bau', 'German Shepherd', 4)
+sandy = Dog('dog', 'Sandy', 4, 'F', 'bau', 'Labrador', 15)
+lola = Dog('dog', 'Lola', 4, 'M', 'bau', 'Chihuahua', 1)
+sam = Dog('dog', 'Sam', 4, 'M', 'bau', 'Russian Husky', 2)
 
-print(Toby.check_breed())
-print(Teddy.check_breed())
-print(Sandy.check_breed())
-print(Lola.check_breed())
-print(Toby.is_rescue_dog())
-print(Grace.is_rescue_dog())
-print(Sandy.check_age())
-print(Lola.check_age())
+print(toby.check_breed())
+print(teddy.check_breed())
+print(sandy.check_breed())
+print(lola.check_breed())
+print(sam.check_breed())
+print(toby.is_rescue_dog())
+print(grace.is_rescue_dog())
+print(sandy.check_age())
+print(lola.check_age())
+print(sam.check_age())
 
 sandra = Animal('snake', 'Sandra', 0, 'F', 'hiss')
 print(sandra.check_motility())
