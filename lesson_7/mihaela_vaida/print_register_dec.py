@@ -2,7 +2,8 @@ print_registry = []
 
 
 def register(fnc):
-    return print(print_registry.append(fnc.__name__))
+    print_registry.append(fnc.__name__)
+    return fnc
 
 
 @register
