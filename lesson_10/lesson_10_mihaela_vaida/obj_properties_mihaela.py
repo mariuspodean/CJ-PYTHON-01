@@ -3,12 +3,8 @@ class Student(object):
     def __init__(self, first_name, last_name, age):
         self.first_name = first_name
         self.last_name = last_name
-        if type(age) is not int:
-            raise TypeError('Age must be integer')
 
-        if age < 18:
-            raise ValueError('Minimal age is 18')
-        self._age = age
+        self.age = age
 
     @property
     def age(self):
