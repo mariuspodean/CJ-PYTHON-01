@@ -2,12 +2,15 @@ print_registry = []
 
 
 def register(func):
+    print_registry.append(func.__name__)
 
-    def appender(*args):
+    return func
 
-        return print_registry.append(func.__name__)
-
-    return appender
+    # def appender(*args):
+    #
+    #     return print_registry.append(func.__name__)
+    #
+    # return appender
 
 
 @register
@@ -28,4 +31,3 @@ greet("Edi")
 say_hello("Hello!")
 say_goodbye("BBye!")
 print(print_registry)
-
