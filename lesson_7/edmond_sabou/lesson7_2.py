@@ -11,7 +11,7 @@ def safe_divide(func):
             print(f"Oops! {type_err} error occurred.")
             pass
         else:
-            return f"The division result is: {result}"
+            return result
 
     return verify
 
@@ -21,5 +21,6 @@ def divide(first_number, second_number):
     return first_number / second_number
 
 
-print(divide(6, "w"))
+a = divide(10, 2)
+print(a * 5)
 
