@@ -22,85 +22,91 @@ such as attractions, universities etc.
 '''
 
 # main class (parent class)
-class Automobil(object):
-    clasa = 'automobil'
+class Car(object):
+    category = 'automobil'
 
-    def __init__(self, marca, tip, varianta, an, cilindree, putere):
-        self.marca = marca
-        self.tip = tip
-        self.var = varianta
-        self.an = an
-        self.cil = int(cilindree)
-        self.putere = int(putere)
+    def __init__(self, brand, series, version, year, cubic_cap, power):
+        self.brand = brand
+        self.series = series
+        self.var = version
+        self.year = year
+        self.cub_c = int(cubic_cap)
+        self.power = int(power)
 
-# method that converts the power from [kW] in [hp] and compare it wit a specific value
-    def test_putere(self):
-        if int(self.putere * 1.36) >= 200:
-            print(f'\nAutomobilul {self.marca} {self.var} din {self.an} dezvolta',
-                  f'{int(self.putere * 1.36)} cai putere, automobil sportiv.')
+    # method that converts the power from [kW] in [hp] and compare it wit a specific value
+    def print_message_medium_high_power(self):
+        if int(self.power * 1.36) >= 200:
+            print(
+                f'\nAutomobilul {self.brand} {self.var} din {self.year} dezvolta',
+                f'{int(self.power * 1.36)} cai putere, automobil sportiv.'
+            )
         else:
-            print(f'\nAutomobilul {self.marca} {self.var} din {self.an} dezvolta',
-                  f'{int(self.putere * 1.36)} cai putere, are putere medie.')
+            print(
+                f'\nAutomobilul {self.brand} {self.var} din {self.year} dezvolta',
+                f'{int(self.power * 1.36)} cai putere, are putere medie.'
+            )
 
-# method that print a message
+    # method that print a message
     @staticmethod
     def print_step():
         print('\nTEST DE PUTERE')
 
-# method that calculate the taxes for a vahicle
-    def impozit(self):
-        for x in range(len(test_cilindree) - 1):
-            if self.cil in range(test_cilindree[x], test_cilindree[x + 1]):
-                print(f'\nPentru automobilul {self.marca} {self.var} a carui motor',
-                      f'are cilindreea de {self.cil} cmc, impozitul anual este',
-                      f'{calculator_impozit(self.cil, x):.2f} lei')
-        if self.cil >= 3001:
-            print(f'\nPentru automobilul {self.marca} {self.var} a carui motor',
-                  f'are cilindreea de {self.cil} cmc, impozitul anual este',
-                  f'{calculator_impozit(self.cil, x + 1):.2f} lei')
+    # method that calculate the taxes for a vahicle
+    def tax(self):
+        cubic_cil_test = (0, 1601, 2001, 2601, 3001)
+        for x in range(len(cubic_cil_test) - 1):
+            if self.cub_c in range(cubic_cil_test[x], cubic_cil_test[x + 1]):
+                print(f'\nPentru automobilul {self.brand} {self.var} a carui motor',
+                      f'are cilindreea de {self.cub_c} cmc, impozitul anual este',
+                      f'{tax_calc(self.cub_c, x):.2f} lei')
+        if self.cub_c >= 3001:
+            print(f'\nPentru automobilul {self.brand} {self.var} a carui motor',
+                  f'are cilindreea de {self.cub_c} cmc, impozitul anual este',
+                  f'{tax_calc(self.cub_c, x + 1):.2f} lei')
 
 # child class of Automobil class an ads some new proprieties
-class ConsumCombustibil(Automobil):
+class FuelCons(Car):
 
-    def __init__(self, marca, tip, varianta, an, cilindree, putere, consum_mediu):
-        self.consum = float(consum_mediu)
-        super().__init__(marca, tip, varianta, an, cilindree, putere)
+    def __init__(self, brand, series, version, year, cubic_cap, power, med_cons):
+        self.cons = float(med_cons)
+        super().__init__(brand, series, version, year, cubic_cap, power)
 
-# methode calculates how many km cand you do with the fuel from the tank
-    def autonomie(self):
-        cantitate = float(input('\nIntrodu cantitatea de combustibil din rezervor [l]: '))
-        auton = cantitate / self.consum * 100
-        print(f'\nCu {cantitate} litri de combustibil poti parcurge {auton:.0f} km.')
+    # method calculates how many km cand you do with the fuel from the tank
+    def range(self):
+        quantity = float(input('\nIntrodu cantitatea de combustibil din rezervor [l]: '))
+        range_var = quantity / self.cons * 100
+        print(f'\nCu {quantity} litri de combustibil poti parcurge {range_var:.0f} km.')
         input('\n\33[31mPress Enter to continue...\033[0m')
 
     def __repr__(self):
         class_name = type(self).__name__
         return '{} ({} {} {} - {} {} {}) [{}]'.format(
-            class_name, self.marca,
-            self.tip, self.var, self.an, self.cil, self.putere, id(self)
+            class_name, self.brand,
+            self.series, self.var, self.year, self.cub_c, self.power, id(self)
         )
 
     def __str__(self):
         return '{} {} {} - {} {} {}'.format(
-            self.marca.ljust(10, ' '),
-            self.tip.ljust(10, ' '), self.var.ljust(8, ' '), self.an,
-            str(self.cil).center(10), str(self.putere).center(8))
+            self.brand.ljust(10, ' '),
+            self.series.ljust(10, ' '), self.var.ljust(8, ' '), self.year,
+            str(self.cub_c).center(10), str(self.power).center(8))
 
-class ParcAuto():
+class AutoFleet():
 
     def __init__(self, auto_list=None):
         self._autos = list(auto_list) if auto_list else []
 
     def __iter__(self):
         return iter(self._autos)
+    
 
 # function calculate the auto txes
-def calculator_impozit(cil, indice):
-    return cil / 200 * indice_impozit[indice]
+def tax_calc(cub_c, ind):
+    return cub_c / 200 * tax_ind[ind]
 
 # function for inputing the vhicle datas
 def auto_input():
-    return ConsumCombustibil(
+    return FuelCons(
         input('Introdu marca automobilului:'),
         input('Introdu tipul automobilului: '),
         input('Introdu varianta automobilului: '),
@@ -111,39 +117,40 @@ def auto_input():
     )
 
 # function process auto datas
-def prelucrare_parcauto(lista):
-    for auto in lista:
-        auto.impozit()
+def fleet_processing(list_in):
+    for auto in list_in:
+        auto.tax()
         auto.print_step()
-        auto.test_putere()
-        auto.autonomie()
+        auto.print_message_medium_high_power()
+        auto.range()
 
 
-indice_impozit = (8, 19, 76, 153, 308)
-test_cilindree = (0, 1601, 2001, 2601, 3001)
+tax_ind = (8, 19, 76, 153, 308)
+
 
 # creates the list with vehicles
-automobil_list = [
-    ConsumCombustibil('BMW', 'Seria 5', '530d', 2015, 2996, 210, 9.6),
-    ConsumCombustibil('Audi', 'A4', '2.0Tdi', 2012, 1946, 140, 6.3),
-    ConsumCombustibil('Mercedes', 'C-classe', 'C220cdi', 2014, 2156, 150, 7.4)
+cars_list = [
+    FuelCons('BMW', 'Seria 5', '530d', 2015, 2996, 210, 9.6),
+    FuelCons('Audi', 'A6', '2.0Tdi', 2012, 1960, 140, 6.3),
+    FuelCons('Mercedes', 'C-classe', 'C220cdi', 2014, 2156, 150, 7.4)
 ]
 
-parc_auto = ParcAuto(automobil_list)
+auto_fleet = AutoFleet(cars_list)
+
 
 print('\nse vor prelucra datele pentru urmatoaarea lista de automobile: \n')
 print('\n  MARCA      TIP    VARIANTA      AN   CILINDREE  PUTERE')
 
 # print the list with vehicles
-for auto in parc_auto:
+for auto in auto_fleet:
     print(auto)
 
 input('\n\33[31mPress Enter to continue...\033[0m')
 
-prelucrare_parcauto(parc_auto)
+fleet_processing(auto_fleet)
 
 auto1 = auto_input()
 auto1.print_step()
-auto1.test_putere()
-auto1.impozit()
-auto1.autonomie()
+auto1.print_message_medium_high_power()
+auto1.tax()
+auto1.range()
