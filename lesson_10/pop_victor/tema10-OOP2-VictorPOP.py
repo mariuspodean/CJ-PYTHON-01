@@ -6,38 +6,40 @@ class Student(object):
     def __init__(self, first_name, last_name, age):
         self.first_name = first_name
         self.last_name = last_name
-        self.age = age
+        self.varsta_student = age
 
     @property
-    def age(self):
-        return self._age
+    def varsta_student(self):
+        print('Getter')
+        return self._varsta
 
-    @age.setter
-    def age(self, age):
-        if type(age) is not int:
+    @varsta_student.setter
+    def varsta_student(self, varsta):
+        print('Setter')
+        if type(varsta) is not int:
             raise TypeError('Age must be integer')
-        if age < 18:
+        if varsta < 18:
             raise ValueError('Minimal age is 18')
-        self._age = age
+        self._varsta = varsta
 
     def __repr__(self):
         class_name = type(self).__name__
         return '{} ({} {} - {}) [{}]'.format(
             class_name, self.first_name,
-            self.last_name, self.age, id(self)
+            self.last_name, self.varsta_student, id(self)
         )
 
     def __str__(self):
         return '{} {}, {}'.format(
-            self.first_name, self.last_name, self.age)
+            self.first_name, self.last_name, self.varsta_student)
 
 
 john = Student('Elton', 'John', 21)
-john.age
+john.varsta_student
 
-john.age = 19
+john.varsta_student = 22
 # ValueError: Minimal age is 18
-joe = Student('Joe', 'Dow', 16)
+joe = Student('Joe', 'Dow', 19)
 
 '''
 This is an inconsistency in our code.Update the Student
