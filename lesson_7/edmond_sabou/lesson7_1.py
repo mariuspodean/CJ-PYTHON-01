@@ -12,5 +12,5 @@ def print_message(name):
     return "Greetings {}!".format(name)
 
 
-msg = print_message("World")
+msg = print_message("World!")
 print(msg)
