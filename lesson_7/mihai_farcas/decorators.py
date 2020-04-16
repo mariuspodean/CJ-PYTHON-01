@@ -46,7 +46,7 @@ def divide(f1, f2):
 
 
 print(divide(2, 3))
-# print(divide(0, 3))
+print(divide(0, 3))
 # print(divide(3, 0))
 
 #     Given a set of print methods:
