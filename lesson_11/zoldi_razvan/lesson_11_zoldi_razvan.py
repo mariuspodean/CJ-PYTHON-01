@@ -1,5 +1,5 @@
 # Challenge!
-# Make StudentsCollection a sized collection. Work in progress
+# Make StudentsCollection a sized collection.
 
 from collections.abc import MutableMapping, Mapping, Iterable, Collection, Container, Sized
 
@@ -34,11 +34,11 @@ class StudentsCollection:
     def __getitem__(self, index):
         return self._students[index]
 
-    # def __len__(self):
-    #     return self._students[index]
+    def __len__(self):
+        return len(self._students)
 
-    # def __contains__(self, ):
-    #     return self._students[index]
+    def __contains__(self, item):
+        return item in str(self._students)
 
 
 students = [
@@ -61,3 +61,9 @@ for abc in abcs:
         'stud_collection is a {}: {}'.format(
             abc.__name__, isinstance(stud_collection, abc))
     )
+
+print(len(stud_collection))
+x = 'Heather' in stud_collection  # check if heather is in in students collection
+y = 'Raynaud' in stud_collection  # check if raynaud is in students collection
+print(x)
+print(y)
