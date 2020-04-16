@@ -13,22 +13,18 @@ class TvSet(object):
 
     def can_be_placed(self):
         if int(self.size) < 20:
-            return f"Due to the size, {self.size} inch, {self.brand} {self.type} is recomandated " \
-                   f"to be placed in " \
-                   f"small places like kitchen"
+            return f"""Due to the device size, {self.size} inch, {self.brand} {self.type} is recomandated
+to be placed in small places like kitchen\n"""
         elif int(self.size) < 80:
-            return f"Due to the size, {self.size} inch, {self.brand} {self.type} is recomandated " \
-                   f"to be placed in " \
-                   f"medium places like rooms with 6 by 6 meters"
-        return f"Due to the size, {self.size} inch, {self.brand} {self.type} is recomandated " \
-               f"to be placed in medium " \
-               f"places" \
-               f" like rooms which exceed 6 by 6 meters "
+            return f"""Due to the device size, {self.size} inch, {self.brand} {self.type} is recomandated
+to be placed in medium places like rooms with 6 by 6 meters\n"""
+        return f"""Due to the device size, {self.size} inch, {self.brand} {self.type} is recomandated
+to be placed in medium places like rooms which exceed 6 by 6 meters \n"""
 
     def is_it_smart(self):
         if self.rj_45 or self.wifi:
-            return f"{self.brand} {self.type} is a smart device"
-        return f"{self.brand} {self.type} is not a smart device"
+            return f"{self.brand} {self.type} is a smart device\n"
+        return f"{self.brand} {self.type} is not a smart device\n"
 
 
 class Monitor(TvSet):
