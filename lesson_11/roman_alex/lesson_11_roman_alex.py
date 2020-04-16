@@ -31,6 +31,9 @@ class StudentsCollection:
     def __getitem__(self, index):
         return self._students[index]
 
+    def __len__(self):
+        return len(self._students)
+
     def __contains__(self, item):
         return item in str(self._students)
 
@@ -57,3 +60,5 @@ for abc in abcs:
     )
 
 'John' in stud_collection
+
+len(stud_collection)
