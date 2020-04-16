@@ -12,7 +12,6 @@
 def uppercase(fnc):
     def upp(arg):
         return fnc(arg).upper()
-
     return upp
 
 
@@ -35,14 +34,11 @@ print(greet('asl'))
 
 def safe_divide(fct):
     def it_can_be_divided(first_number, second_number):
-        try:
-            if first_number != 0 or second_number != 0:
-                return fct(first_number, second_number)
-        except:
+        if first_number != 0 or second_number != 0:
+            fct(first_number, second_number)
+        else:
             print('The division cannot be performed')
-
     return it_can_be_divided
-
 
 @safe_divide
 def divide(f1, f2):
@@ -50,8 +46,8 @@ def divide(f1, f2):
 
 
 print(divide(2, 3))
-print(divide(0, 3))
-print(divide(3, 0))
+# print(divide(0, 3))
+# print(divide(3, 0))
 
 #     Given a set of print methods:
 #
@@ -69,7 +65,8 @@ print(divide(3, 0))
 # def say_goodbye(name):
 #     return "Goodbye {}!".format(name)
 #
-# Create a decorator called register that will update a list called print_registry with all the decorated functions names.
+# Create a decorator called register that will update a list called print_registry
+# with all the decorated functions names.
 #
 # print_registry = []
 #
@@ -87,11 +84,13 @@ print(divide(3, 0))
 #
 # print(print_registry)
 # >>> ['greet', 'say_goodbye']
+
 print_registry = []
 
 
 def register(fct):
-    return print_registry.append(fct.__name__)
+    print_registry.append(fct.__name__)
+    return fct
 
 
 @register
@@ -107,4 +106,8 @@ def say_hello(name):
 def say_goodbye(name):
     return "Goodbye {}!".format(name)
 
+
 print(print_registry)
+
+print(greet('world'))
+print(say_goodbye('world'))
