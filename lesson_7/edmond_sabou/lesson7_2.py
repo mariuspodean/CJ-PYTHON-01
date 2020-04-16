@@ -4,12 +4,13 @@ def safe_divide(func):
 
         try:
             result = func(*args)
+
         except ZeroDivisionError as zero_err:
-            print(f"Sorry! {zero_err} occurred. Try NOT dividing by zero!")
-            pass
+            raise Exception(f"Sorry! {zero_err} error occurred. Consider NOT dividing by zero!")
+
         except TypeError as type_err:
-            print(f"Oops! {type_err} error occurred.")
-            pass
+            raise Exception(f"Oops! {type_err} error occurred.")
+
         else:
             return result
 
