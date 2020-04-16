@@ -34,11 +34,6 @@ class Employee(object):
 class InstructedEmployee(Employee):
     def __init__(self, first_name, last_name, age, studies, grade, courses):
         super().__init__(first_name, last_name, age, studies, grade)
-       # self.first_name = first_name
-        #self.last_name = last_name
-        #self.age = age
-        #self.studies = studies
-        #self.grade = grade
         self.courses = courses
 
     def is_enrolled(self, course):
