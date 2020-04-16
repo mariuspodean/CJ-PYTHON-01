@@ -1,10 +1,9 @@
 # "GREETINGS WORLD!"
 
 def uppercase(fnc):
+
     def inner_fnc(*args):
-        initial_str = fnc(*args)
-        uppercase_str = initial_str.upper()
-        return uppercase_str
+        return fnc(*args).upper()
 
     return inner_fnc
 
@@ -17,6 +16,7 @@ def greet(name):
 print(greet('world'))
 
 
+
 # Create a decorator called safe_divide that will output a message if the division cannot be performed, othervise it will return the result.
 
 def safe_divide(fnc):
@@ -25,7 +25,7 @@ def safe_divide(fnc):
         try:
             return fnc(*args, **kwargs)
         except Exception as e:
-            print("Division by zero error")
+            return "Division error"
    return wrapper
 
 
@@ -33,9 +33,9 @@ def safe_divide(fnc):
 def divide(first_number, second_number):
     return first_number / second_number
 
-
+print(divide(5, 2))
 print(divide(5, 0))
-
+print(divide(5, 'd'))
 
 # Create a decorator called register that will update a list called print_registry with all the decorated functions names.
 
@@ -62,4 +62,3 @@ def say_goodbye(name):
 
 
 print(print_registry)
-
