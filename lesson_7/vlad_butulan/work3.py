@@ -7,16 +7,20 @@ def register(fct):
         return fct(*args)
     return inner
 
+
 @register
 def greet(name):
     return "Greetings {}!".format(name)
 
+
 def say_hello(name):
     return "Hello {}!".format(name)
+
 
 @register
 def say_goodbye(name):
     return "Goodbye {}!".format(name)
+
 
 print(greet("gigi"))
 print(say_hello("cucu"))
