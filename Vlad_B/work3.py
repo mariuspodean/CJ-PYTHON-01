@@ -2,9 +2,9 @@
 print_registry = []
 
 def register(fct):
+    print_registry.append(fct.__code__.co_name)
     def inner(*args):
-        print_registry.append(fct.__name__)
-        print(fct(*args))
+        return fct(*args)
     return inner
 
 @register
@@ -18,8 +18,8 @@ def say_hello(name):
 def say_goodbye(name):
     return "Goodbye {}!".format(name)
 
-greet("gigi")
-say_hello("cucu")
-say_goodbye("bubu")
+print(greet("gigi"))
+print(say_hello("cucu"))
+print(say_goodbye("bubu"))
 
 print(print_registry)

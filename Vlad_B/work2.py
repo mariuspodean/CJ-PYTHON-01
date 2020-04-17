@@ -8,8 +8,11 @@ def safe_divide(fct):
             return fct(first_parameter, second_parameter)
     return check
 
+
 @safe_divide
 def divide(first_number, second_number):
     return first_number / second_number
 
+
 print(divide(6, 3))
+print(divide(3, 0))
