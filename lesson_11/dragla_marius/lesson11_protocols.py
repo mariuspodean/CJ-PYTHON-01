@@ -61,6 +61,7 @@ for abc in abcs:
             abc.__name__, isinstance(stud_collection, abc))
     )
 
-print(f'Length of students list: {len(students)}')
-print(f'Student list contains John Doe and Marlo Ranbo: {"John Doe" and "Marlo Ranbo" in str(students)}')
-print(f'Student list contains Mr. Robot: {"Mr. Robot" in str(students)}')
+print(f'Length of students list: {stud_collection.__len__()}')
+
+#still trying to figure out how I can check if it contains the actual name "John Doe"
+print(f'Student list contains John Doe: {stud_collection.__contains__(stud_collection[0])}')
