@@ -27,8 +27,8 @@ class Products(object):
         else:
             return 'Availability: Out of stock'
 
-    def price(self):
-        return self.price
+    def price_euro(self):
+        return int(f'{self.price}')*0.21
 
 
 class Laptop(Products):
@@ -42,23 +42,26 @@ class Laptop(Products):
         return f'{self.category} {self.brand} {self.model} {self.display}'
 
     def special_feature(self):
-        return self.feature
+        if self.feature is None:
+            return 'No special feature'
+        else:
+            return f'Special feature: {self.feature}'
 
 
-lenovo = Laptop('Laptop', 'Lenovo', 'IdeaPad L340', 5, '6999 RON', '17,3"', 'Touchscreen')
-hp = Laptop('Laptop', 'HP', 'Pavilion', 2, '4999 RON', '15,6"', '4K')
-asus = Laptop('Laptop', 'Asus', '8565U', 4, '2999 RON','14"', 'Ultraportable')
-dell = Laptop('Laptop', 'Dell', 'Alienware', 0, '9999 RON','17"', 'Gaming')
+lenovo = Laptop('Laptop', 'Lenovo', 'IdeaPad L340', 5, 5999, '17,3"', 'Touchscreen')
+hp = Laptop('Laptop', 'HP', 'Pavilion', 2, 3999, '15,6"', '4K')
+asus = Laptop('Laptop', 'Asus', '8565U', 4, 2999,'14"', None)
+dell = Laptop('Laptop', 'Dell', 'Alienware', 0, 9999,'17"', 'Gaming')
+apple = Laptop('Laptop', 'Apple', 'Macbook Air', 1, 5999,'13"', 'Ultraportable')
 
 print(lenovo.description())
 print(lenovo.special_feature())
 print(lenovo.category_check())
 print(lenovo.on_stock())
-print(lenovo.price)
+print(lenovo.price_euro())
 print('-----')
 print(dell.description())
 print(dell.on_stock())
-
-
-
-
+print('-----')
+print(asus.description())
+print(asus.special_feature())
