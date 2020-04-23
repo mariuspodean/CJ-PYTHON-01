@@ -35,10 +35,9 @@ class StudentsCollection:
         return len(self._students)
 
     def __contains__(self, item):
-        for obj_prop in self._students:
-            if item in str(obj_prop).split(' '):
+        for student_test in self._students:
+            if str(student_test) == str(item):
                 return True
-        return False
 
 students = [
     Student('John', 'Doe', 19),
@@ -62,9 +61,7 @@ for abc in abcs:
 
 print('\n','Lenght of stud_colection: ',len(stud_collection),'\n')
 
-values_list = ['John', 'john', 'Marlo', 20 , 25, 'Sorin', 'Ben', 'Wu', 37, 'Doe', ' ', ',', '-']
-for value in values_list:
-    if value in stud_collection:
-        print(f'Contain test for {str(value).ljust(6)} in students list - {value in stud_collection}')
-    else:
-        print(f'\33[31mContain test for {str(value).ljust(6)} in students list - {value in stud_collection}\033[0m')
+student_test_1 = Student('Matthew', 'Wu', 19)
+print(student_test_1 in stud_collection)
+student_test_2 = Student('Ioan', 'Pop', 25)
+print(student_test_2 in stud_collection)
