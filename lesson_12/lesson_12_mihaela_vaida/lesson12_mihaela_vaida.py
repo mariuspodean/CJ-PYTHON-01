@@ -32,5 +32,5 @@ print(crayons)
 # ['White', 'Yellow', 'Blue', 'Green', 'Black', 'Brown']
 crayons.insert(0, 'Pink')
 crayons.__setitem__(2, 'White')
-crayons.__setitem__(2, 'White')
+print(crayons.__getitem__(5))
 print(crayons)
