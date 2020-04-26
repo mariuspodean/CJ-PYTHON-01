@@ -30,12 +30,10 @@ def title(title_name):
 crayons = 'White Yellow Blue Red Green Black Brown'.split()
 crayons_box = CrayonsBox(crayons)
 
-# print('_'*20,'{} {}'.format('len() exemple',('_'*20)))
 title('len() exemple')
 print('{} is the initial len() '.format(crayons_box.__len__()))
 display_crayons_box_elements()
 
-# print('_'*20,'{} {}\n'.format('insert() exemple',('_'*20)))
 title('insert() exemple')
 crayons_box.insert(3,'Element on the third position')
 print(crayons_box[3])
@@ -44,13 +42,10 @@ display_crayons_box_elements()
 print('{} is the len() after the insert of {}'.format(crayons_box.__len__(),crayons_box[3]))
 
 
-# print('_'*20,'{} {}\n'.format('setitem() exemple',('_'*20)))
 title('setitem() exemple')
 crayons_box.__setitem__(2,'Gigel')
-print(crayons_box[2])
 display_crayons_box_elements()
 
-# print('_'*20,'{} {}\n'.format('delitem() exemple for crayons_box[2]',('_'*20)))
 title('delitem() exemple for crayons_box[2]')
 display_crayons_box_elements()
 print('{} : is the element we want to delete and it is on crayons_box[2] '.format(crayons_box[2]))
