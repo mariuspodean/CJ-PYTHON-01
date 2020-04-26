@@ -1,4 +1,4 @@
-#Make StudentsCollection a sized collection.
+# Make StudentsCollection a sized collection.
 
 from collections.abc import MutableMapping, Mapping, Iterable, Collection, Container, Sized
 
@@ -61,7 +61,6 @@ for abc in abcs:
             abc.__name__, isinstance(stud_collection, abc))
     )
 
-print(f'Length of students list: {stud_collection.__len__()}')
+print(f'Length of students list: {len(stud_collection)}')
 
-#still trying to figure out how I can check if it contains the actual name "John Doe"
-print(f'Student list contains John Doe: {stud_collection.__contains__(stud_collection[0])}')
+print(f'Student list contains first element: {stud_collection[0] in stud_collection}')
