@@ -65,3 +65,4 @@ student_test_1 = Student('Matthew', 'Wu', 19)
 print(student_test_1 in stud_collection)
 student_test_2 = Student('Ioan', 'Pop', 25)
 print(student_test_2 in stud_collection)
+
