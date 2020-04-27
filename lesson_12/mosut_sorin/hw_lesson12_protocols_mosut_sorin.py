@@ -81,3 +81,5 @@ print('\ncrayons_box insert :')
 crayons_box.insert(3, 'Brown')
 iteration(crayons_box)
 print('len = ', len(crayons_box))
+
+print('\ncrayons_box is a MutableSequence : m', isinstance(crayons_box, MutableSequence))
