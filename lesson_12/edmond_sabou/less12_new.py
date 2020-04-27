@@ -19,17 +19,10 @@ class CrayonsBox(MutableSequence):
         del self._crayons[key]
 
     def insert(self, index, item):
-        return self._crayons[index][item]
+        return self._crayons.insert(index, item)
 
     def __str__(self):
         return "({0})".format(self._crayons)
-
-    # def __add__(self, other):
-    #     return str(self) + other
-
-    # def __iadd__(self, other):
-    #     self._crayons = self._crayons + other
-    #     return self._crayons
 
 
 crayons = 'White Yellow Blue Red Green Black Brown'.split()
@@ -52,4 +45,7 @@ print(crayons_box)
 crayons_box.pop(2)
 
 crayons_box.reverse()
+print(crayons_box)
+
+crayons_box.insert(2, "Fox")
 print(crayons_box)
