@@ -57,7 +57,6 @@ tri.perimeter()
 tri.area()
 tri.display()
 tri.__str__()
-
 patrat=Square(2)
 patrat.perimeter() #8
 patrat.area() #4
