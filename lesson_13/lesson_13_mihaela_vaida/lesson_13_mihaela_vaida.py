@@ -67,6 +67,7 @@ Square.from_area(16)
 #Side 2  with lenght 4.0
 #Side 3  with lenght 4.0
 
+
 Square.from_area(15)
 #Side 0  with lenght 3.872983346207417
 #Side 1  with lenght 3.872983346207417
