@@ -22,8 +22,11 @@ class Polygons(PerimeterMixin):
 
 class Triangle(Polygons):
 
-    def __index__(self, *args):
-        super().__init__(*args)
+    def __init__(self, *args):
+        if sum(args)-max(args) < max(args):
+            raise ValueError(f'Triangle with {args} sides is IMPOSSIBLE')
+        else:
+            super().__init__(*args)
 
     def area(self):
         s1, s2, s3 = self.sides
