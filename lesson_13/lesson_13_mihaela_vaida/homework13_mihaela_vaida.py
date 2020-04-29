@@ -64,8 +64,6 @@ class Square(Polygons):
         else:
             raise Exception('The side cannot be calculated')
 
-   # def perimeter(self):
-    #    return sum(self.sides) * 4
 
 
 tri= Triangle(1,2,3)
