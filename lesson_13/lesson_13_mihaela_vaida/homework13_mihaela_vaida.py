@@ -59,12 +59,13 @@ class Square(Polygons):
         if (type(area) == float or type(area) == int) and area > 0:
 
             print(f'From the area = {area} of a square the side = {side} \n')
-            return Square(area ** 0.5,area ** 0.5, area ** 0.5, area ** 0.5)
+
+            return Square(side, side, side, side)
         else:
             raise Exception('The side cannot be calculated')
 
-    def perimeter(self):
-        return sum(self.sides) * 4
+   # def perimeter(self):
+    #    return sum(self.sides) * 4
 
 
 tri= Triangle(1,2,3)
