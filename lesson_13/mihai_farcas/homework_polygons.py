@@ -1,6 +1,17 @@
 from math import sqrt
 
-class Polygons(object):
+
+class PerimetruMixin:
+
+    def __init__(self):
+        self.sides = None
+
+    def perimetru(self):
+        class_name = type(self).__name__
+        return 'The perimeter for {} is : {}'.format(class_name, sum(self.sides))
+
+
+class Polygons(PerimetruMixin):
 
     def __init__(self, *args):
         self.sides = args
@@ -35,14 +46,17 @@ class Square(Polygons):
         return side ** 2
 
     def from_area(area):
-        print('Patratul are laturile de : {}'.format(sqrt(area)))
-        for i in range(4): print('Side {} with lenght {}'.format(i + 1, sqrt(area)))
+        print('Patratul are laturile de : {}'.format(round(sqrt(area))))
+        for i in range(4): print('Side {} with lenght {}'.format(i + 1, round(sqrt(area))))
 
-triunghi= Triangle(5,5,5)
-# triunghi.area()
+
+triunghi = Triangle(5, 5, 5)
 triunghi.display()
 print('_________________________________')
-sq = Square.from_area(4)
-print(sq)
-# s.display()
-# print(s)
+sq_from_area = Square.from_area(4)
+print('_________________________________')
+sq=Square(4,4,4,4)
+print('Aria patratului este {}'.format(sq.area()))
+print('_________________________________')
+print(sq.perimetru())
+print(triunghi.perimetru())
