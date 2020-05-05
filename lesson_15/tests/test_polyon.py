@@ -7,8 +7,6 @@ class TestPolygon(unittest.TestCase):
     def test_polygon_object_len_of_sides(self):
         sides = 4, 3, 4, 5
         test_polygon = polygon.Polygons(sides)
-        # assert hasattr(test_polygon, 'args'), 'Polygons class is missing  attribute'
-        # assert isinstance(test_polygon.sides, int)
         self.assertGreaterEqual(len(sides),3, "Not a valid polygon!")
 
     def test_polygon_object_sides_type(self):
