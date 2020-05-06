@@ -41,8 +41,8 @@ class Square(Polygons):
         side, *_ = self.sides
         return f'The square area is {side ** 2}'
 
-    @staticmethod
-    def from_area(area):
+    @classmethod
+    def from_area(cls, area):
         return f'The side length is {math.sqrt(area)}'
 
 
