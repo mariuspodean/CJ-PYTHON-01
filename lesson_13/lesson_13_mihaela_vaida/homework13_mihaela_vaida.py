@@ -53,8 +53,8 @@ class Square(Polygons):
     def area(self):
         return f' Area is {self.sides[0] ** 2}'
 
-    @staticmethod
-    def from_area(area):
+    @classmethod
+    def from_area(cls,area):
 
         side = float(f'{sqrt(area):.2f}')
         if (type(area) == float or type(area) == int) and area > 0:
