@@ -47,4 +47,14 @@ class TestPolygon(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(verbosity=2)
+#test_polygon_object_len_of_sides (__main__.TestPolygon) ... ok
+#test_polygon_object_sides_type (__main__.TestPolygon) ... ok
+#test_polygon_perimeter_sum (__main__.TestPolygon) ... ok
+#test_square_area (__main__.TestPolygon) ... ok
+#test_square_calculate_side_from_area (__main__.TestPolygon) ... ok
+#test_triangle_area (__main__.TestPolygon) ... ok
+#----------------------------------------------------------------------
+#Ran 6 tests in 0.001s
+#OK
+#Process finished with exit code 0
