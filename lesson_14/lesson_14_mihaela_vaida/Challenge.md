@@ -3,7 +3,7 @@
 ## Challenge:
 
 
-Design a movie class with 2 more derivative classes: ArtisticMovies and Series!
+Design a Movie`s class with 2 more derivative classes: ArtisticMovies and Series!
 
 > 1. Each of the new derived classes will have some atributes  as name, income, imdb rate, etc.
 
