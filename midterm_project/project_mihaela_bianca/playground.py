@@ -1,6 +1,21 @@
 import random
 
 
+# class PrettyPrinter:
+#     def __init__(self,*args,**kwargs):
+#         self.args = args
+#         self.kwargs = kwargs
+#     def __iter__(self):
+#         return self.kwargs
+#     def __str__(self):
+#         message='ceva '
+#         dash = '*' * 30
+#         result = ' {} \n{} \n{} \n '.format(dash, message, dash)
+#         for index, ingred in enumerate(self.kwargs, start=1):
+#             result += '\n{}  {} :{} \n '.format(index, ingred, self.kwargs[ingred])
+#         result += '\n {}'.format(dash)
+#         return result
+
 class Recipe:
 
     def __init__(self, name, ingredients):
@@ -29,7 +44,9 @@ class Recipe:
         print('{} = \n {} \n '.format(self.name + '_ingredients', self.ingredients))
 
 
-class RecipesBox:
+
+
+class RecipesBox(Recipe):
 
     def __init__(self, recipes_list):
         """
@@ -51,10 +68,11 @@ class RecipesBox:
             self.recipes_list.remove(name)
             return self.recipes_list
         else:
-            raise Exception('The recipe cannot be deleted from the RecipeBox!')
+            raise ValueError('The recipe cannot be deleted from the RecipeBox!')
 
     def pick(self):
-        print('The random recipe is {}'.format(random.choice(self.recipes_list)))
+        return random.choice(self.recipes_list)
+        # print('The random recipe is {}'.format(random.choice(self.recipes_list)))
 
     def __str__(self):
         return 'The recipes are : \n {}'.format(str(self.recipes_list))
@@ -70,6 +88,7 @@ class Fridge:
         if len(self.ingredients) < 5:
             raise Exception('The ingredients number should be  at least 5 !')
 
+
     def __str__(self):
         dash = '*' * 30
         result = ' {} \n{} \n{} \n '.format(dash, 'The fridge contains: ', dash)
@@ -77,3 +96,17 @@ class Fridge:
             result += '\n{}  {} :{} \n '.format(index, ingred, self.ingredients[ingred])
         result += '\n {}'.format(dash)
         return result
+
+    def check_ingredient(self, name):
+        if name in self.ingredients.keys():
+            return 'The ingredient {} is in the  fridge!'.format(name)
+        else:
+            raise ValueError('The ingredient {} is not in the  fridge!'.format(name))
+
+    def check_recipe(self, recipe_name):
+
+        if recipe_name == Recipe(name,ingredients):
+            for ingredient in recipe.ingredients:
+                return check_ingredient(ingredient)
+
+

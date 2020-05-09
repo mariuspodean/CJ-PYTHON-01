@@ -2,24 +2,31 @@ from midterm_project.project_mihaela_bianca.playground import Recipe
 from midterm_project.project_mihaela_bianca.playground import RecipesBox
 from midterm_project.project_mihaela_bianca.playground import Fridge
 
+# from midterm_project.project_mihaela_bianca.playground import classname/function
+
+
 mac_and_cheese = Recipe('Mac and cheese', {'macaroni': 3, 'egg': 3, 'milk': 0.5, 'cheese': 1})
 mac_and_cheese.display()
-cheesecake = Recipe('Cheesecake', {'flour': 1, 'milk': 1, 'egg': 3, 'cacao': 1, 'sugar': 1, 'strawberry': 2})
+cheesecake = Recipe('Cheesecake', {'flour': 1, 'milk': 1, 'egg': 3, 'cocao': 1, 'sugar': 1, 'strawberry': 2})
 cheesecake.display()
 banana_bread = Recipe('Banana bread', {'flour': 1, 'yogourt': 1, 'banana': 2, 'honey': 1})
 banana_bread.display()
-fries = Recipe('Fries', {'potato': 1, 'oil': 1, 'salt': 0.1, 'cheese': 0.1})
+fries = Recipe('Fries', {'potato': 1, 'oil': 1, 'salt': 1, 'cheese': 1})
 fries.display()
+home_chocolate = Recipe('Home chocolate', {'milk': 2, 'cocao': 1, 'sugar': 2, 'vanilla': 1, 'nut': 1})
 print(mac_and_cheese)
 print(fries)
 
-recipesbox=RecipesBox(['Fries', 'Cheesecake', 'home chocolate', 'Barbeque', 'carrotcake'])
+recipesbox = RecipesBox(['Fries', 'Cheesecake', 'Home chocolate', 'Barbeque', 'Carrotcake'])
 recipesbox.add_recipe('Sweetbread')
 recipesbox.delete_recipe('Fries')
 recipesbox.pick()
 print(recipesbox)
 
-fridge=Fridge({'milk':4, 'potato':3, 'egg':2, 'banana':10, 'sugar':3})
+fridge = Fridge({'milk': 4, 'potato': 3, 'egg': 2, 'banana': 10, 'sugar': 3})
 print(fridge)
-
-
+ingredients_in_the_fridge = fridge.ingredients
+ingredients_in_the_fridge['butter'] = 3
+print(fridge)
+recipesbox.add_recipe(recipesbox.pick())
+print(recipesbox.delete_recipe(recipesbox.pick()))
