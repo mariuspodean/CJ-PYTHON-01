@@ -1,6 +1,7 @@
 ##Matrix operations
 
 Design a class that deals with matrix operations (sum and multiply) without importing any external libraries
+
 Requirements:
  1) any matrix instance will be created from a nested list: [[1, 2, 3], [3, 2, 1]]
  2) the matrix class should check if input list is a matrix like:
