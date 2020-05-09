@@ -17,6 +17,7 @@ Requirements:
  
     m1 = Matrix([1, 2], [3, 4])
     m2 = Matrix([1, 2, 3], [2, 3, 4]) -> "Incompatible matrixes for +"
+
  7) create a method "size()" that returns a string format like M(x, y)
  
          [1, 2, 3]
