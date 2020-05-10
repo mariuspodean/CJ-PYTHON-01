@@ -35,6 +35,12 @@ class TestPoligons(unittest.TestCase):
         for x in sides:
             self.assertIsNot(x, -3, "Cannot have negative values")
 
+    def test_if_sides_are_int_or_float(self):
+        sides = 1, 34, 3, 56, "asd", 5
+
+        if type(sides) is not [int, float]:
+            self.assertRaises(TypeError, "Value must be int or float")
+
 
 if __name__ == "__main__":
     unittest.main()
