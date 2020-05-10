@@ -1,5 +1,5 @@
 import unittest
-from lesson_15_Turcu_Alexandru import homework
+from lesson_15.lesson_15_Turcu_Alexandru import homework
 
 
 class TestSquareArea(unittest.TestCase):
