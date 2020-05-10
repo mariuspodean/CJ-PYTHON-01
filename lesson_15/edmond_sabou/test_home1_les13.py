@@ -38,8 +38,9 @@ class TestPoligons(unittest.TestCase):
     def test_if_sides_are_int_or_float(self):
         sides = 1, 34, 3, 56, "asd", 5
 
-        if type(sides) is not [int, float]:
-            self.assertRaises(TypeError, "Value must be int or float")
+        for element in sides:
+            if type(element) is not [int, float]:
+                self.assertIsInstance(element, int, "Value must be int")
 
 
 if __name__ == "__main__":
