@@ -1,6 +1,6 @@
 import unittest
 
-from lesson_14.mihai_farcas import homework_polygons
+from lesson_15.mihai_farcas import polygons
 
 
 def test_triangle():
@@ -14,3 +14,5 @@ def test_triangle():
 
 
 test_triangle()
+if __name__ == '__main__':
+    unittest.main()
