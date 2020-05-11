@@ -38,10 +38,10 @@ features:
 - add the new work order in open work orders database
 - close a work order , delete from open work orders database and add to closed work orders database
 - ensure that all the necessary data are in when a work order is closed
+- ensure that any work order closed can not be deleted
 - display all the open / closed work orders 
-- display open / closed work orders in a time period
-- check if a car has open / closed work orders (by registration number) , display it , and calculate all costs
--  check if a client has open / closed work orders (by registration number) , display it , and calculate all costs
+- check if a car has open / closed work orders (by registration number) , display it / them , and calculate all costs
+- check if a client has open / closed work orders (by registration number) , display it / them , and calculate all costs
 <!--stackedit_data:
 eyJoaXN0b3J5IjpbMTY2NDQ0MDI0Nl19
 -->

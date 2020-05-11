@@ -1,6 +1,6 @@
 """
-# Lesson 14 - Operator Overloading
-## Challenge:
+Lesson 14 - Operator Overloading
+Challenge:
 Design a class Challenge!
 Create a Challenge similar to the ones we included in previous lessons. The challenge must touch the following points:
 >      1. Try to present a real example inspired by your work or passions
@@ -9,33 +9,41 @@ Create a Challenge similar to the ones we included in previous lessons. The chal
 >
 >      3. At least one bonus, optional requirement
 >
-The challenge must contain any extra pieces of information that are required for completing the challenge such as definition, logic diagrams, etc. The challenge will be written in the markdown format and saved in a .md file
+The challenge must contain any extra pieces of information that are required for completing the challenge such as
+definition, logic diagrams, etc. The challenge will be written in the markdown format and saved in a .md file
 Attach the solution of the challenge
 """
+
 import time
+from typing import List, Any, Union
 
 
-class WorkOrder: # Mechanical Work Order
+class WorkOrder:  # Open Work Order
 
-    def __init__(self, registation, vin, brand, model, client, date_in=None, date_out=None, labor=0.0, parts_cost=0.0, number=None):
+    _list_of_data: List[Union[Union[str, float], Any]]
 
-        counter_wo_number = str(len(work_orders_dict) + len(work_orders_closed) + 1).rjust(3, '0')
-        now = time.localtime()
-        today = time.strftime('%d %m %Y', now)
+    def __init__(self, registation, vin, brand, model, client, date_in=None, date_out=None, labor=0.0, parts_cost=0.0,
+                 number=None):
+
+        counter_wo_number = str(len(work_orders_dict) + len(work_orders_closed) + 1).rjust(3, '0') # counting all work shop orders
+        time_now = time.localtime()
+        date_today = time.strftime('%d %m %Y', time_now)
 
         if number:
             self.date_in = date_in
             self.wo_number = number
         if labor == 0 and not date_in and not number:
-            self.wo_number = f'{today[8: 10]}{today[3: 5]}{today[0: 2]}{counter_wo_number}'
-            self.date_in = today
+            self.wo_number = f'{date_today[8: 10]}{date_today[3: 5]}{date_today[0: 2]}{counter_wo_number}'
+            self.date_in = date_today
         elif date_in and not number:
             self.date_in = date_in
             self.wo_number = f'{date_in[8: 10]}{date_in[3: 5]}{date_in[0: 2]}{counter_wo_number}'
-        if date_out == None:
-            self.date_out = date_out
+
+        if date_out:
+            self.date_out = date_today
         else:
-            self.date_out = today
+            self.date_out = date_out
+
         self.registration = registation
         self.vin = vin
         self.brand = brand
@@ -51,13 +59,17 @@ class WorkOrder: # Mechanical Work Order
                               self.labor_cost, self.total_cost]
 
     def __str__(self):
+
         if self.date_out is None:
             date_out_print = 'open'
         else:
             date_out_print = self.date_out
-        return (f'{self.wo_number} : {self.registration}, {self.vin}, {self.brand}, {self.model}, '
-               f'{self.client}, {self.date_in}, {date_out_print}, {self.labor:.2f} h, {self.parts_cost:.2f} ron, '
-               f'{self.labor_cost:.2f} ron, {self.total_cost:.2f} ron')
+
+        print_data = f'{self.wo_number} : {self.registration}, {self.vin}, {self.brand}, {self.model}, ' \
+                     f'{self.client}, {self.date_in}, {date_out_print}, {self.labor:.2f} h, ' \
+                     f'{self.parts_cost:.2f} ron, {self.labor_cost:.2f} ron, {self.total_cost:.2f} ron'
+
+        return print_data
 
     def __iter__(self):
         return iter(self._list_of_data)
@@ -71,27 +83,41 @@ class WorkOrder: # Mechanical Work Order
     def __contains__(self, item):
         return item in self._list_of_data
 
-class WOByCarMixin:
 
-    def work_orders_by_car(self, wo_dict, reg_nr=None):
-        wo_by_car_dict = WorkOrdersDict()
-       # wo_by_car_dict = {
-       #      key : self._wo_dict[key]
-       #      for key in self._wo_dict
-       #      if self._wo_dict[key][0] == reg_nr
-       #  }
-        for key in wo_dict:
-            if wo_dict[key][0] == reg_nr:
-                x = wo_dict[key]
-                wo_by_car_dict.update([[key, x]])
+class WOByInputMixin:
 
-        return wo_by_car_dict
+    def __init__(self):
+        self._wo_dict = {}
+
+    def work_orders_by_input(self, input_data=None, car_or_client=None):
+        wo_by_item_dict = WorkOrdersDict()
+        out_data = [0, 0, 0, 0]  # empty list ready to get labor_time, labor_cost, parts_cost, total_cost
+        for key in self._wo_dict:
+            if car_or_client == 'car':
+
+                item_no = 0
+                if self._wo_dict[key][item_no] == input_data:
+                    items_list = self._wo_dict[key]
+                    wo_by_item_dict.update([[key, items_list]])
+                    out_data = [sum(two_values) for two_values in zip(out_data, self._wo_dict[key][7: 11])]
+
+            elif car_or_client == 'client':
+                item_no = 4
+                if self._wo_dict[key][item_no] == input_data:
+                    items_list = self._wo_dict[key]
+                    wo_by_item_dict.update([[key, items_list]])
+                    out_data = [sum(two_values) for two_values in zip(out_data, self._wo_dict[key][7: 11])]
+
+            else:
+                raise ValueError('Valori incorecte')
+
+        return wo_by_item_dict, out_data
 
 
-
-class WorkOrdersDict(WOByCarMixin, dict):
+class WorkOrdersDict(WOByInputMixin, dict):
 
     def __init__(self, item_in=None):
+        super().__init__()
         self._wo_dict = {}
         if item_in:
             self.key = item_in[0]
@@ -99,20 +125,24 @@ class WorkOrdersDict(WOByCarMixin, dict):
             self._wo_dict = {self.key: self.value}
 
     def __str__(self):
+        print_dict = ''
+        lenght_list = (7, 17, 12, 12, 16, 10, 10, 9, 9, 9, 9)
         ordered_keys_list = list(self._wo_dict.keys())
         ordered_keys_list.sort()
-        print_dict = ''
-        for print_iter in ordered_keys_list:
-            print_dict += ''.join(f' - {print_iter} : {[value for value in self._wo_dict[print_iter]]}\n') # {print_iter}, {self.vin}, {self.brand}, {self.model}, '
-              #  f'{self.client}, {date_in_print[0: 10]}, {date_out_print}, {self.labor:.2f} h, {self.parts_cost:.2f} ron, '
-               # f'{self.labor_cost:.2f} ron, {self.total_cost:.2f} ron\n').upper().join()
+
+        for print_key in ordered_keys_list:
+            item_and_lenght = zip(self._wo_dict[print_key], lenght_list)
+            list_as_value = [str(value).center(lenght) for value, lenght in item_and_lenght]
+            key_value_str = f'- {print_key} : {list_as_value}\n'
+            print_dict = ''.join((print_dict, key_value_str))
+
         return print_dict
 
     def __iter__(self):
         return iter(self._wo_dict)
 
     def __len__(self):
-        return  len(self._wo_dict)
+        return len(self._wo_dict)
 
     def __setitem__(self, key, item):
         self._wo_dict[key] = item
@@ -121,7 +151,10 @@ class WorkOrdersDict(WOByCarMixin, dict):
         return self._wo_dict[key]
 
     def __delitem__(self, key):
-        del self._wo_dict[key]
+        if self._wo_dict[key][7] and self._wo_dict[key][8]:
+            del self._wo_dict[key]
+        else:
+            raise ValueError('Missing values , instance can not be deleteted befor closing the work order')
 
     def keys(self):
         return self._wo_dict.keys()
@@ -134,32 +167,37 @@ class WorkOrdersDict(WOByCarMixin, dict):
 
     def update(self, *args, **kwargs):
         self._wo_dict.update(*args, **kwargs)
-        
+
     def update_open_wo(self, wo_number, labor_time, parts_cost):
-        now = time.localtime()
-        today = time.strftime('%d %m %Y', now)
-        self._wo_dict[wo_number][6] = today
+        time_now = time.localtime()
+        date_today = time.strftime('%d %m %Y', time_now)
+        self._wo_dict[wo_number][6] = date_today
         self._wo_dict[wo_number][7] += labor_time
         self._wo_dict[wo_number][9] += parts_cost
         self._wo_dict[wo_number][8] = self._wo_dict[wo_number][7] * rate
         self._wo_dict[wo_number][10] = self._wo_dict[wo_number][8] + self._wo_dict[wo_number][9]
-        return None
 
+        return None
 
     def closing_wo(self, wo_number):
         print(f'comanda inchisa:\n - {wo_number} : {self._wo_dict[wo_number]}')
-
         reg, vin, brand, model, client, d_in, d_out, labor_t, labor_c, parts_c, total_c = self._wo_dict[wo_number]
         wo_closing = WorkOrder(reg, vin, brand, model, client, d_in, d_out, labor_t, parts_c, wo_number)
-        del(self._wo_dict[wo_number])
+        del (self._wo_dict[wo_number])
 
         return wo_closing
-    
+
 
 class WorkOrdersClosed(WorkOrdersDict):
 
     def __init__(self, *args):
         super().__init__(*args)
+
+    def __setitem__(self, key, item):
+        raise TypeError ('WorkOrdersClosed unmutable object')
+
+    def __delitem__(self, key):
+        raise TypeError('WorkOrdersClosed unmutable object')
 
 
 def move_wo(wo_number_move, labor_time_move, parts_cost_move):
@@ -168,92 +206,142 @@ def move_wo(wo_number_move, labor_time_move, parts_cost_move):
     work_orders_closed.update(WorkOrdersClosed(wo_closed))
 
 
-def close_wo(wo_number_close = None, labor_time_close = None , parts_cost_close = None):
-    check = 'y'
-    while check == 'y':
-        if wo_number_close and labor_time_close and parts_cost_close:
+def close_wo(wo_number_close=None, labor_time_close=None, parts_cost_close=None):
+    if wo_number_close and labor_time_close and parts_cost_close:
+        move_wo(wo_number_close, labor_time_close, parts_cost_close)
+    else:
+        wo_number_close = input('introdu numarul comenzii pe care doresti sa o inchizi : ')
+        labor_time_close = float(input(f'introdu orele de manopera aferente comenzii {wo_number_close} : '))
+        parts_cost_close = float(input(f'introdu costul pieselor aferente comenzii {wo_number_close} : '))
+        move_wo(wo_number_close, labor_time_close, parts_cost_close)
 
-            move_wo(wo_number_close, labor_time_close, parts_cost_close)
-            
-            check = input('doresti sa inchizi o comanda de lucru [y/n] : ')
 
-        else:
-            wo_number_close = input('introdu numarul comenzii pe care doresti sa o inchizi : ')
-            labor_time_close = float(input(f'introdu orele de manopera aferente comenzii {wo_number_close} : '))
-            parts_cost_close = float(input(f'introdu costul pieselor aferente comenzii {wo_number_close} : '))
+def header_prep():
+    items = (
+        ('work order no.', 14), ('reg.no.', 9), ('vin', 19), ('brand', 15), ('model', 15), ('client', 19),
+        ('date_in', 13), ('date_out', 13), ('labot_time', 12), ('parts_cost', 12), ('labor_cost', 12),
+        ('total_cost', 12)
+    )
+    header = ''
+    for title, lenght in items:
+        item = title.center(lenght)
+        header = ' '.join((header, item))
+    return header
 
-            move_wo(wo_number_close, labor_time_close, parts_cost_close)
-
-            wo_number_close = None
-            labor_time_close = None
-            parts_cost_close = None
-
-            check = input('doresti sa inchizi o comanda de lucru [y/n] : ')
 
 def print_open_wo():
-    now = time.localtime()
-    today = time.strftime('%d %m %Y', now)
+    time_now = time.localtime()
+    date_today = time.strftime('%d %m %Y', time_now)
     open_wo_counter = len(work_orders_dict)
-    print(f'\nIn data de {today} sunt {open_wo_counter} comenzi deschise :\n\n{work_orders_dict}')
+    print(f'\nIn data de {date_today} sunt {open_wo_counter} comenzi deschise:\n')
+    print(header_prep())
+    print(work_orders_dict)
+
 
 def print_closed_wo():
-    print(f'\ncomenzi inchise : \n')
+    print(f'\nComenzi inchise:\n')
+    print(header_prep())
     print(work_orders_closed)
 
-def print_open_wo_by_car(reg_nr):
-    open_wo_by_car = work_orders_dict.work_orders_by_car(work_orders_dict, reg_nr)
-    print(f'Automobilul cu numarul de inmatriculare {reg_nr} are {len(open_wo_by_car)} comenzi deschise:\n\n{open_wo_by_car}')
 
-def print_closed_wo_by_car(reg_nr):
-    closed_wo_by_car = work_orders_closed.work_orders_by_car(work_orders_closed, reg_nr)
-    print(f'Automobilul cu numarul de inmatriculare {reg_nr} are {len(closed_wo_by_car)} comenzi inchise:\n\n{closed_wo_by_car}')
+# print open or close work orders by input(car or client)
+def print_oc_wo_by_input(input_data, car_client, open_close):
+    if car_client == 'car' and open_close == 'open':
+        wo_by_input, _ = work_orders_dict.work_orders_by_input(input_data, car_client)
+        state = 0
+
+    elif car_client == 'car' and open_close == 'close':
+        wo_by_input, list_of_data = work_orders_closed.work_orders_by_input(input_data, car_client)
+        state = 1
+
+    elif car_client == 'client' and open_close == 'open':
+        wo_by_input, _ = work_orders_dict.work_orders_by_input(input_data, car_client)
+        state = 2
+
+    elif car_client == 'client' and open_close == 'close':
+        wo_by_input, list_of_data = work_orders_closed.work_orders_by_input(input_data, car_client)
+        state = 3
+
+    else:
+        raise ValueError('Date incorecte')
+
+    counter = len(wo_by_input)
+    condition = car_client == 'car'
+    condition_2 = counter == 1
+    text = ['comanda deschisa', 'comanda inchisa', 'comenzi deschise', 'comenzi inchise']
+
+    print_data = f'\n{"Automobilul cu numarul" if condition else "Clientul"} {input_data} are {counter} ' \
+                 f'{text[state]}:\n{header_prep()}\n{wo_by_input}'
+
+    if state == 1 or state == 3:
+        print_closed_data = f'{"Automobilul cu numarul" if condition else "Clientul"} {input_data} a acumulat ' \
+                            f'{counter} factur{"a" if condition_2 else "i"}:\n' \
+                            f'- ore de manopera:         {list_of_data[0]:,} h\n' \
+                            f'- valoare manopera:        {list_of_data[2]:,} ron\n' \
+                            f'- valoare piese de schimb: {list_of_data[1]:,} ron\n' \
+                            f'- valoare totatala:        {list_of_data[3]:,} ron\n'
+    else:
+        print_closed_data = ''
+
+    print_final_data = f'{"*" * 30}\n{print_data}\n{print_closed_data}\n{"*" * 30}'
+    print(print_final_data)
 
 
+#from autoworkshop import *
 
 # preparing data
+
 rate = 100
 work_orders_dict = WorkOrdersDict()
 work_orders_closed = WorkOrdersClosed()
-now = time.localtime()
-today = time.strftime('%d %m %Y', now)
+time_now = time.localtime()
+date_today = time.strftime('%d %m %Y', time_now)
 
-
-car_1 = WorkOrder('cj20hap', 'vf225478541235478', 'peugeot', '206 hdi', 'sc parcauto sa')
+car_1 = WorkOrder('cj20hap', 'vf225478541235478', 'peugeot', '206 hdi', 'sc parcauto sa', '03 05 2020')
 work_orders_dict.update(WorkOrdersDict(car_1))
-car_2 = WorkOrder('cj55adb', 'vf125478541235478', 'renault', 'clio 1.5dci', 'sc abc srl')
+car_2 = WorkOrder('cj55adb', 'vf125478541235478', 'renault', 'clio 1.5dci', 'sc pfa sa', '07 05 2020')
 work_orders_dict.update(WorkOrdersDict(car_2))
-car_3 = WorkOrder('B100eee', 'wba25478541235478', 'bmw', '335 xi', 'sc parcauto sa')
+car_3 = WorkOrder('B100eee', 'wba25478541235478', 'bmw', '335 xi', 'sc parcauto sa', '08 05 2020')
 work_orders_dict.update(WorkOrdersDict(car_3))
-car_4 = WorkOrder('B100eee', 'wdb254785987452147', 'mercedes', 'C 220 cdi', 'Sorin Mosut')
+car_4 = WorkOrder('B100eee', 'wdb25478598745214', 'mercedes', 'C 220 cdi', 'sc pfa sa')
 work_orders_dict.update(WorkOrdersDict(car_4))
-car_5 = WorkOrder('cj20ooo', 'vf325422541235478', 'citroen', 'c3 hdi', 'sc pfa sa', '03 05 2020')
+car_5 = WorkOrder('cj20ooo', 'vf325422541235478', 'citroen', 'c3 hdi', 'sc pfa sa')
 work_orders_dict.update(WorkOrdersDict(car_5))
-
-# check
-print(work_orders_dict)
-print_open_wo_by_car('B100eee')
-
-close_wo()
-print_open_wo()
-print_closed_wo()
-
 car_6 = WorkOrder('mm15ury', 'uu125478541235478', 'dacia', '1310', 'Nicolae Mosut')
-print(car_6[1])
 work_orders_dict.update(WorkOrdersDict(car_6))
-print_open_wo()
+car_7 = WorkOrder('mm15ury', 'uu125478541235478', 'dacia', '1310', 'Nicolae Mosut')
+work_orders_dict.update(WorkOrdersDict(car_7))
+car_8 = WorkOrder('cj45ole', 'wob25478541457846', 'opel', 'antara', 'Gicu pop')
+work_orders_dict.update(WorkOrdersDict(car_8))
+car_9 = WorkOrder('mm15ury', 'uu125478541235478', 'dacia', '1310', 'Nicolae Mosut')
+work_orders_dict.update(WorkOrdersDict(car_9))
+car_10 = WorkOrder('mm15ury', 'uu125478541235478', 'dacia', '1310', 'Nicolae Mosut')
+work_orders_dict.update(WorkOrdersDict(car_10))
 
-close_wo('200508002', 6, 1350)
+print_open_wo() # check
+
+list_for_closing = [
+    ['200503001', 60, 1500],
+    ['200507002', 110, 20000],
+    ['200508003', 3, 800],
+    ['200511004', 2.5,600],
+    ['200511006', 30, 8000],
+    ['200511007', 12, 4500],
+    ['200511010', 17, 5500]
+]
+
+for a, b, c in list_for_closing:
+    print(f'{a} - {b} - {c}')
+    close_wo(a, b, c)
+
+close_wo('200511008', 4, 850)
 print_open_wo()
 print_closed_wo()
 
-car_7 = WorkOrder('bn88kkr', 'wau54879874123654', 'audi', 'A3', 'sc parcauto sa')
-print(car_7)
-work_orders_dict.update(WorkOrdersDict(car_7))
-print_open_wo()
+print_oc_wo_by_input('mm15ury', 'car', 'open')
+print_oc_wo_by_input('sc pfa sa', 'client', 'open')
+print_oc_wo_by_input('B100eee', 'car', 'close')
+print_oc_wo_by_input('mm15ury', 'car', 'close')
+print_oc_wo_by_input('Nicolae Mosut', 'client', 'close')
 
-print_closed_wo_by_car('B100eee')
-print_closed_wo_by_car('bn88kkr')
-
-
-# for key in work_orders_dict:
-#      print(f'{key} : {work_orders_dict[key]}')
+del (work_orders_closed['200511010'])
