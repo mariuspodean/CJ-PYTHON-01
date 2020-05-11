@@ -1,112 +1,37 @@
-import random
+from midterm_project.project_mihaela_bianca.shopping_list import Recipe
+from midterm_project.project_mihaela_bianca.shopping_list import RecipesBox
+from midterm_project.project_mihaela_bianca.shopping_list import Fridge
 
 
-# class PrettyPrinter:
-#     def __init__(self,*args,**kwargs):
-#         self.args = args
-#         self.kwargs = kwargs
-#     def __iter__(self):
-#         return self.kwargs
-#     def __str__(self):
-#         message='ceva '
-#         dash = '*' * 30
-#         result = ' {} \n{} \n{} \n '.format(dash, message, dash)
-#         for index, ingred in enumerate(self.kwargs, start=1):
-#             result += '\n{}  {} :{} \n '.format(index, ingred, self.kwargs[ingred])
-#         result += '\n {}'.format(dash)
-#         return result
+mac_and_cheese = Recipe('Mac and cheese', {'macaroni': 3, 'egg': 3, 'milk': 0.5, 'cheese': 1})
+mac_and_cheese.display()
+cheesecake = Recipe('Cheesecake', {'flour': 1, 'milk': 1, 'egg': 3, 'cocao': 1, 'sugar': 1, 'strawberry': 2})
+cheesecake.display()
+banana_bread = Recipe('Banana bread', {'flour': 1, 'yogourt': 1, 'banana': 2, 'honey': 1})
+banana_bread.display()
+fries = Recipe('Fries', {'potato': 1, 'oil': 1, 'salt': 1, 'cheese': 1})
+fries.display()
+home_made_chocolate = Recipe('Home made chocolate', {'milk': 2, 'cocao': 1, 'sugar': 2, 'vanilla': 1, 'nut': 1})
+print(mac_and_cheese)
+print(fries)
 
-class Recipe:
+recipesbox = RecipesBox([fries, cheesecake, banana_bread, home_made_chocolate])
+recipesbox.add_recipe(fries)
+recipesbox.add_recipe(fries)
+recipesbox.add_recipe(home_made_chocolate)
+recipesbox.delete_recipe(home_made_chocolate)
+#recipesbox.pick()
+for i in range(len(recipesbox.recipe)):
+    print(recipesbox.recipe[i])
+#print(recipesbox.delete_recipe(recipesbox.pick()))
+#recipesbox.add_recipe(recipesbox.pick())
 
-    def __init__(self, name, ingredients):
-        """
-        Ingredients should be a dictionary
-        {egg:3, milk:3, flour:2, sugar:1}
-        """
-        self.name = name
-        self.ingredients = ingredients
-        if len(self.ingredients) < 4:
-            raise Exception('The ingredients number should be  at least 4 !')
+fridge = Fridge({'milk': 4, 'potato': 3, 'egg': 2, 'banana': 10, 'sugar': 3, 'macaroni':2, 'cocoa':2})
+print(fridge)
+ingredients_in_the_fridge = fridge.ingredients
+ingredients_in_the_fridge['butter'] = 3
+print(fridge)
 
-    def __iter__(self):
-        return self.ingredients
-
-    def __str__(self):
-        dash = '*' * 30
-        result = ' {} \n{} \n{} \n '.format(dash, 'Famous ' + self.name, dash)
-
-        for index, ingredients in enumerate(self.ingredients, start=1):
-            result += '\n{}  {} :{} \n '.format(index, ingredients, self.ingredients[ingredients])
-        result += '\n {}'.format(dash)
-        return result
-
-    def display(self):
-        print('{} = \n {} \n '.format(self.name + '_ingredients', self.ingredients))
-
-
-
-
-class RecipesBox(Recipe):
-
-    def __init__(self, recipes_list):
-        """
-             RecipesBox should be a list with the recipe's names
-             ['Fries', 'Banana bread', 'Cheesecake']
-        """
-        self.recipes_list = recipes_list
-
-    def __iter__(self):
-        return self.recipes_list
-
-    def add_recipe(self, name):
-
-        self.recipes_list.append(name)
-        return self.recipes_list
-
-    def delete_recipe(self, name):
-        if len(self.recipes_list) >= 6:
-            self.recipes_list.remove(name)
-            return self.recipes_list
-        else:
-            raise ValueError('The recipe cannot be deleted from the RecipeBox!')
-
-    def pick(self):
-        return random.choice(self.recipes_list)
-        # print('The random recipe is {}'.format(random.choice(self.recipes_list)))
-
-    def __str__(self):
-        return 'The recipes are : \n {}'.format(str(self.recipes_list))
-
-
-class Fridge:
-    def __init__(self, ingredients):
-        """
-        Ingredients should be a dictionary
-        {egg:3, milk:3, flour:2, sugar:1}
-        """
-        self.ingredients = ingredients
-        if len(self.ingredients) < 5:
-            raise Exception('The ingredients number should be  at least 5 !')
-
-
-    def __str__(self):
-        dash = '*' * 30
-        result = ' {} \n{} \n{} \n '.format(dash, 'The fridge contains: ', dash)
-        for index, ingred in enumerate(self.ingredients, start=1):
-            result += '\n{}  {} :{} \n '.format(index, ingred, self.ingredients[ingred])
-        result += '\n {}'.format(dash)
-        return result
-
-    def check_ingredient(self, name):
-        if name in self.ingredients.keys():
-            return 'The ingredient {} is in the  fridge!'.format(name)
-        else:
-            raise ValueError('The ingredient {} is not in the  fridge!'.format(name))
-
-    def check_recipe(self, recipe_name):
-
-        if recipe_name == Recipe(name,ingredients):
-            for ingredient in recipe.ingredients:
-                return check_ingredient(ingredient)
+#fridge.check_recipe(recipesbox.pick())
 
 
