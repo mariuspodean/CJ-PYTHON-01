@@ -15,16 +15,22 @@ home_made_chocolate = Recipe('Home made chocolate', {'milk': 2, 'cocao': 1, 'sug
 print(mac_and_cheese)
 print(fries)
 
-recipesbox = RecipesBox([fries, cheesecake, banana_bread, home_made_chocolate])
+recipesbox = RecipesBox([fries, cheesecake, banana_bread, home_made_chocolate, mac_and_cheese])
 recipesbox.add_recipe(fries)
 recipesbox.add_recipe(fries)
 recipesbox.add_recipe(home_made_chocolate)
 recipesbox.delete_recipe(home_made_chocolate)
-#recipesbox.pick()
+print(recipesbox.pick())
+
+print(recipesbox.pick(fries))
+
 for i in range(len(recipesbox.recipe)):
     print(recipesbox.recipe[i])
-#print(recipesbox.delete_recipe(recipesbox.pick()))
-#recipesbox.add_recipe(recipesbox.pick())
+
+recipesbox.add_recipe(recipesbox.pick())
+recipesbox.delete_recipe(recipesbox.pick())
+recipesbox.add_recipe(recipesbox.pick(cheesecake))
+recipesbox.add_recipe(recipesbox.pick())
 
 fridge = Fridge({'milk': 4, 'potato': 3, 'egg': 2, 'banana': 10, 'sugar': 3, 'macaroni':2, 'cocoa':2})
 print(fridge)

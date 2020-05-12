@@ -55,12 +55,17 @@ class RecipesBox:
         self.recipe = recipe
 
     def __iter__(self):
-        return self.recipe
+        return self
+
+    def __repr__(self):
+
+        return str(self)
+
     def __getitem__(self, item):
         return self.recipe[item]
 
     def add_recipe(self, name):
-       self.recipe.append(name)
+        self.recipe.append(name)
         # return self.recipes_list
 
     def delete_recipe(self, name):
@@ -70,15 +75,14 @@ class RecipesBox:
         else:
             raise ValueError('The recipe cannot be deleted from the RecipeBox!')
 
-    def pick(self, name=None):
-        for name in recipe:
-            if self.name is not None and self.name in list(RecipesBox(recipe)):
-                return self.name
-            else:
-                return random.choice(recipe.name)
+    def pick(self, recipe=None):
+        if recipe:
+            return Recipe(recipe.name, recipe.ingredients)
+        else:
+            return random.choice(self.recipe)
 
     def __str__(self):
-        return '  {} \n'.format(self.recipe)
+        return '{} '.format(self.recipe)
 
 
 class Fridge:
@@ -107,15 +111,14 @@ class Fridge:
 
     def check_recipe(self, recipe):
 
-        recipe = Recipe(name, ingredients)
         ingred_in = []
+        recipe = Recipe(recipe.name, recipe.ingredients)
 
-        for ingredient in list(recipe.ingredients.keys()):
-            self.check_ingredient(ingredient)
-            ingred_in.append(self.check_ingredient(ingredient))
-            if ingred_in.count('Yes') / len(ingred_in) > 0.5:
-                return 'The recipe {} can be  cooked!'.format(recipe_name)
-            else:
-                return 'Not  enough ingredients for the recipe {} !'.format(recipe_name)
-
-
+        if recipe in RecipesBox.recipe:
+            for ingredient in list(recipe.ingredients.keys()):
+                self.check_ingredient(ingredient)
+                ingred_in.append(self.check_ingredient(ingredient))
+                if ingred_in.count('Yes') / len(ingred_in) > 0.5:
+                    return 'The recipe {} can be  cooked!'.format(recipe)
+                else:
+                    return 'Not  enough ingredients for the recipe {} !'.format(recipe)
