@@ -7,7 +7,7 @@ class PerimeterMixin:
         return f' The perimeter is : {sum(self.sides)}"'
 
 
-class Polygons(PerimeterMixin):
+class Polygons:
     def __init__(self, *args):
         super().__init__()
         self.sides = args
@@ -26,7 +26,7 @@ class Polygons(PerimeterMixin):
             print(f'side {side_index} with length: {length}')
 
 
-class Triangle(Polygons):
+class Triangle(Polygons,PerimeterMixin):
     def __init__(self, *args):
         super().__init__(*args)
         s1, s2, s3 = self.sides
@@ -61,7 +61,7 @@ class Square(Polygons):
 
             print(f'From the area = {area} of a square the side = {side} \n')
 
-            return Square(side, side, side, side)
+            return cls(side, side, side, side)
         else:
             raise Exception('The side cannot be calculated')
 
@@ -70,9 +70,12 @@ class Square(Polygons):
 tri= Triangle(1,2,3)
 tri.perimeter()
 tri.area()
+
 tri.display()
+
 pol=Polygons(2,3,4,6)
-pol.perimeter()
+pol.display()
+
 
 sq=Square.from_area(81)
 print(sq)
