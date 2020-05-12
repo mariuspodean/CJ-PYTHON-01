@@ -31,30 +31,37 @@ class for perimeter that contains the perimeter method
 from math import sqrt
 
 
+# mixin class for calclate the perimeter of a instance of geometrig figures classes
 class PerimeterMixin:
 
+    def __init__(self, *args):
+        self.sides = args
+
     def perimeter(self):
-        return f'The perimeter of a {self.geometric_figure} with sides {self.sides} is {sum(self.sides):.2f}\n'
+        perimeter = sum(self.sides)
+        return perimeter
 
 
-class Polygons(PerimeterMixin):
+# main class
+class Polygons:
 
     def __init__(self, *args):
         self.sides = args
 
     def __str__(self):
         no_of_sides = len(self.sides)
-        return '{} is the number of sides'.format(no_of_sides)
+        return '- {} is the number of sides'.format(no_of_sides)
 
-    def display(self):
-        for side_index, length in enumerate(self.sides, start=1):
-            print('Side {} with length: {:.2f}'.format(side_index, length))
+    # def display(self):
+    #     for side_index, length in enumerate(self.sides, start=1):
+    #         print('Side {} with length: {:.2f}'.format(side_index, length))
 
 
-class Triangle(Polygons):
-    geometric_figure = 'Triangle'
+# class child define methods for Triangle instances
+class Triangle(PerimeterMixin, Polygons):
 
     # `s(s-a)(s-b)(s-c) ** 0.5` where s = `(a+b+c) / 2`
+    geometric_figure = 'Triangle'
 
     def __init__(self, *args):
         super().__init__(*args)
@@ -62,13 +69,21 @@ class Triangle(Polygons):
         if s1 >= s2 + s3 or s2 >= s1 + s3 or s3 >= s1 + s2:
             raise Exception('Triunghi imposibil')
 
+    def __str__(self):
+        printing_format = ''
+        for side_index, length in enumerate(self.sides, start=1):
+            printing_format += '- Side {} with length: {:.2f}\n'.format(side_index, length)
+        return printing_format
+
+    # methode calculate and return area of Triangle instance
     def area(self):
         s1, s2, s3 = self.sides
         s_p = sum(self.sides) / 2
-        return f'The area of a {self.geometric_figure} with sides {self.sides} is : ' \
-               f'{(s_p * (s_p - s1) * (s_p - s2) * (s_p - s3)) ** 0.5}\n'
+        area = (s_p * (s_p - s1) * (s_p - s2) * (s_p - s3)) ** 0.5
+        return area
 
 
+# class child define methods for Square instances
 class Square(Polygons):
     geometric_figure = 'Square'
 
@@ -76,43 +91,42 @@ class Square(Polygons):
         super().__init__(*args)
 
     def __str__(self):
-        printing_format = str()
+        printing_format = ''
         for side_index, length in enumerate(self.sides, start=1):
             printing_format += 'Side {} with length: {:.2f}\n'.format(side_index, length)
         return printing_format
 
+    # method calculate and return area from sides
     def area(self):
         side, *_ = self.sides
-        return f'The area of a {self.geometric_figure} with sides {self.sides} is : {side ** 2}\n'
+        area = side ** 2
+        return area
 
-    def from_area(area):
+    # calassmethod thet calculate a square from area an return a new Square instance
+    @classmethod
+    def from_area(cls, area):
         side = float(f'{sqrt(area):.2f}')
-        print(f'From the area = {area} of a square the side = {side}')
-        return Square(side, side, side, side)
+        return cls(side, side, side, side)
 
 
-print()
-
+# Triangle exemple, create instance, print, calculate area, calculate perimeter
 triangle_1 = Triangle(3, 4, 5)
-
+print(f'{triangle_1.geometric_figure}:\n{triangle_1}')
 area_tri = triangle_1.area()
-print(area_tri)
+print(f'The {triangle_1.geometric_figure} with:\n{triangle_1}has area: {area_tri}\n')
+perimeter_triangle1 = triangle_1.perimeter
+print(f'The {triangle_1.geometric_figure} with:\n{triangle_1}has the perimeter {perimeter_triangle1}\n')
 
-perimeter_tri = triangle_1.perimeter()
-print(perimeter_tri)
-
+# Square example , create instance , print , calculate area
 square_1 = Square(5, 5, 5, 5)
-
+print(f'{square_1.geometric_figure}:\n{square_1}')
 area_square_1 = square_1.area()
-print(area_square_1)
+print(f'The {square_1.geometric_figure} with:\n{square_1}has area: {area_square_1}\n')
 
-perimeter_square_1 = square_1.perimeter()
-print(perimeter_square_1)
+# Square from area example
+area_for_square = 16
+new_square = Square.from_area(area_for_square)
+print(f'From area {area_for_square} will get the {new_square.geometric_figure}:\n{new_square}')
 
-sq = Square.from_area(30)
-print(sq)
-
-perimeter_sq = sq.perimeter()
-print(perimeter_sq)
-
+# imposible triangle values - raise exceprion
 imposible_triangle = Triangle(1, 2, 4)
