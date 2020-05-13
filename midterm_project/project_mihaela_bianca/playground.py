@@ -14,7 +14,7 @@ home_made_chocolate = Recipe('Home made chocolate', {'milk': 2, 'cocao': 1, 'sug
 print(mac_and_cheese)
 print(fries)
 
-recipesbox = RecipesBox([fries, cheesecake, banana_bread, home_made_chocolate, mac_and_cheese])
+recipesbox = RecipesBox(fries, cheesecake, banana_bread, home_made_chocolate, mac_and_cheese)
 recipesbox.add_recipe(fries)
 recipesbox.add_recipe(fries)
 recipesbox.add_recipe(home_made_chocolate)
@@ -40,8 +40,10 @@ print(fridge)
 fridge.remove_ingredient('milk',4)
 fridge.remove_ingredient('milk',4)
 
-recipes_box= recipesbox.recipe
-for recipe in recipes_box:
-    print('Recipesbox contains: ', recipe.name)
+# recipes_box= recipesbox.recipe
+# for recipe in recipes_box:
+#     print('Recipesbox contains: ', recipe.name)
 
-# fridge.check_recipe(fries)
+fridge.check_recipe(fries)
+fridge.check_recipe(banana_bread)
+print(recipesbox)
