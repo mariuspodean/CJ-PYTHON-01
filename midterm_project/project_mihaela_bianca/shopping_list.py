@@ -46,6 +46,7 @@ class Recipe:
 
 
 class RecipesBox:
+    recipe = None
 
     def __init__(self, recipe):
         """
@@ -55,10 +56,9 @@ class RecipesBox:
         self.recipe = recipe
 
     def __iter__(self):
-        return self
+        return RecipesBox(self.recipe)
 
     def __repr__(self):
-
         return str(self)
 
     def __getitem__(self, item):
@@ -82,7 +82,8 @@ class RecipesBox:
             return random.choice(self.recipe)
 
     def __str__(self):
-        return '{} '.format(self.recipe)
+        for self.recipe.name in RecipesBox(self.recipe):
+            return '{}'.format(self.recipe.name)
 
 
 class Fridge:
@@ -109,16 +110,50 @@ class Fridge:
         else:
             return 'Nope'
 
+    def add_ingredient(self, name, qty):
+        if name in self.ingredients.keys():
+            self.ingredients[name] += qty
+
+        else:
+            self.ingredients[name] = qty
+
+    def remove_ingredient(self, name, qty):
+        if name in self.ingredients.keys():
+            self.ingredients[name] -= qty
+            if self.ingredients[name] <= 0:
+                del self.ingredients[name]
+                return 'The ingredient {} is completely removed from the fridge !'.format(name)
+        else:
+            return 'The ingredient {} is not in the fridge at all !'.format(name)
+
     def check_recipe(self, recipe):
-
-        ingred_in = []
+        existing_ingredients = []
+        missing_ingredients = []
         recipe = Recipe(recipe.name, recipe.ingredients)
-
         if recipe in RecipesBox.recipe:
             for ingredient in list(recipe.ingredients.keys()):
-                self.check_ingredient(ingredient)
-                ingred_in.append(self.check_ingredient(ingredient))
-                if ingred_in.count('Yes') / len(ingred_in) > 0.5:
-                    return 'The recipe {} can be  cooked!'.format(recipe)
+                if ingredient in list(self.ingredients.keys):
+                    existing_ingredients.append(ingredient)
                 else:
-                    return 'Not  enough ingredients for the recipe {} !'.format(recipe)
+                    missing_ingredients.append(ingredient)
+            return 'Existing Ingredients are {} and   the missing ones are :{}'.format(existing_ingredients,
+                                                                                       missing_ingredients)
+        else:
+            return 'The required recipe is not is the RecipesBox! '
+
+
+# def check_the_fridge(fridge, recipesbox):
+#     ingred_in = []
+#     recipe = Recipe(name, ingredients)
+#     fridge = Fridge(ingredients)
+#     recipesbox = RecipesBox(recipe)
+#     for recipe in recipesbox.recipe:
+#         for ingredient in list(recipe.ingredients.keys()):
+#             fridge.check_ingredient(ingredient)
+#             ingred_in.append(fridge.check_ingredient(ingredient))
+#         if ingred_in.count('Yes') / len(ingred_in) > 0.5:
+#             return 'The recipe {} can be  cooked!'.format(recipe.name)
+#         else:
+#             return 'Not  enough ingredients for the recipe  !'
+
+# def prepare_shopping_list(fridge, recipe):
