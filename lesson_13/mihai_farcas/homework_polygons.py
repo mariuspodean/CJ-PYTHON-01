@@ -3,15 +3,12 @@ from math import sqrt
 
 class PerimetruMixin:
 
-    def __init__(self):
-        self.sides = None
-
     def perimetru(self):
         class_name = type(self).__name__
         return 'The perimeter for {} is : {}'.format(class_name, sum(self.sides))
 
 
-class Polygons(PerimetruMixin):
+class Polygons():
 
     def __init__(self, *args):
         self.sides = args
@@ -25,7 +22,7 @@ class Polygons(PerimetruMixin):
             print('Side {} with length: {}'.format(side_index, length))
 
 
-class Triangle(Polygons):
+class Triangle(PerimetruMixin,Polygons):
     # `s(s-a)(s-b)(s-c) ** 0.5` where s = `(a+b+c) / 2`
     def __init__(self, *args):
         super().__init__(*args)
@@ -44,8 +41,8 @@ class Square(Polygons):
     def area(self):
         side, *_ = self.sides
         return side ** 2
-
-    def from_area(area):
+    @classmethod
+    def from_area(cls,area):
         print('Patratul are laturile de : {}'.format(round(sqrt(area))))
         for i in range(4): print('Side {} with lenght {}'.format(i + 1, round(sqrt(area))))
 
@@ -53,11 +50,12 @@ class Square(Polygons):
 triunghi = Triangle(5, 5, 5)
 triunghi.display()
 print('_________________________________')
-sq_from_area = Square.from_area(4)
+area_of_square=81
+sq_from_area = Square.from_area(area_of_square)
 print('_________________________________')
 sq=Square(4,4,4,4)
 print(sq)
 print('Aria patratului este {}'.format(sq.area()))
 print('_________________________________')
-print(sq.perimetru())
+# print(sq.perimetru()) nu mai are Perimetrumixin
 print(triunghi.perimetru())
