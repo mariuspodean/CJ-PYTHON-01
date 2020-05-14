@@ -44,7 +44,7 @@ class Square(Polygons):
     @classmethod
     def from_area(cls, area):
         sq_side = sqrt(area)
-        return f"{cls(sq_side,sq_side,sq_side,sq_side)} and each side's length is {sqrt(area)}"
+        return f"{cls(sq_side,sq_side,sq_side,sq_side)} and each side's length is {sq_side}"
 
 
 polygon = Polygons(4, 5, 6, 7, 9)
