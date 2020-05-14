@@ -1,16 +1,14 @@
-from midterm_project.project_mihaela_bianca.shopping_list import Recipe
-from midterm_project.project_mihaela_bianca.shopping_list import RecipesBox
-from midterm_project.project_mihaela_bianca.shopping_list import Fridge
+from shopping_list import *
 
-mac_and_cheese = Recipe('Mac and cheese', {'macaroni': 3, 'egg': 3, 'milk': 0.5, 'cheese': 1})
+mac_and_cheese = Recipe('Mac and cheese', {'macaroni': 3, 'egg': 3, 'milk': 0.5, 'cheese': 1, 'sugar':3} )
 mac_and_cheese.display()
-cheesecake = Recipe('Cheesecake', {'flour': 1, 'milk': 1, 'egg': 3, 'cocao': 1, 'sugar': 1, 'strawberry': 2})
+cheesecake = Recipe('Cheesecake', {'flour': 1, 'milk': 1, 'egg': 3, 'cocoa': 1, 'sugar': 1, 'strawberry': 2})
 cheesecake.display()
-banana_bread = Recipe('Banana bread', {'flour': 1, 'yogourt': 1, 'banana': 2, 'honey': 1})
+banana_bread = Recipe('Banana bread', {'flour': 1, 'yogourt': 1, 'banana': 2, 'honey': 1, 'cocoa':1, 'sugar':1})
 banana_bread.display()
 fries = Recipe('Fries', {'potato': 1, 'oil': 1, 'salt': 1, 'cheese': 1})
 fries.display()
-home_made_chocolate = Recipe('Home made chocolate', {'milk': 2, 'cocao': 1, 'sugar': 2, 'vanilla': 1, 'nut': 1})
+home_made_chocolate = Recipe('Home made chocolate', {'milk': 2, 'cocoa': 1, 'sugar': 2, 'vanilla': 1, 'nut': 1})
 print(mac_and_cheese)
 print(fries)
 
@@ -37,13 +35,26 @@ fridge.check_ingredient('milk')
 ingredients_in_the_fridge = fridge.ingredients
 ingredients_in_the_fridge['butter'] = 3
 print(fridge)
-fridge.remove_ingredient('milk',4)
-fridge.remove_ingredient('milk',4)
+fridge.remove_ingredient('milk', 4)
+fridge.remove_ingredient('milk', 4)
 
 # recipes_box= recipesbox.recipe
 # for recipe in recipes_box:
 #     print('Recipesbox contains: ', recipe.name)
 
 fridge.check_recipe(fries)
+
 fridge.check_recipe(banana_bread)
+
+fridge.check_recipe(cheesecake)
+
+fridge.check_recipe(mac_and_cheese)
 print(recipesbox)
+print('************************')
+check_the_fridge(fridge, recipesbox)
+print('************************')
+prepare_shopping_list(fridge, fries)
+print('************************')
+prepare_shopping_list(fridge, cheesecake)
+print('************************')
+
