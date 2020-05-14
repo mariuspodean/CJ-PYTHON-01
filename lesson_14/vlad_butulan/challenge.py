@@ -1,5 +1,39 @@
 class Matrix(object):
-    "your code here :) "
+    def __init__(self, lst):
+        self.lst = lst
+        self.x_dim = len(self.lst[0])
+        self.y_dim = len(self.lst)
+        assert all([self.x_dim == len(line) for line in lst]), "input list is not a matrix"
+    
+    def size(self):
+        return f'M({self.y_dim}, {self.x_dim})'
+
+    def __str__(self):
+        result = ""
+        for line in self.lst:
+            result += ("{}\n".format(line))
+        return result
+
+    def __repr__(self):
+        return str(self.lst)
+    
+    def __add__(self, other):
+        assert self.x_dim == other.x_dim and self.y_dim == other.y_dim, "Incompatible matrixes for +"
+        result = []
+        for y in range(self.y_dim):
+            result.append([self.lst[y][x] + other.lst[y][x] for x in range(self.x_dim)])
+        return Matrix(result)
+    
+    def __mul__(self, other):
+        assert self.x_dim == other.y_dim and self.y_dim == other.x_dim, "Incompatible matrixes for *"
+        result = []
+        for y in range(self.y_dim):
+            result.append([self.lst[y][x] * other.lst[x][y] for x in range(self.x_dim)])
+        return Matrix(result)
+    
+    def T(self):
+        new_lst = [[self.lst[Y][X] for Y in range(self.y_dim)] for X in range(self.x_dim)]
+        return Matrix(new_lst)
 
 
 if __name__ == '__main__':
