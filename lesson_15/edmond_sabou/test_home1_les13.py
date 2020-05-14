@@ -1,46 +1,37 @@
 import unittest
 
+from lesson_15.edmond_sabou import home1_les13
+
 
 class TestPoligons(unittest.TestCase):
 
     def test_if_side_is_not_none(self):
-        sides = 1, "asd", 3
+        sides = home1_les13.Polygon = 1
 
-        self.assertIsNotNone(sides, "Value cannot be of type None")
+        self.assertIsInstance(sides, int, "Value cannot be of type None")
 
     def test_if_value_is_not_string(self):
-        x = 1
-        y = 2
+        sides = home1_les13.Polygon = 10
 
-        tp_x = type(x)
-        tp_y = type(y)
-
-        assert tp_y == int, 'Value is not Integer!'
+        assert isinstance(sides, int)
 
     def test_if_triangle_has_3_sides(self):
-        sides = 1, 2, 3
+        sides = home1_les13.Triangle = 1, 2, 3
 
         length = len(sides)
 
         self.assertEqual(length, 3, "Triangle must have 3 sides")
 
     def test_if_square_has_4_sides(self):
-        sides = 4
+        sides = home1_les13.Square = 4
 
         self.assertIs(sides, 4, "Square must have 4 sides")
 
     def test_if_sides_are_not_negative(self):
-        sides = 2, 1, 2, 3, 4
+        sides = home1_les13.Polygon = 10, 1, 2, -4, 4
 
         for x in sides:
-            self.assertIsNot(x, -3, "Cannot have negative values")
-
-    def test_if_sides_are_int_or_float(self):
-        sides = 1, 34, 3, 56, "asd", 5
-
-        for element in sides:
-            if type(element) is not [int, float]:
-                self.assertIsInstance(element, int, "Value must be int")
+            self.assertIsNot(x, -4, "Cannot have negative values")
 
 
 if __name__ == "__main__":
