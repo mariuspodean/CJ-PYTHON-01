@@ -1,4 +1,4 @@
-import math
+from math import sqrt
 
 
 class PerimeterMixin:
@@ -29,7 +29,7 @@ class Triangle(PerimeterMixin, Polygons):
     def area(self):
         s1, s2, s3 = self.sides
         s_p = sum(self.sides) / 2
-        return f'The triangle area is {math.sqrt(s_p * (s_p - s1) * (s_p - s2) * (s_p - s3))}'
+        return f'The triangle area is {sqrt(s_p * (s_p - s1) * (s_p - s2) * (s_p - s3))}'
 
 
 class Square(Polygons):
@@ -43,7 +43,8 @@ class Square(Polygons):
 
     @classmethod
     def from_area(cls, area):
-        return f'The side length is {math.sqrt(area)}'
+        sq_side = sqrt(area)
+        return f"{cls(sq_side,sq_side,sq_side,sq_side)} and each side's length is {sqrt(area)}"
 
 
 polygon = Polygons(4, 5, 6, 7, 9)
