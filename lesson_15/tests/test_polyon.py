@@ -1,46 +1,81 @@
 import unittest
 
-from lesson_15.lesson_15_mihaela_vaida import polygon
+from lesson_15.lesson_15_mihaela_vaida.polygon import *
 
 
 class TestPolygon(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        print('Start testing!')
+
+    @classmethod
+    def tearDownClass(cls):
+        print('End testing!')
+
+    def setUp(self):
+        self.pol1 = Polygons(2, 3, 5, 6)
+        self.pol2 = Polygons(4, 6, 7)
+
     def test_polygon_object_len_of_sides(self):
-        sides = 4, 3, 4, 5
-        test_polygon = polygon.Polygons(sides)
-        self.assertGreaterEqual(len(sides),3, "Not a valid polygon!")
+        self.sides= 3,4,5,3
+        test_polygon= Polygons(self.sides)
+        self.assertGreaterEqual(len(self.sides), 3, "Not a valid polygon!")
 
-    def test_polygon_object_sides_type(self):
 
-       test_polygon = polygon.Polygons(3, 4, 5)
-       self.assertIsInstance(3, int)
-       self.assertIsInstance(4, int)
-       self.assertIsInstance(5, int)
+    def test_polygon_perimeter(self):
+        pol1 = Polygons(2, 3, 5, 6)
+        self.assertEqual(pol1.perimeter(), 16)
 
-    def test_polygon_perimeter_sum(self):
-        a,b,c=3,5,4
-        test_polygon = polygon.Polygons(3, 5, 4)
-        perimeter=a+b+c
 
-        self.assertEqual(perimeter, a+b+c)
-        
-    def test_triangle_area(self):
-        a,b,c= 3,5,4
-        test_triangle = polygon.Triangle(3, 5, 4)
-        sp=(a+b+c)/2
-        area = (sp * (sp - a) * (sp - b) * (sp - c))**0.5
-        self.assertEqual(sp, (a+b+c)/2)
-        self.assertEqual(area, (sp * (sp - a) * (sp - b) * (sp - c))**0.5)
+    def tearDown(self):
+        self.pol1.display()
+        self.pol2.display()
 
-    def test_square_area(self):
-        a=4
-        area=a*a
-        self.assertEqual(area, a*a)
+class TestTriangle(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        print('Start testing!')
 
-    def test_square_calculate_side_from_area(self):
-        area=25
-        side=area**0.5
-        self.assertEqual(side, area**0.5)
-        self.assertNotIsInstance(side, str,'Invalid side')
+    @classmethod
+    def tearDownClass(cls):
+        print('End testing!')
+
+    def test_triangle_object_init(self):
+        a,b,c = 3,4,5
+        tri1=Triangle(a,b,c)
+        self.assertEqual(tri1.sides, (a,b,c)),\
+        'Triangle class is missing attributes!'
+
+    def test_triangle_area_perim(self):
+        a, b, c = 3, 4, 5
+        tri1 = Triangle(a, b, c)
+        self.assertEqual(tri1.area(), 6)
+        self.assertEqual(tri1.perimeter(), 12)
+
+class TestSquare(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        print('Start testing!')
+
+    @classmethod
+    def tearDownClass(cls):
+        print('End testing!')
+
+    def test_square_init(self):
+        sq1= Square(3,3,3,3)
+
+
+        self.assertIsInstance(sq1, Square)
+        self.assertEqual(sq1.area(), 9)
+        self.assertEqual(sq1.perimeter(), 12)
+
+    def test_calculate_side_from_area(self):
+        sq2=Square.from_area(4)
+
+        self.assertIsInstance(sq2, Square)
+        self.assertEqual(sq2.area(),4)
+
+
 
 
 
@@ -48,13 +83,8 @@ class TestPolygon(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
-#test_polygon_object_len_of_sides (__main__.TestPolygon) ... ok
-#test_polygon_object_sides_type (__main__.TestPolygon) ... ok
-#test_polygon_perimeter_sum (__main__.TestPolygon) ... ok
-#test_square_area (__main__.TestPolygon) ... ok
-#test_square_calculate_side_from_area (__main__.TestPolygon) ... ok
-#test_triangle_area (__main__.TestPolygon) ... ok
-#----------------------------------------------------------------------
-#Ran 6 tests in 0.001s
-#OK
-#Process finished with exit code 0
+
+# ----------------------------------------------------------------------
+# Ran 6 tests in 0.002s
+# OK
+# Process finished with exit code 0

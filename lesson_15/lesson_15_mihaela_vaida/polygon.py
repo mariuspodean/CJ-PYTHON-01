@@ -6,18 +6,14 @@ class PerimeterMixin:
         self.sides = None
 
     def perimeter(self):
-        return f' The perimeter is : {sum(self.sides)}"'
+        return sum(self.sides)
 
 
 class Polygons(PerimeterMixin):
     def __init__(self, *args):
         super().__init__()
         self.sides = args
-        # if len(self.sides) < 3:
-        #   raise Exception('This is not a polygon!')
-       # for side_index, lenght in enumerate(self.sides, start=1):
-        #    if (type(lenght) != int or type(lenght) != float) and lenght <= 0:
-         #       raise Exception('Invalid lenght !')
+
 
     def __str__(self):
         no_of_sides = len(self.sides)
@@ -53,7 +49,7 @@ class Square(Polygons):
         return to_be_printed
 
     def area(self):
-        return f' Area is {self.sides[0] ** 2}'
+        return self.sides[0] ** 2
 
     @staticmethod
     def from_area(area):
@@ -68,12 +64,12 @@ class Square(Polygons):
             raise Exception('The side cannot be calculated')
 
 
-tri = Triangle(1, 2, 3)
-tri.perimeter()
-tri.area()
-tri.display()
-pol = Polygons(2, 3, 4, 6)
-pol.perimeter()
-
-sq = Square.from_area(81)
-print(sq)
+# tri = Triangle(1, 2, 3)
+# print(tri.perimeter())
+# print(tri.area())
+# tri.display()
+# pol = Polygons(2, 3, 4, 6)
+# print(pol.perimeter())
+#
+# sq = Square.from_area(81)
+# print(sq)
