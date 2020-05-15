@@ -1,4 +1,7 @@
-class Polygons(object):
+from math import sqrt
+
+
+class Polygons():
 
     def __init__(self, *args):
         self.sides = args
@@ -46,7 +49,16 @@ class Square(Polygons):
         side, *_ = self.sides
         return side ** 2
 
+    @classmethod
+    def from_area(cls, area):
+        square_side = sqrt(area)
+        self = cls(square_side)
+        self.sides = 2
 
+        return self
+
+
+sq = Square.from_area(4)
 random_square = Square(11)
 print(random_square.area())
 area_square = Square(init_area=121)
@@ -54,3 +66,4 @@ print(area_square)
 print(area_square.sides)
 random_triangle = Triangle(9, 5, 9)
 print(random_triangle.perimeter())
+
