@@ -84,16 +84,16 @@ class RecipesBox:
         return self.recipe[item]
 
     def __setitem__(self, key, value):
-        pass
+        self.recipe[key]=value
 
     def __delitem__(self, key):
-        pass
+        del self.recipe[key]
 
     def __len__(self):
-        return len(self)
+        return len(self.recipe)
 
-    def insert(self):
-        pass
+    def insert(self, index,value):
+        return self.recipe.insert(index, value)
 
     def add_recipe(self, name):
         self.recipe.append(name)
@@ -197,9 +197,9 @@ class Fridge(PrettyPrinter):
         print('Existing ingredients are :', existing_ingredients)
         print('The missing ingredients are:', missing_ingredients)
         if len(existing_ingredients) / len(missing_ingredients) >= 0.5:
-            print('The recipe can be prepared')
+            return 'The recipe can be prepared!'
         else:
-            print('The recipe cannot be prepared!')
+            return 'The recipe cannot be prepared!'
 
 
 def check_the_fridge(fridge, recipesbox):
