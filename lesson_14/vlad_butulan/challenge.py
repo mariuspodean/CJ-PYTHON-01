@@ -3,7 +3,8 @@ class Matrix(object):
         self.lst = lst
         self.x_dim = len(self.lst[0])
         self.y_dim = len(self.lst)
-        assert all([self.x_dim == len(line) for line in lst]), "input list is not a matrix"
+        if not all([self.x_dim == len(line) for line in lst]):
+            raise ValueError("input list is not a valid matrix")
     
     def size(self):
         return f'M({self.y_dim}, {self.x_dim})'
@@ -18,14 +19,16 @@ class Matrix(object):
         return str(self.lst)
     
     def __add__(self, other):
-        assert self.x_dim == other.x_dim and self.y_dim == other.y_dim, "Incompatible matrixes for +"
+        if self.x_dim != other.x_dim and self.y_dim != other.y_dim:
+            raise ValueError("Incompatible matrixes for +")
         result = []
         for y in range(self.y_dim):
             result.append([self.lst[y][x] + other.lst[y][x] for x in range(self.x_dim)])
         return Matrix(result)
     
     def __mul__(self, other):
-        assert self.x_dim == other.y_dim and self.y_dim == other.x_dim, "Incompatible matrixes for *"
+        if self.x_dim != other.y_dim and self.y_dim != other.x_dim:
+            raise ValueError("Incompatible matrixes for *")
         result = []
         for y in range(self.y_dim):
             result.append([self.lst[y][x] * other.lst[x][y] for x in range(self.x_dim)])
