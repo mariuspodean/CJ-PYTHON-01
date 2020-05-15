@@ -1,12 +1,13 @@
 from math import sqrt
 
+
 class PerimeterMixin:
 
     def perimeter(self):
         return f'Perimeter is {sum(self.sides)}'
 
 
-class Polygons(PerimeterMixin):
+class Polygons:
 
     def __init__(self, *args):
         self.sides = args
@@ -20,7 +21,7 @@ class Polygons(PerimeterMixin):
             print('Side {} with length: {}'.format(side_index, length))
 
 
-class Triangle(Polygons):
+class Triangle(Polygons, PerimeterMixin):
     # `s(s-a)(s-b)(s-c) ** 0.5` where s = `(a+b+c) / 2`
     def __init__(self, *args):
         super().__init__(*args)
@@ -40,12 +41,16 @@ class Square(Polygons):
         side, *_ = self.sides
         return side ** 2
 
+    def __str__(self):
+        print_string = str()
+        for square_tuple_index, length in enumerate(self.sides, start=1):
+            print_string += 'Side {} with length: {:.2f}\n'.format(square_tuple_index, length)
+        return print_string
+
     def from_area(self):
         side = sqrt(self)
         print(f'Resulting square has a side of = {side}')
-        square_tuple = (side, side, side, side)
-        for square_tuple_index, length in enumerate(square_tuple, start=1):
-            print('Side {} with length: {:.2f}'.format(square_tuple_index, length))
+        return Square(side, side, side, side)
 
 
 # testing area constructor
