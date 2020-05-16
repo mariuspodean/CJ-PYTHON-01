@@ -1,10 +1,12 @@
 from random import randrange
+import time
 
-
+# creating a paragraph for nice printing recipe and fridge content
 class PrettyPrinterMixin:
 
-    def __init__(self, recipe_name=None):
+    def __init__(self, recipe_name=None, recipe_ingredients=None):
         self.recipe_name = recipe_name
+        self.recipe_ingredients = recipe_ingredients
 
     def __str__(self, dict_in):
         # select the right title to print
@@ -13,7 +15,7 @@ class PrettyPrinterMixin:
         else:
             title = self.recipe_name
 
-        # geting the value of the longest ingredient name or title
+        # geting the value of the longest ingredient name or title for setting the width of paragraph
         keys_list = list(dict_in.keys())
         keys_list.append(title)
         max1 = len(max(keys_list, key=len)) + 8
@@ -27,8 +29,8 @@ class PrettyPrinterMixin:
         # adding the ingredients for printing
         ingredients_dict = dict_in.items()
         for counter, ingred_quant in enumerate(ingredients_dict, 1):
-            ingred_quant_print = f'{ingred_quant[0].title()} : {ingred_quant[1]}'
 
+            ingred_quant_print = f'{ingred_quant[0].title()} : {ingred_quant[1]}'
             print_string = ''.join(
                 (
                     print_string,
@@ -41,7 +43,7 @@ class PrettyPrinterMixin:
 
         return print_string
 
-
+# class instantiate each recipe
 class Recipe(PrettyPrinterMixin):
 
     def __init__(self, recipe_name=None, recipe_ingredients=None, *args, **kwargs):
@@ -70,7 +72,7 @@ class Recipe(PrettyPrinterMixin):
         return self._recipe[item]
 
     def __contains__(self, item):
-        pass
+        return item in self._recipe
 
     def keys(self):
         return self._recipe.keys()
@@ -81,9 +83,14 @@ class Recipe(PrettyPrinterMixin):
     def items(self):
         return self._recipe.items()
 
-# def __get__(self, instance, owner):
+    def __get__(self, instance, owner):
+        return self._recipe
+
+    def __eq__(self, other):
+        return self.recipe_name == other.recipe_name and self.recipe_ingredients == other.recipe_igredients
 
 
+# class instantiate a recipe_box instance for archive all the recipes created
 class RecipesBox:
 
     def __init__(self):
@@ -131,15 +138,17 @@ class RecipesBox:
     def append(self, item):
         self._recipebox_list.append(item)
 
+    # eliminate a recipe from recipes_box list by its index
     def pop(self, index=None):
         if index:
             return self._recipebox_list.pop(index)
         else:
             return self._recipebox_list.pop()
 
-    def pick(self, name=None):
-        if name:
-            index = self._recipebox_list.index(name)
+    # method get a recipe as argument, extract the recipe from recipes_box and print it
+    def pick(self, recipe=None):
+        if recipe:
+            index = self._recipebox_list.index(recipe)
         else:
             max_rand_no = len(self._recipebox_list)
             index = randrange(0, max_rand_no, 1)
@@ -147,11 +156,12 @@ class RecipesBox:
         return self._recipebox_list.pop(index)
 
 
+# class create a instance for archive ingredients for recipes
 class Fridge(PrettyPrinterMixin):
 
     def __init__(self):
-        super().__init__()
         self._fridge = {}
+        super().__init__()
 
     def __str__(self, *args):
         # create the string for printing with mixin class and for the proper data in
@@ -189,6 +199,7 @@ class Fridge(PrettyPrinterMixin):
     def update(self, *args, **kwargs):
         self._fridge.update(*args, **kwargs)
 
+    # methode allow to update the quantity of one existing ingredient from the fridge
     def update_quantity(self, ingredient, quantity):
         updated_quantity = self._fridge[ingredient] + quantity
         if updated_quantity > 0:
@@ -196,7 +207,7 @@ class Fridge(PrettyPrinterMixin):
         else:
             print(f'There is no more \033[31m\033[01m{ingredient}\033[0m in the fridge, go shopping !!!\n')
             del self._fridge[ingredient]
-
+    # methode check if there are in the frig all the required ingredients for a recipe
     def check_recipe(self, recipe):
 
         recipe_ingredients = list(recipe.recipe_ingredients)
@@ -217,6 +228,10 @@ class Fridge(PrettyPrinterMixin):
         return ingredients_in, ingredients_off if ingredients_off else message
 
 
+"""
+function check the fridge, for all recipes, if there are in the fridge at least half of the ingredients required
+and print the list with all the recipes that satisfies the condition
+"""
 def check_the_fridge(fridge, recipes_box):
     viable_recipes_list = RecipesBox()
     # ingredients_fridge_list = list(fridge.keys())
@@ -238,15 +253,17 @@ def check_the_fridge(fridge, recipes_box):
     return viable_recipes_list
 
 
+# decorator for nicely print the shopping list
 def pretty_print_recipe(fnc):
-
     def inner_func(fridge, recipe):
 
         ingredients_dict = fnc(fridge, recipe)
+        time_now = time.localtime()
+        date_today = time.strftime('%d %m %Y', time_now)
 
         if type(ingredients_dict) == dict:
 
-            title = f'{recipe.recipe_name} - Shopping List'
+            title = f'{recipe.recipe_name}-Shopping List'
 
             header = f"""
                     \r  /{"= =" * 12}\\
@@ -270,13 +287,13 @@ def pretty_print_recipe(fnc):
                 empty_lines = 16 - counter
 
             empty_part = f'||{" " * 38}||\n'
-            empty_part = empty_part * (empty_lines)
+            empty_part = empty_part * empty_lines
             logo = f"""||{" " * 38}||
                      \r||{" " * 19} // ""--.._        ||
                      \r||{" " * 19}||  (_)  _ "-._    ||
                      \r||{" " * 19}||    _ (_)    '-_ ||
                      \r||{" " * 19}||   (_)   __..-'  ||
-                     \r||{" " * 19} \__..--""         ||
+        \r|| {date_today}{" " * 8} \__..--""         ||
                     """
             footer = f"""\r \={"= =" * 12}=/  
                          \r  \{"= =" * 12}/
@@ -292,17 +309,22 @@ def pretty_print_recipe(fnc):
     return inner_func
 
 
+# decorator for archiving all the shiping list
 def c(fnc):
     def inner_func_2(fridge, recipe):
         shopping_list = fnc(fridge, recipe)
+        time_now = time.localtime()
+        date_today = time.strftime('%d %m %Y', time_now)
+        # shopping_list = Recipe(recipe.recipe_name, missing_ingredients)
         if type(shopping_list) == dict:
-            shopping_list_archive.append(shopping_list)
+            shopping_list_archive.append((date_today, recipe.recipe_name, shopping_list))
 
         return shopping_list
 
     return inner_func_2
 
 
+# function that creates a shopping list containing all the missing ingrediants for a recipe
 @pretty_print_recipe
 @c
 def prepare_shopping_list(fridge, recipe):
@@ -325,5 +347,5 @@ def prepare_shopping_list(fridge, recipe):
 
     return shopping_list if shopping_list else message
 
-
+# list as a database for archiving all the shopping lists
 shopping_list_archive = []
