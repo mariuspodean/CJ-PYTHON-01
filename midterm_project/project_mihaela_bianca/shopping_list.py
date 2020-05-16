@@ -1,28 +1,30 @@
 import random
+import time
 
 
-class PrettyPrinter:
-    def __init__(self, ingredients, name=None):
-        self.args = name
-        self.ingredients = ingredients
+# class PrettyPrinterMixin:
+#     def __init__(self, *args , ingredients):
+#         self.args = args
+#         self.ingredients = ingredients
+#
+#     # def __iter__(self):
+#     #     return self.ingredients
+#
+#     def __str__(self):
+#
+#
+#         dash = '*' * 30
+#         if self.args is None:
+#             result = ' {} \n{} \n{} \n '.format(dash, 'The fridge contains: ', dash)
+#         else:
+#             result = ' {} \n{} \n{} \n '.format(dash, 'Famous ' + self.args, dash)
+#         for index, ingred in enumerate(self.ingredients, start=1):
+#             result += '\n{}  {} :{} \n '.format(index, ingred, self.ingredients[ingred])
+#         result += '\n {}'.format(dash)
+#         return result
+#
 
-    def __iter__(self):
-        return self.ingredients
-
-    def __str__(self):
-
-        dash = '*' * 30
-        if self.args is None:
-            result = ' {} \n{} \n{} \n '.format(dash, 'The fridge contains: ', dash)
-        else:
-            result = ' {} \n{} \n{} \n '.format(dash, 'Famous ' + self.args, dash)
-        for index, ingred in enumerate(self.ingredients, start=1):
-            result += '\n{}  {} :{} \n '.format(index, ingred, self.ingredients[ingred])
-        result += '\n {}'.format(dash)
-        return result
-
-
-class Recipe(PrettyPrinter):
+class Recipe:
 
     def __init__(self, name, ingredients):
         """
@@ -123,13 +125,13 @@ class RecipesBox:
         return print_string
 
 
-class Fridge(PrettyPrinter):
+class Fridge:
     def __init__(self, ingredients):
         """
         Ingredients should be a dictionary
         {egg:3, milk:3, flour:2, sugar:1}
         """
-        super().__init__(ingredients)
+
         self.ingredients = ingredients
         if len(self.ingredients) < 5:
             raise Exception('The ingredients number should be  at least 5 !')
@@ -156,6 +158,7 @@ class Fridge(PrettyPrinter):
 
     def __len__(self):
         return len(self.ingredients)
+
 
     def check_ingredient(self, name):
         if name in list(self.ingredients.keys()):
@@ -196,10 +199,7 @@ class Fridge(PrettyPrinter):
 
         print('Existing ingredients are :', existing_ingredients)
         print('The missing ingredients are:', missing_ingredients)
-        if len(existing_ingredients) / len(missing_ingredients) >= 0.5:
-            return 'The recipe can be prepared!'
-        else:
-            return 'The recipe cannot be prepared!'
+
 
 
 def check_the_fridge(fridge, recipesbox):
@@ -217,6 +217,18 @@ def check_the_fridge(fridge, recipesbox):
         del ingred_in[0:len(recipesbox.recipe[recipe_index].ingredients)]
     print(recipes_list)
 
+archived_list =[]
+def archive_shopping_list(fnc):
+    def archive_list(fridge, recipe):
+        print(fnc)
+        archived_list.append(fnc.__name__)
+        return archived_list
+    return archive_list
+
+
+
+
+#@archive_shopping_list
 
 def prepare_shopping_list(fridge, recipe):
     shopping_list = {}
@@ -225,4 +237,4 @@ def prepare_shopping_list(fridge, recipe):
         # print(fridge.ingredients)
         if ingred not in list(fridge.ingredients.keys()):
             shopping_list[ingred] = recipe.ingredients[ingred]
-    print(shopping_list)
+    return print(shopping_list)

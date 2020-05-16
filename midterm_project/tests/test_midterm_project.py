@@ -96,5 +96,40 @@ class Test_Fridge(unittest.TestCase):
         self.assertEqual(fridge.check_recipe(fries), 'The recipe cannot be prepared!')
 
 
+class Test_IndependentFunctions(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        print('Start testing!')
+
+    @classmethod
+    def tearDownClass(cls):
+        print('End testing!')
+
+    def test_check_the_fridge(self):
+        mac_and_cheese = Recipe('Mac and cheese', {'macaroni': 3, 'egg': 3, 'milk': 0.5, 'cheese': 1, 'sugar': 3})
+
+        cheesecake = Recipe('Cheesecake', {'flour': 1, 'milk': 1, 'egg': 3, 'cocoa': 1, 'sugar': 1, 'strawberry': 2})
+
+        banana_bread = Recipe('Banana bread',
+                              {'flour': 1, 'yogourt': 1, 'banana': 2, 'honey': 1, 'cocoa': 1, 'sugar': 1})
+        fries = Recipe('Fries', {'potato': 1, 'oil': 1, 'salt': 1, 'cheese': 1})
+
+        home_made_chocolate = Recipe('Home made chocolate', {'milk': 2, 'cocoa': 1, 'sugar': 2, 'vanilla': 1, 'nut': 1})
+
+        ingredients = {'milk': 4, 'potato': 3, 'egg': 2,
+                       'banana': 10, 'sugar': 3, 'macaroni': 2, 'cocoa': 2}
+        fridge= Fridge(ingredients)
+        recipesbox=recipesbox = RecipesBox(fries, cheesecake, banana_bread, home_made_chocolate, mac_and_cheese)
+        self.assertNotIsInstance(check_the_fridge(fridge,recipesbox),list)
+
+    def test_prepare_shopping_list(self):
+        mac_and_cheese = Recipe('Mac and cheese', {'macaroni': 3, 'egg': 3, 'milk': 0.5, 'cheese': 1, 'sugar': 3})
+        ingredients = {'milk': 4, 'potato': 3, 'egg': 2,
+                       'banana': 10, 'sugar': 3, 'macaroni': 2, 'cocoa': 2}
+        fridge = Fridge(ingredients)
+        self.assertNotIsInstance(prepare_shopping_list(fridge,mac_and_cheese), dict)
+
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)
