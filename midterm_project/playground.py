@@ -1,4 +1,5 @@
 from shopping_list_archive import *
+import random
 
 annotations = ["-", "*", "+", "-"]
 annotate = random.choice(annotations) * 25
@@ -36,3 +37,4 @@ r = RecipeBox()
 print(r.add(burger))
 print(r.add(mac_and_cheese))
 print(r.add(pizza))
+
