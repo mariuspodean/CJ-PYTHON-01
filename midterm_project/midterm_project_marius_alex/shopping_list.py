@@ -1,10 +1,11 @@
-from random import randrange
+from random import choice
 
 
 class PrettyPrinterMixin:
+
     def __str__(self):
-        dash = '*' * 3
-        return '{} PrettyPrinter {} \n '.format(dash, dash)
+        dash = '*' * 5
+        return f'{dash}'
 
 
 class Recipe(PrettyPrinterMixin):
@@ -12,27 +13,18 @@ class Recipe(PrettyPrinterMixin):
     def __init__(self, name, ingredients):
         self.name = name
         self.ingredients = ingredients
-        if len(self.ingredients) < 4:
-            raise Exception('4 Ingredients at the min!')
-
-    def __iter__(self):
-        return self.ingredients
-
-    def __getitem__(self, key):
-        return self.__dict__[key]
-
-    def __len__(self):
-        return len(self.__dict__)
 
     def __str__(self):
-        dash = '*' * 20
-        more_stars = PrettyPrinterMixin.__str__(self)
-        result = '{} \n{} \n{} \n '.format(dash, self.name, dash)
-        for index, ingredients in enumerate(self.ingredients, start=1):
-            result += '\n{}.  {} :{} \n '.format(index, ingredients, self.ingredients[ingredients])
-        result += '\n {}'.format(dash)
-        result += '\n {}'.format(more_stars)
-        return result
+        dash = PrettyPrinterMixin.__str__(self)
+        display_recipe = [f'{dash} \n{self.name} \n{dash}']
+        for idx, ing in enumerate(self.ingredients, start=1):
+            display_recipe.append(f'{idx}. {ing.capitalize()}: {self.ingredients[ing]}')
+        display_recipe.append(dash)
+
+        return '\n'.join(display_recipe)
+
+    def items(self):
+        return self.ingredients.items()
 
     def keys(self):
         return self.ingredients.keys()
@@ -40,157 +32,142 @@ class Recipe(PrettyPrinterMixin):
     def values(self):
         return self.ingredients.values()
 
-
-class RecipesBox:
-    def __init__(self, iterable):
-        self.recipes_list = list(iterable)
-
     def __iter__(self):
-        return iter(self.recipes_list)
-
-    def __len__(self):
-        return len(self.recipes_list)
+        return iter(self.ingredients)
 
     def __getitem__(self, index):
-        return self.recipes_list[index]
+        return self.ingredients[index]
 
-    def __next__(self):
-        if self.x <= self.num:
-            odd_num = self.x
-            self.x += 1
-            return odd_num
-        else:
-            raise StopIteration
+    def __len__(self):
+        return len(self.ingredients)
+
+
+class RecipeBox:
+
+    def __init__(self, recipes):
+        self.recipes = list(recipes)
 
     def add_recipe(self, recipe):
-        self.recipes_list.append(recipe)
-        return self.recipes_list
+        self.recipes.append(recipe)
 
-    def delete_recipe(self, recipe):
-        self.recipes_list.remove(recipe)
-        return self.recipes_list
+    def del_recipe(self, recipe):
+        self.recipes.remove(recipe)
 
     def pick(self, name=None):
         if name is None:
-            random_index = randrange(0, stop=len(self.recipes_list))
-            print(self.recipes_list[random_index])
+            return choice(self.recipes)
         else:
-            for recipe in self.recipes_list:
-                if str(name) == str(recipe.name):
-                    print(recipe)
-
-    # What happens if the recipe doesnt exist?
+            for recipe in self.recipes:
+                if name == recipe.name:
+                    return recipe
+                else:
+                    pass
 
     def __str__(self):
-        print_list = str('The recipes are:')
-        for recipe in self.recipes_list:
-            print_list += '{}, '.format(recipe.name)
+        print_list = str("Recipes in the box: ")
+        for recipe in self.recipes:
+            print_list += f'{recipe.name}, '
         return print_list
+
+    def __iter__(self):
+        return iter(self.recipes)
 
 
 class Fridge(PrettyPrinterMixin):
-    def __init__(self, ingredients):
-        self.ingredients = ingredients
 
-    def __iter__(self):
-        return self.ingredients
-
-    def __getitem__(self, key):
-        return self.__dict__[key]
-
-    def __len__(self):
-        return len(self.__dict__)
+    def __init__(self, products):
+        self.products = products
 
     def __str__(self):
-        more_stars = PrettyPrinterMixin.__str__(self)
-        dash = '*' * 20
-        result = ' {} \n{} \n{} \n '.format(dash, 'bla fridge bla: ', dash)
-        for index, item in enumerate(self.ingredients, start=1):
-            result += '\n{}  {} :{} \n '.format(index, item, self.ingredients[item])
-        result += '\n {}'.format(dash)
-        result += '\n {}'.format(more_stars)
-        return result
+        dash = PrettyPrinterMixin.__str__(self)
+        fridge_content = [f'{dash}\nFridge content: \n{dash}']
 
-    def add_ingredient(self, ingredient):
-        self.ingredients.update(ingredient)
-        return self.ingredients
+        for prod in self.products:
+            for product, quantity in self.products.items():
+                fridge_content.append(f'{product.capitalize()}: {quantity}')
+            return '\n'.join(fridge_content)
 
-    def remove_ingredient(self, name, qty):
-        if name in self.ingredients.keys():
-            self.ingredients[name] -= qty
-            if self.ingredients[name] <= 0:
-                del self.ingredients[name]
-                return '{} was removed from the fridge !'.format(name)
+    def __contains__(self, product):
+        return product in self.products.keys()
+
+    def add_ingredient(self, product):
+        return self.products.update(product)
 
     def update_ingredient(self, name, qty):
-        if name in self.ingredients.keys():
-            self.ingredients[name] += qty
+        if name in self.products.keys():
+            self.products[name] += qty
         else:
             print("('{} is not in the fridge!'.format(name))")
 
-    def delete_recipe(self, ingredient):
-        self.ingredients.pop(ingredient)
-        return self.ingredients
+    def remove_ingredient(self, name, qty):
+        if name in self.products.keys():
+            self.products[name] -= qty
+            if self.products[name] <= 0:
+                del self.products[name]
+                return '{} was removed from the fridge !'.format(name)
 
-    def check_ingredient(self, name):
-        if name in self.ingredients.keys():
-            return 'Bla {} bla bla !'.format(name)
+    def __delitem__(self, product):
+        del self.products[product]
+
+    def check_product(self, product):
+        if product in self.products.keys():
+            print('yap, we got milk!')
         else:
-            raise ValueError('bla {} is not bla bla!'.format(name))
+            raise ValueError('nop')
 
     def check_recipe(self, recipe):
         available_ingredients = []
         missing_ingredients = []
-        for key, value in recipe.ingredients.items():
-            if key in self.ingredients.keys() and value <= self.ingredients[key]:
-                available_ingredients.append(key)
+        for ingred, qty in recipe.items():
+            if ingred in self.products.keys() and qty <= self.products[ingred]:
+                available_ingredients.append(ingred)
             else:
-                missing_ingredients.append(key)
-        print(available_ingredients, missing_ingredients)
+                missing_ingredients.append(ingred)
+        print(f'Available ingredients: {available_ingredients} \nMissing ingredients: {missing_ingredients}')
 
 
-def check_the_fridge(fridge_container, recipe_container):
-    available_recipes = []
-    for recipe in recipe_container:
-        available_ingredients = 0
-        for key, value in recipe.ingredients.items():
-            if key in fridge_container.ingredients.keys() and value <= fridge_container.ingredients[key]:
-                available_ingredients += 1
-        if available_ingredients >= len(recipe.ingredients)/2:
-            available_recipes += [recipe.name]
-    return available_recipes
+def check_fridge(fridge, recipe_box):
+    recipes_possible = []
+    for recipe in recipe_box:
+        available_ing = 0
+        for ing, qty in recipe.ingredients.items():
+            if ing in fridge.products.keys():
+                available_ing += 1
+        if available_ing >= len(recipe.ingredients) / 2:
+            recipes_possible += [recipe.name]
+    print(f'Possible recipes: {recipes_possible}')
 
 
-def shopping_list_archive(fnc):
-    def func_wrapper(recipe):
-        shopping_list = fnc(recipe)
-        if type(shopping_list) == dict:
-            shopping_archive.append(shopping_list)
-        return shopping_list
-
-    return func_wrapper
+shopping_archive = []
 
 
-def pretty_print_recipe(func):
-    def func_wrapper_2(recipe):
-        ingredients = func(recipe)
-        dash = '*' * 20
-        result = '{} \n{} \n{} \n '.format(dash, recipe, dash)
-        for index, values in enumerate(ingredients, start=1):
-            result += '\n{}.  {} :{} \n '.format(index, ingredients, ingredients[values])
-        result += '\n {}'.format(dash)
-        return result
+def pretty_print_recipe(fnc):
+    def wrapper(fridge, recipe):
+        ingredients = fnc(fridge, recipe)
+        dash = '*' * 5
+        result = '{}\nShopping list:\n'.format(dash)
+        for ing, qty in ingredients.items():
+            result += '{}: {}\n'.format(ing, qty)
+        result += '\n{}'.format(dash)
+        print(result)
 
-    return func_wrapper_2
+    return wrapper
 
 
+def archive_shopping_list(fnc):
+    def inner_fnc(fridge, recipe):
+        shopping_list = fnc(fridge, recipe)
+        shopping_archive.append(shopping_list)
+        return shopping_archive
+
+    return inner_fnc
+
+
+@archive_shopping_list
 @pretty_print_recipe
-@shopping_list_archive
-def prepare_shopping_list(recipe):
+def prepare_shopping_list(fridge, recipe):
     shopping_list = {}
-    for key, value in recipe.ingredients.items():
-        if key not in fridge.ingredients.keys() or value > fridge.ingredients[key]:
-            shopping_list.update({key: value})
+    for ing, qty in recipe.ingredients.items():
+        if ing not in fridge.products.keys() or qty > fridge.products[ing]:
+            shopping_list.update({ing: qty})
     return shopping_list
-
-
