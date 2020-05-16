@@ -156,8 +156,8 @@ def check_the_fridge(fridge_container, recipe_container):
         for key, value in recipe.ingredients.items():
             if key in fridge_container.ingredients.keys() and value <= fridge_container.ingredients[key]:
                 available_ingredients += 1
-            if available_ingredients >= len(recipe.ingredients):
-                available_recipes += [recipe.name]
+        if available_ingredients >= len(recipe.ingredients)/2:
+            available_recipes += [recipe.name]
     return available_recipes
 
 
