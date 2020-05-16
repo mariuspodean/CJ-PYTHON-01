@@ -54,7 +54,7 @@ print('************************')
 check_the_fridge(fridge, recipesbox)
 print('************************')
 prepare_shopping_list(fridge, fries)
-print('************************')
+
 prepare_shopping_list(fridge, cheesecake)
-print('************************')
+
 

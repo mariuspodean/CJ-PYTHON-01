@@ -3,7 +3,7 @@ from midterm_project.project_mihaela_bianca.playground import *
 from midterm_project.project_mihaela_bianca.shopping_list import *
 
 
-class Test_Recipe(unittest.TestCase):
+class TestRecipe(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         print('Start testing!')
@@ -35,7 +35,7 @@ class Test_Recipe(unittest.TestCase):
         assert hasattr(banana_bread, 'ingredients'), 'Recipe is missing ingredients attribute!'
 
 
-class Test_RecipesBox(unittest.TestCase):
+class TestRecipesBox(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         print('Start testing!')
@@ -62,7 +62,7 @@ class Test_RecipesBox(unittest.TestCase):
     #         assert isinstance(random_recipe, Recipe)
 
 
-class Test_Fridge(unittest.TestCase):
+class TestFridge(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         print('Start testing!')
@@ -93,10 +93,10 @@ class Test_Fridge(unittest.TestCase):
         fridge = Fridge(ingredients)
         fries = Recipe('Fries', {'potato': 1, 'oil': 1, 'salt': 1, 'cheese': 1})
 
-        self.assertEqual(fridge.check_recipe(fries), 'The recipe cannot be prepared!')
+        self.assertEqual(fridge.check_recipe(fries),(['potato'], ['oil', 'salt', 'cheese']) )
 
 
-class Test_IndependentFunctions(unittest.TestCase):
+class TestIndependentFunctions(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         print('Start testing!')
@@ -119,7 +119,7 @@ class Test_IndependentFunctions(unittest.TestCase):
         ingredients = {'milk': 4, 'potato': 3, 'egg': 2,
                        'banana': 10, 'sugar': 3, 'macaroni': 2, 'cocoa': 2}
         fridge= Fridge(ingredients)
-        recipesbox=recipesbox = RecipesBox(fries, cheesecake, banana_bread, home_made_chocolate, mac_and_cheese)
+        recipesbox= RecipesBox(fries, cheesecake, banana_bread, home_made_chocolate, mac_and_cheese)
         self.assertNotIsInstance(check_the_fridge(fridge,recipesbox),list)
 
     def test_prepare_shopping_list(self):

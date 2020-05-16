@@ -1,30 +1,21 @@
 import random
-import time
+import pprint
+
+archived_list = []
+
+pp = pprint.PrettyPrinter(indent=4)
+
+# shopping_list_archive = []
 
 
-# class PrettyPrinterMixin:
-#     def __init__(self, *args , ingredients):
-#         self.args = args
-#         self.ingredients = ingredients
-#
-#     # def __iter__(self):
-#     #     return self.ingredients
-#
-#     def __str__(self):
-#
-#
-#         dash = '*' * 30
-#         if self.args is None:
-#             result = ' {} \n{} \n{} \n '.format(dash, 'The fridge contains: ', dash)
-#         else:
-#             result = ' {} \n{} \n{} \n '.format(dash, 'Famous ' + self.args, dash)
-#         for index, ingred in enumerate(self.ingredients, start=1):
-#             result += '\n{}  {} :{} \n '.format(index, ingred, self.ingredients[ingred])
-#         result += '\n {}'.format(dash)
-#         return result
-#
+class PrettyPrinterMixin:
 
-class Recipe:
+    def pp_print_recipe(self):
+        global pp
+        pp.pprint(super().__str__())
+
+
+class Recipe(PrettyPrinterMixin):
 
     def __init__(self, name, ingredients):
         """
@@ -86,7 +77,7 @@ class RecipesBox:
         return self.recipe[item]
 
     def __setitem__(self, key, value):
-        self.recipe[key]=value
+        self.recipe[key] = value
 
     def __delitem__(self, key):
         del self.recipe[key]
@@ -94,7 +85,7 @@ class RecipesBox:
     def __len__(self):
         return len(self.recipe)
 
-    def insert(self, index,value):
+    def insert(self, index, value):
         return self.recipe.insert(index, value)
 
     def add_recipe(self, name):
@@ -125,7 +116,7 @@ class RecipesBox:
         return print_string
 
 
-class Fridge:
+class Fridge(PrettyPrinterMixin):
     def __init__(self, ingredients):
         """
         Ingredients should be a dictionary
@@ -159,7 +150,6 @@ class Fridge:
     def __len__(self):
         return len(self.ingredients)
 
-
     def check_ingredient(self, name):
         if name in list(self.ingredients.keys()):
             return 'Yes'
@@ -183,23 +173,10 @@ class Fridge:
             return 'The ingredient {} is not in the fridge at all !'.format(name)
 
     def check_recipe(self, recipe):
-        ingred_list = list(recipe.values())
-        ingred_recipe = list(ingred_list[0].keys())
-        ingred_in_fridge = list(self.ingredients.keys())
-        existing_ingredients = []
-        missing_ingredients = []
-        print('The recipe  ingredients are :', ingred_recipe)
-        print('Ingredients in the fridge are :', ingred_in_fridge)
 
-        for ingredient in ingred_recipe:
-            if ingredient in ingred_in_fridge:
-                existing_ingredients.append(ingredient)
-            else:
-                missing_ingredients.append(ingredient)
-
-        print('Existing ingredients are :', existing_ingredients)
-        print('The missing ingredients are:', missing_ingredients)
-
+        existing_items = list(filter(lambda x: x in self.ingredients, recipe.ingredients))
+        missing_items = list(filter(lambda x: x not in self.ingredients, recipe.ingredients))
+        return existing_items, missing_items
 
 
 def check_the_fridge(fridge, recipesbox):
@@ -217,24 +194,48 @@ def check_the_fridge(fridge, recipesbox):
         del ingred_in[0:len(recipesbox.recipe[recipe_index].ingredients)]
     print(recipes_list)
 
-archived_list =[]
+
 def archive_shopping_list(fnc):
     def archive_list(fridge, recipe):
-        print(fnc)
-        archived_list.append(fnc.__name__)
-        return archived_list
+        global shopping_list_archive
+        archived_list.append(fnc(fridge, recipe))
+        return fnc(fridge, recipe)
+
     return archive_list
 
+# def archive_shopping_list(fnc):
+#     def archive_list(fridge, recipe):
+#         shopping_list = fnc(fridge, recipe)
+#         if type(shopping_list) == dict:
+#             archived_list.append(shopping_list)
+#         return shopping_list
+#
+#     return archive_list
 
 
+def pretty_print_recipe(fnc):
+    def printer(fridge, recipe):
+        ingredients = fnc(fridge, recipe)
+        dash = '*' * 20
+        result = '{} \n{} \n{} \n '.format(dash, recipe, dash)
 
-#@archive_shopping_list
+        for index, values in enumerate(ingredients, start=1):
+            result += '\n{}.  {} :{} \n '.format(index, ingredients, ingredients[values])
+        result += '\n {}'.format(dash)
+        return result
 
+    return printer
+
+
+@pretty_print_recipe
+@archive_shopping_list
 def prepare_shopping_list(fridge, recipe):
+    ingr = fridge.check_recipe(recipe)
     shopping_list = {}
-    for ingred in recipe.ingredients:
-        # print(ingred)
-        # print(fridge.ingredients)
-        if ingred not in list(fridge.ingredients.keys()):
-            shopping_list[ingred] = recipe.ingredients[ingred]
-    return print(shopping_list)
+    if len(ingr[1]):
+        shopping_list.update({item: recipe.ingredients[item] for item in ingr[1]})
+    if len(ingr[0]):
+        for item in ingr[0]:
+            if recipe.ingredients[item] > fridge.ingredients[item]:
+                shopping_list.update({item: recipe.ingredients[item] - fridge.ingredients[item]})
+    return shopping_list
