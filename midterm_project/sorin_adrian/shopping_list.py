@@ -1,45 +1,31 @@
 from random import randrange
 
+
 class PrettyPrinterMixin:
 
+    def __init__(self, recipe_name=None):
+        self.recipe_name = recipe_name
+
     def __str__(self, dict_in):
-        # geting the value of the longest ingredient name
+        # select the right title to print
+        if self.__class__.__name__ == "Fridge":
+            title = self.__class__.__name__
+        else:
+            title = self.recipe_name
+
+        # geting the value of the longest ingredient name or title
         keys_list = list(dict_in.keys())
+        keys_list.append(title)
         max1 = len(max(keys_list, key=len)) + 8
 
-        return (f'{"*" * (max1 + 6)}\n'), max1
+        # formating the header/footer
+        header = footer = f'{"*" * (max1 + 6)}'
 
+        # create the print title
+        print_string = f'\n{header}\n*{title.center(max1 + 4)}*\n{header}\n*{" " * (max1 + 4)}*\n'
 
-class Recipe(PrettyPrinterMixin):
-
-    def __init__(self, recipe_name=None, recipe_ingredients=None):
-        self.recipe_name = recipe_name
-        self.recipe_ingredients = recipe_ingredients
-        self._recipe = {self.recipe_name: self.recipe_ingredients}
-
-    def __repr__(self):
-        print_string = f'{self.recipe_name}: {self.recipe_ingredients}'
-        return  print_string
-
-    def __str__(self):
-        header, max1 = PrettyPrinterMixin.__str__(self, self.recipe_ingredients)
-        ingredients_dict = self._recipe[self.recipe_name].items()
-        # heder , title of recipe
-        print_string = ''.join(
-            (
-                '\n',
-                header,
-                '*',
-                self.recipe_name.center(max1 + 4),
-                '*\n',
-                header,
-                '*',
-                ' ' * (max1 + 4),
-                '*',
-                '\n'
-            )
-        )
-        # content of recipe
+        # adding the ingredients for printing
+        ingredients_dict = dict_in.items()
         for counter, ingred_quant in enumerate(ingredients_dict, 1):
             ingred_quant_print = f'{ingred_quant[0].title()} : {ingred_quant[1]}'
 
@@ -49,8 +35,28 @@ class Recipe(PrettyPrinterMixin):
                     f'* {counter}. {ingred_quant_print.ljust(max1)}*\n'
                 )
             )
-        # text format and footer
-        print_string = f'\033[90m\x1B[3m{print_string}*{" " * (max1 + 4)}*\n{header}\033[0m'
+
+        # text format (colr, font style) and footer adding
+        print_string = f'\033[90m\x1B[3m{print_string}*{" " * (max1 + 4)}*\n{footer}\033[0m'
+
+        return print_string
+
+
+class Recipe(PrettyPrinterMixin):
+
+    def __init__(self, recipe_name=None, recipe_ingredients=None, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.recipe_name = recipe_name
+        self.recipe_ingredients = recipe_ingredients
+        self._recipe = {self.recipe_name: self.recipe_ingredients}
+
+    def __repr__(self):
+        print_string = f'{self.recipe_name}: {self.recipe_ingredients}'
+        return print_string
+
+    def __str__(self, *args):
+        # create the string for printing with mixin class and for the proper data in
+        print_string = PrettyPrinterMixin.__str__(self, self.recipe_ingredients)
 
         return print_string
 
@@ -72,10 +78,10 @@ class Recipe(PrettyPrinterMixin):
     def values(self):
         return self._recipe.values()
 
-    def items (self):
+    def items(self):
         return self._recipe.items()
 
-   # def __get__(self, instance, owner):
+# def __get__(self, instance, owner):
 
 
 class RecipesBox:
@@ -84,24 +90,13 @@ class RecipesBox:
         self._recipebox_list = []
 
     def __str__(self):
-
         print_string = ''
+
         for recipe in self._recipebox_list:
-            recipe_print = f'{recipe.recipe_name}\n'
-            print_string = ''.join((print_string, recipe_print))
+            recipe_title = f'{recipe.recipe_name}\n'
+            print_string = ''.join((print_string, recipe_title))
 
-        # for key in self._recipebox_dict:
-        #     keys = list(self._recipebox_dict[key].keys())
-        #     values_print = ''
-        #     for key2 in keys:
-        #         values_line = f'{" " * (len(key) + 5) + key2} : {self._recipebox_dict[key][key2]}\n'
-        #         values_print = ''.join((values_print, values_line))
-        #     print_line = f'{key} - \n{values_print}\n'
-        #     print_string = ''.join((print_string, print_line))
-        return  print_string
-
-
-    # def update(self, *args, **kwargs):    #     self._recipebox_dict.update(*args, **kwargs)
+        return print_string
 
     def __len__(self):
         return len(self._recipebox_list)
@@ -148,47 +143,19 @@ class RecipesBox:
         else:
             max_rand_no = len(self._recipebox_list)
             index = randrange(0, max_rand_no, 1)
-            print(index)
 
         return self._recipebox_list.pop(index)
-
 
 
 class Fridge(PrettyPrinterMixin):
 
     def __init__(self):
+        super().__init__()
         self._fridge = {}
 
-    def __str__(self):
-        header, max1 = PrettyPrinterMixin.__str__(self, self._fridge)
-        ingredients_dict = self._fridge.items()
-        # heder , title of recipe
-        print_string = ''.join(
-            (
-                '\n',
-                header,
-                '*',
-                self.__class__.__name__.center(max1 + 4),
-                '*\n',
-                header,
-                '*',
-                ' ' * (max1 + 4),
-                '*',
-                '\n'
-            )
-        )
-        # content of recipe
-        for counter, ingred_quant in enumerate(ingredients_dict, 1):
-            ingred_quant_print = f'{ingred_quant[0].title()} : {ingred_quant[1]}'
-
-            print_string = ''.join(
-                (
-                    print_string,
-                    f'* {counter}. {ingred_quant_print.ljust(max1)}*\n'
-                )
-            )
-        # text format and footer
-        print_string = f'\033[90m\x1B[3m{print_string}*{" " * (max1 + 4)}*\n{header}\033[0m'
+    def __str__(self, *args):
+        # create the string for printing with mixin class and for the proper data in
+        print_string = PrettyPrinterMixin.__str__(self, self._fridge)
 
         return print_string
 
@@ -210,7 +177,7 @@ class Fridge(PrettyPrinterMixin):
     def values(self):
         return self._fridge.values()
 
-    def items (self):
+    def items(self):
         return self._fridge.items()
 
     def __get__(self, instance, owner):
@@ -251,31 +218,97 @@ class Fridge(PrettyPrinterMixin):
 
 
 def check_the_fridge(fridge, recipes_box):
-
     viable_recipes_list = RecipesBox()
-    ingredients_fridge_list = list(fridge.keys())
+    # ingredients_fridge_list = list(fridge.keys())
 
     for recipe in recipes_box:
-
+        # geting the rcipe ingredients list and their count
         recipe_ingredients = recipe[recipe.recipe_name]
         ingredients_recipe_list = list(recipe_ingredients.keys())
         ingredients_recipe_no = len(ingredients_recipe_list)
 
+        # geting the list of igredients in the fridge for a specified recipe , and how many are in stock
         ingredients_recipe_in, _ = fridge.check_recipe(recipe)
         ingredients_in_no = len(ingredients_recipe_in)
 
+        # check in if there are in the fridge at least half of recipe ingredients
         if ingredients_in_no >= ingredients_recipe_no / 2:
             viable_recipes_list.append(recipe)
 
     return viable_recipes_list
 
+
+def pretty_print_recipe(fnc):
+
+    def inner_func(fridge, recipe):
+
+        ingredients_dict = fnc(fridge, recipe)
+
+        if type(ingredients_dict) == dict:
+
+            title = f'{recipe.recipe_name} - Shopping List'
+
+            header = f"""
+                    \r  /{"= =" * 12}\\
+                    \r /={"= =" * 12}=\\
+                    \r|| {"  " * 18} ||
+                    \r|| \033[34m\033[01m{title.center(36)}\033[0m ||
+                    \r|| {"= " * 18}=||
+                    \r|| {"  " * 18} ||\n"""
+
+            body = ''
+            empty_lines = 0
+
+            for counter, ingred_quant in enumerate(ingredients_dict, 1):
+                ingred_quant_print = f'{ingred_quant} : {ingredients_dict[ingred_quant]}'
+                body = ''.join(
+                    (
+                        body,
+                        f'|| \033[90m\x1B[3m{counter}. {ingred_quant_print.ljust(34)}\033[0m||\n'
+                    )
+                )
+                empty_lines = 16 - counter
+
+            empty_part = f'||{" " * 38}||\n'
+            empty_part = empty_part * (empty_lines)
+            logo = f"""||{" " * 38}||
+                     \r||{" " * 19} // ""--.._        ||
+                     \r||{" " * 19}||  (_)  _ "-._    ||
+                     \r||{" " * 19}||    _ (_)    '-_ ||
+                     \r||{" " * 19}||   (_)   __..-'  ||
+                     \r||{" " * 19} \__..--""         ||
+                    """
+            footer = f"""\r \={"= =" * 12}=/  
+                         \r  \{"= =" * 12}/
+                     """
+            result_tuple = (header, body, empty_part, logo, footer)
+            result = ''.join(result_tuple)
+
+        else:
+            result = f'\nFor {recipe.recipe_name} all ingredients are in fridge'
+
+        return result
+
+    return inner_func
+
+
+def c(fnc):
+    def inner_func_2(fridge, recipe):
+        shopping_list = fnc(fridge, recipe)
+        if type(shopping_list) == dict:
+            shopping_list_archive.append(shopping_list)
+
+        return shopping_list
+
+    return inner_func_2
+
+
+@pretty_print_recipe
+@c
 def prepare_shopping_list(fridge, recipe):
-
-    shopping_list = Fridge()
+    shopping_list = {}
     recipe_ingred_dict = recipe[recipe.recipe_name]
-
-    print('fridge:', fridge)
-    print('recipe:', recipe_ingred_dict)
+    message = ''
 
     for ingredient, quantity in recipe_ingred_dict.items():
 
@@ -288,138 +321,9 @@ def prepare_shopping_list(fridge, recipe):
 
             shopping_list.update({ingredient: quantity})
 
-    return shopping_list if shopping_list else f'For {recipe.recipe_name} there are all the ingredients'
+        message += f'For {recipe.recipe_name} there are all the ingredients in the fridge'
+
+    return shopping_list if shopping_list else message
 
 
-
-
-
-burger_ingredients = {
-    'bun': 1,
-    'ground beef': 1,
-    'ceedar cheese': 0.5,
-    'onion' : 2,
-    'salad': 1,
-    'sauce': 2
-}
-
-hot_dog_ingredients = {
-    'bun': 1,
-    'sausage': 1,
-    'mustard': 0.5,
-    'ketchup': 0.5
-}
-
-ribs_and_potato_ingredients = {
-    'ribs': 2,
-    'potato': 1,
-    'chilli_sauce': 0.5,
-    'garlic_sauce': 0.5,
-    'pickles': 1
-}
-
-print('\n\033[34m RECIPES \033[0m\n')
-
-burger = Recipe("Beef Burger", burger_ingredients)
-print(burger)
-#print(burger.__repr__())
-
-hot_dog = Recipe('Hot Dog', hot_dog_ingredients)
-print(hot_dog)
-#print(hot_dog.__repr__())
-
-ribs_and_poato = Recipe('Ribs and Potato', ribs_and_potato_ingredients)
-print(ribs_and_poato)
-#print(ribs_and_poato.__repr__())
-
-print('\n\033[34m RECIPES BOX \033[0m\n')
-
-recipes_box = RecipesBox()
-recipes_box.append(burger)
-recipes_box.append(hot_dog)
-recipes_box.append(ribs_and_poato)
-print(recipes_box)
-
-
-print('\n\033[34m FRIDGE \033[0m\n')
-
-
-fridge = Fridge()
-fridge.update([['mustard', 10]])
-fridge.update([['ketchup', 10]])
-fridge.update({'bun': 100})
-fridge.update({'sausage': 100})
-fridge.update({'onion': 100})
-fridge.update({'salad': 100})
-fridge.update({'potato': 50})
-fridge.update({'garlic_sauce': 35})
-fridge.update({'ribs': 1})
-
-print(fridge)
-
-print('\n\033[34m IS ... IN THE FRIDGE ? \033[0m\n')
-
-ingredient_test_list = ['mustard', 'onion', 'ground beef']
-for ingredient in ingredient_test_list:
-    print(f'Is {ingredient} in the fridge?')
-    if ingredient in fridge:
-        print('yap')
-    else:
-        print('nope')
-
-print('\n\033[34m UPDATE INGREDIENTS IN FRIGE \033[0m\n')
-
-print('Fridge intial: ', fridge)
-
-fridge.update_quantity('bun', 15)
-fridge.update_quantity('potato', 100)
-print('+ 15 buns and + 100 potato : ', fridge)
-
-print('- 150 buns: ')
-fridge.update_quantity('bun', -150)
-print(fridge)
-
-print('\n\033[34m CHECK RECIPE \033[0m\n')
-
-fridge.update({'bun': 100})
-for recipe in recipes_box:
-    #print(recipe)
-    print('\ncheck_recipe for ', recipe.recipe_name)
-    print(recipe)
-    print(fridge)
-    ingred_in, ingred_off = fridge.check_recipe(recipe)
-    print('\nIngred present: ', ingred_in)
-    print('Ingred missing: ', ingred_off)
-
-
-# print('***')
-# print(recipe_box)
-# # for x in recipe_box:
-# #     print(x)
-# print(burger)
-# print(hot_dog)
-# print(fridge)
-# print(check_the_fridge(fridge, recipe_box))
-# print("www")
-# print('Sh.L:', prepare_shopping_list(fridge, burger))
-#
-#
-# # print(len(hot_dog))
-# # print('aaa', recipe_box)
-# #
-# # #recipe_box.remove(hot_dog)
-# # a = recipe_box.pick()
-# # print(a)
-# # print(type(a))
-# # print('aaa', recipe_box)
-#
-#
-#
-# # ingredients = list(burger.keys())
-# #
-# # if 'milk' in fridge:
-# #     print('yap')
-# #
-#
-#
-
+shopping_list_archive = []
