@@ -6,32 +6,43 @@ from lesson_15.edmond_sabou import home1_les13
 class TestPoligons(unittest.TestCase):
 
     def test_if_side_is_not_none(self):
-        sides = home1_les13.Polygon = 1
+        sides = 1
 
-        self.assertIsInstance(sides, int, "Value cannot be of type None")
+        i = home1_les13.Polygon(sides)
+
+        self.assertIsNotNone(sides, "Value cannot be None!")
 
     def test_if_value_is_not_string(self):
-        sides = home1_les13.Polygon = 10
+        sides1, side2, side3, side4 = 1, 2, 2, 3
 
-        assert isinstance(sides, int)
+        i = home1_les13.Polygon(sides1, side2, side3, side4)
+
+        assert isinstance((sides1, side2, side3, side4), int)
 
     def test_if_triangle_has_3_sides(self):
-        sides = home1_les13.Triangle = 1, 2, 3
+        sides = 1, 2, 3
 
-        length = len(sides)
+        len_sides = len(sides)
 
-        self.assertEqual(length, 3, "Triangle must have 3 sides")
+        i = home1_les13.Triangle(sides)
+
+        self.assertEqual(len_sides, 3, "Triangle must have 3 sides")
 
     def test_if_square_has_4_sides(self):
-        sides = home1_les13.Square = 4
+        sides = 1, 2, 3, 4
 
-        self.assertIs(sides, 4, "Square must have 4 sides")
+        len_sides = len(sides)
+
+        i = home1_les13.Square(sides)
+
+        self.assertEqual(len_sides, 4, "Square must have 4 sides")
 
     def test_if_sides_are_not_negative(self):
-        sides = home1_les13.Polygon = 10, 1, 2, -4, 4
+        sides = 1, 2, 3, 4, -56
 
-        for x in sides:
-            self.assertIsNot(x, -4, "Cannot have negative values")
+        i = home1_les13.Polygon(sides)
+
+        self.assertIsNot(sides, -56, "Cannot have negative values")
 
 
 if __name__ == "__main__":
