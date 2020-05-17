@@ -28,7 +28,7 @@ class Square(Polygon):
     @classmethod
     def from_area(cls, sq):
         sq = sqrt(sq)
-        return sq
+        return cls(sq, sq, sq, sq)
 
 
 class Perimeter:
@@ -51,7 +51,6 @@ class Triangle(Polygon, Perimeter):
 
 
 p = Polygon(3, 4, 5, 5, 7, 8, 9)
-
 
 t = Triangle(3, 4, 5)
 print(t.area())
