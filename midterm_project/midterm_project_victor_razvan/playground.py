@@ -1,34 +1,70 @@
-from shopping_list import *  # thanks to Mihaela for the recipes
+from shopping import *
 
-mac_and_cheese = Recipe('Famous Mac and cheese', {'macaroni': 3, 'egg': 3, 'milk': 0.5, 'cheese': 1, 'sugar': 3})
+
+mac_and_cheese_ingredients = {
+    'macaroni': 1,
+    'soft cheese': 0.5,
+    'cheddar': 0.5,
+    'salt': 0.1,
+}
+
+mac_and_cheese = Recipe(
+    "Famous Mac & Cheese",
+    mac_and_cheese_ingredients
+)
+
 print(mac_and_cheese)
-cheesecake = Recipe('Cheesecake', {'flour': 1, 'milk': 1, 'egg': 3, 'cocoa': 1, 'sugar': 1, 'strawberry': 2})
-banana_bread = Recipe('Banana bread', {'flour': 1, 'yogurt': 1, 'banana': 2, 'honey': 1, 'cocoa': 1, 'sugar': 1})
-fries = Recipe('Fries', {'potato': 1, 'oil': 1, 'salt': 1, 'cheese': 1})
-# print(fries)
-# print(fries.values())
-home_made_chocolate = Recipe('Home made chocolate', {'milk': 2, 'cocoa': 1, 'sugar': 2, 'vanilla': 1, 'nut': 1})
-# print(mac_and_cheese)
-# print(fries)
 
-recipesbox = RecipeBox(cheesecake, banana_bread, home_made_chocolate, mac_and_cheese)
-print(recipesbox)
-recipesbox.add_recipe(fries)
-print(recipesbox)
-recipesbox.delete_recipe(cheesecake)
-print(recipesbox)
-#
-print(recipesbox.pick(fries))
+ingredients = list(mac_and_cheese.keys())
+print(ingredients)
+print(list(mac_and_cheese.values()))
+print(list(mac_and_cheese.items))
+print(('salt' in mac_and_cheese))
+print(len(mac_and_cheese))
 
-recipesbox.add_recipe(recipesbox.pick(cheesecake))
-print(recipesbox)
+mac = Recipe(
+    "Not so Famous Mac & Cheese",
+    {
+        'bun': 1,
+        'meat': 1,
+        'mustard': 0.1,
+        'mayo': 0.2,
+        'cheddar': 0.3,
+    }
+)
 
-fridge = Fridge({'milk': 4, 'potato': 3, 'egg': 2, 'banana': 10, 'sugar': 3, 'macaroni': 2, 'cocoa': 2})
-print(fridge)
-print(fridge.check_ingredient('milk'))
+print((mac_and_cheese == mac))
+print((mac_and_cheese != mac))
+print(mac_and_cheese['salt'])
+print(mac_and_cheese.get('salt'))
 
-print(fridge.check_recipe(fries))
+retetar = RecipeBox(mac_and_cheese, mac)
+retetar.append(mac)
+print('the end')
 
+un_frigider = Fridge({
+    'macaroni': 0.5,
+    'soft cheese': 2,
+    'cheddar': 0.5,
+    'yeast': 0.1,
+    'mustard': 0.1,
+    'mayo': 0.2,
+})
+print(un_frigider)
 
-fridge = Fridge({'milk': 4, 'potato': 3, 'egg': 2, 'banana': 10, 'sugar': 3, 'macaroni': 2, 'cocoa': 2})
+if 'milk' in un_frigider:
+    print('yap - milk')
+if 'salt' in un_frigider:
+    print('yap - salt')
 
+un_frigider.update({'water':11, 'onions':4})
+print(un_frigider)
+
+print('check_recipe')
+print(un_frigider.check_recipe(mac_and_cheese))
+
+print('prepare_shopping_list')
+print(prepare_shopping_list(un_frigider, mac_and_cheese))
+
+print('check_the_fridge')
+print(check_the_fridge(un_frigider, retetar))
