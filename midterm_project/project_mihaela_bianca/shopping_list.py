@@ -5,14 +5,28 @@ archived_list = []
 
 pp = pprint.PrettyPrinter(indent=4)
 
-# shopping_list_archive = []
+__header__ = '''
+   ______________________________
+ / \                             \.
+|   |                            |.
+ \_ |                            |.
+    |                            |.
+'''
+__footer__ = r'''
+    |                            |.
+    |   _________________________|___
+    |  /                            /.
+    \_/____________________________/.
+'''
 
 
 class PrettyPrinterMixin:
 
     def pp_print_recipe(self):
-        global pp
+
         pp.pprint(super().__str__())
+
+
 
 
 class Recipe(PrettyPrinterMixin):
@@ -197,38 +211,34 @@ def check_the_fridge(fridge, recipesbox):
 
 def archive_shopping_list(fnc):
     def archive_list(fridge, recipe):
-        global shopping_list_archive
         archived_list.append(fnc(fridge, recipe))
         return fnc(fridge, recipe)
 
     return archive_list
 
-# def archive_shopping_list(fnc):
-#     def archive_list(fridge, recipe):
-#         shopping_list = fnc(fridge, recipe)
-#         if type(shopping_list) == dict:
-#             archived_list.append(shopping_list)
-#         return shopping_list
-#
-#     return archive_list
-
 
 def pretty_print_recipe(fnc):
-    def printer(fridge, recipe):
-        ingredients = fnc(fridge, recipe)
-        dash = '*' * 20
-        result = '{} \n{} \n{} \n '.format(dash, recipe, dash)
+    def wrapper(fridge, recipe):
+        shopping_list = fnc(fridge, recipe).items()
+        list_str = "\n".join(["\t| {0}. {1}: {2} {3}|.".format(
+            index + 1, key, value, (22 - (len(str(index + 1)) + len(str(key)) + len(str(value)))) * " ")
+            for index, (key, value) in enumerate(shopping_list)])
+        print("".join([
+            __header__,
+            "\t| \t\tShopping list: \t\t |. \n",
+            "\t| \t\t\t\t\t\t\t |.\n",
+            "\t| \t\t\t\t\t\t\t |.\n",
+            list_str,
+            __footer__
+        ]))
+        return fnc(fridge, recipe)
+    return wrapper
 
-        for index, values in enumerate(ingredients, start=1):
-            result += '\n{}.  {} :{} \n '.format(index, ingredients, ingredients[values])
-        result += '\n {}'.format(dash)
-        return result
-
-    return printer
 
 
-@pretty_print_recipe
+
 @archive_shopping_list
+@pretty_print_recipe
 def prepare_shopping_list(fridge, recipe):
     ingr = fridge.check_recipe(recipe)
     shopping_list = {}

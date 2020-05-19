@@ -1,10 +1,10 @@
 from shopping_list import *
 
-mac_and_cheese = Recipe('Mac and cheese', {'macaroni': 3, 'egg': 3, 'milk': 0.5, 'cheese': 1, 'sugar':3} )
+mac_and_cheese = Recipe('Mac and cheese', {'macaroni': 3, 'egg': 3, 'milk': 0.5, 'cheese': 1, 'sugar': 3})
 mac_and_cheese.display()
 cheesecake = Recipe('Cheesecake', {'flour': 1, 'milk': 1, 'egg': 3, 'cocoa': 1, 'sugar': 1, 'strawberry': 2})
 cheesecake.display()
-banana_bread = Recipe('Banana bread', {'flour': 1, 'yogourt': 1, 'banana': 2, 'honey': 1, 'cocoa':1, 'sugar':1})
+banana_bread = Recipe('Banana bread', {'flour': 1, 'yogourt': 1, 'banana': 2, 'honey': 1, 'cocoa': 1, 'sugar': 1})
 banana_bread.display()
 fries = Recipe('Fries', {'potato': 1, 'oil': 1, 'salt': 1, 'cheese': 1})
 fries.display()
@@ -53,8 +53,9 @@ print(recipesbox)
 print('************************')
 check_the_fridge(fridge, recipesbox)
 print('************************')
-prepare_shopping_list(fridge, fries)
+print(prepare_shopping_list(fridge, fries))
+print(archived_list)  # archive  shopping list decorator
 
-prepare_shopping_list(fridge, cheesecake)
-
-
+print('************************')
+print(prepare_shopping_list(fridge, cheesecake))
+print(archived_list)
