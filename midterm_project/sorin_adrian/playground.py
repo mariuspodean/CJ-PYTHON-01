@@ -43,6 +43,15 @@ pizza_ingredients = {
     'rucola': 0.5
 }
 
+pasta_carbonara_ingredients = {
+    'pasta': 2,
+    'bacon': 1,
+    'sour_cream': 0.5,
+    'egg': 1,
+    'parmegiano': 0.5,
+    'olivee_oil': 0.5
+}
+
 # create instances for each recipe by its title and dict of ingredients
 print('\n\033[34m RECIPES \033[0m\n')
 
@@ -66,6 +75,10 @@ pizza = Recipe('Pizza Prociutto Crudo', pizza_ingredients)
 print(pizza)
 # print(pizza.__repr__())
 
+pasta_carbonara = Recipe('Pasta carbonara', pasta_carbonara_ingredients)
+print(pasta_carbonara)
+# print(pasta_carbonara.__repr__())
+
 # create the recipes_box database as a RecipesBox instance , and add recipes in
 print('\n\033[34m RECIPES BOX \033[0m\n')
 
@@ -75,6 +88,7 @@ recipes_box.append(hot_dog)
 recipes_box.append(ribs_and_poato)
 recipes_box.append(english_breakfast)
 recipes_box.append(pizza)
+recipes_box.append(pasta_carbonara)
 print(recipes_box)
 
 # create the fridge, as an instance of Frige, and add ingredients in
@@ -90,6 +104,9 @@ fridge.update({'salad': 100})
 fridge.update({'potato': 50})
 fridge.update({'garlic_sauce': 35})
 fridge.update({'ribs': 1})
+fridge.update({'pasta': 10})
+fridge.update({'bacon': 15})
+fridge.update({'egg': 30})
 print(fridge)
 
 # test if an intredient is in the fridge
@@ -124,42 +141,37 @@ for recipe in recipes_box:
     print(recipe)
     print(fridge)
     ingred_in, ingred_off = fridge.check_recipe(recipe)
-    print('\nIngred present: ', ingred_in)
-    print('Ingred missing: ', ingred_off)
+    print('\nIngredients present: ', ingred_in)
+    print('Ingredients missing: ', ingred_off)
 
 # check the fridge if has ingredients for recipes, return a list of recipes
 # for wich there are at lest half of ingredients im the fridge
 print('\n\033[34m CHECK THE FRIDGE \033[0m\n')
 
 viable_recipes_box = check_the_fridge(fridge, recipes_box)
-print(f'For next recipes there are at least half of ingredients in the fridge:\n\n{viable_recipes_box}')
+print(f'For next recipes there are at least half of ingredients in the fridge:\n')
+for recipe in viable_recipes_box:
+    print(f'- {recipe}')
 
 # test pick a recipe
 print('\n\033[34m PICK A RECIPE \033[0m\n')
 
-print(f'Initial recipes box:\n\n{recipes_box}\n')
 recipe = recipes_box.pick(english_breakfast)
 print(f'You pick {recipe.recipe_name} recipe =>\n{recipe}')
-print(f'Final recipes box:\n\n{recipes_box}\n')
-recipes_box.append(english_breakfast)
 
 # test pick a random recipe
 print('\n\033[34m PICK A RANDOM RECIPE 2 TIMES \033[0m\n')
-
 for x in range(2):
-    print(f'Initial recipes box:\n{"-" * 20}\n\n{recipes_box}')
     random_recipe = recipes_box.pick()
     print(f'Pick a random recipe =>\n{random_recipe}\n')
-    print(f'Final recipes box:\n\n{recipes_box}\n')
-    recipes_box.append(random_recipe)
 
 # check the fridge if contains all the necessary ingredients for a recipe,
 # if not print a fancy shopping list, and add this to a archive
 print('\n\033[34m PREPARE SHOPPING LIST FOR ALL RECIPES \033[0m\n')
 
 for recipe in recipes_box:
-    shopping_list = prepare_shopping_list(fridge, recipe)
-    print(f'\nShopping List for {recipe.recipe_name}:\n{shopping_list}\n')
+    print(f'\nShopping List for {recipe.recipe_name}:\n')
+    prepare_shopping_list(fridge, recipe)
 
 # print the sopping lists archive
 print('\n\033[34m SHOPPING LIST ARCHIVE \033[0m\n')
