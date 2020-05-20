@@ -1,8 +1,4 @@
-from shopping_list_archive import *
-import random
-
-annotations = ["-", "*", "+", "-"]
-annotate = random.choice(annotations) * 25
+from midterm_project import shopping_list_archive
 
 mac_and_cheese_ingredients = {
     'macaroni': 1,
