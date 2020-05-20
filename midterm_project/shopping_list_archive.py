@@ -1,6 +1,11 @@
 import random
 
-shopping_list_archive=list()
+annotations = ["-", "*", "+", "-"]
+annotate = random.choice(annotations) * 25
+
+shopping_list_archive = list()
+
+
 class PrintMixin:
 
     def display_print(self):
@@ -38,6 +43,9 @@ class Recipe(PrintMixin):
     def __contains__(self, item):
         return item in self._ingredients
 
+    def __repr__(self):
+        return self._name
+
 
 class RecipeBox:
 
@@ -52,7 +60,7 @@ class RecipeBox:
         if name in self.recipes:
             return name
         else:
-            return self.recipes[random.choice(self.recipes)]
+            return random.choice(self.recipes)
 
     def add(self, recipe):
         self.recipes.append(recipe)
@@ -114,3 +122,4 @@ class Fridge(PrintMixin):
     def archive_shopping_list(fnc):
         return shopping_list_archive.update(fnc)
         pass
+
