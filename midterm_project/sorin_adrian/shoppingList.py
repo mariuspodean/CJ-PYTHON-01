@@ -52,7 +52,6 @@ class Recipe(PrettyPrinterMixin):
     def __init__(self, recipe_name=None, recipe_ingredients=None):
         self.recipe_name = recipe_name
         self.recipe_ingredients = recipe_ingredients
-        # self._recipe = {self.recipe_name: self.recipe_ingredients}
 
     def __repr__(self):
         print_string = f'{self.recipe_name}: {self.recipe_ingredients}'
@@ -88,11 +87,9 @@ class RecipesBox:
 
     def __str__(self):
         print_string = ''
-
         for recipe in self._recipesbox_list:
             recipe_title = f'{recipe.recipe_name}\n'
             print_string = ''.join((print_string, recipe_title))
-
         return print_string
 
     def __len__(self):
@@ -150,7 +147,7 @@ class Fridge(PrettyPrinterMixin):
         return len(self._fridge)
 
     def __contains__(self, item):
-        return item in self._fridge
+        return item in self._fridge.keys()
 
     def __delitem__(self, key):
         del self._fridge[key]
@@ -189,20 +186,15 @@ class Fridge(PrettyPrinterMixin):
         return ingredients_in if ingredients_in else message_2, ingredients_off if ingredients_off else message
 
 
-"""
-function check the fridge, for all recipes, if there are in the fridge at least half of the ingredients required
-and print the list with all the recipes that satisfies the condition
-"""
-
-
+# function check the fridge, for all recipes, if there are in the fridge at least half of the ingredients required
+# and print the list with all the recipes that satisfies the condition
 def check_the_fridge(fridge, recipes_box):
     viable_recipes_list = [
         recipe.recipe_name
         for recipe in recipes_box
-        for ingredients_recipe_in, x in [fridge.check_recipe(recipe)]
+        for ingredients_recipe_in, _ in [fridge.check_recipe(recipe)]
         if len(ingredients_recipe_in) >= len(recipe.recipe_ingredients) / 2
     ]
-
     return viable_recipes_list
 
 
@@ -212,7 +204,7 @@ def archive_shopping_list(fnc2):
         shopping_list = fnc2(fridge, recipe)
         time_now = time.localtime()
         date_today = time.strftime('%d %m %Y', time_now)
-        # shopping_list = Recipe(recipe.recipe_name, missing_ingredients)
+
         if type(shopping_list) == dict:
             shopping_list_archive.append((date_today, recipe.recipe_name, shopping_list))
 
@@ -224,7 +216,6 @@ def archive_shopping_list(fnc2):
 # decorator for nicely print the shopping list
 def pretty_print_recipe(fnc_1):
     def inner_func_1(fridge, recipe):
-
         ingredients_dict = fnc_1(fridge, recipe)
         time_now = time.localtime()
         date_today = time.strftime('%d %m %Y', time_now)
@@ -271,9 +262,7 @@ def pretty_print_recipe(fnc_1):
 
         else:
             result = ingredients_dict
-
         print(result)
-
         return ingredients_dict
 
     return inner_func_1

@@ -4,20 +4,18 @@ from midterm_project.sorin_adrian.shoppingList import Recipe, RecipesBox, Fridge
 # create the ingredients dict for multiple recipes, containing name an quantity of an ingredient
 burger_ingredients = {
     'bun': 1,
-    'ground beef': 1,
-    'ceedar cheese': 0.5,
+    'ground_beef': 1,
+    'ceedar_cheese': 0.5,
     'onion': 2,
     'salad': 1,
     'smoked_sauce': 2
 }
-
 hot_dog_ingredients = {
-    'bun': 1,
-    'sausage': 1,
-    'mustard': 0.5,
-    'ketchup': 0.5
+            'bun': 1,
+            'sausage': 1,
+            'mustard': 0.5,
+            'ketchup': 0.5
 }
-
 ribs_and_potato_ingredients = {
     'ribs': 2,
     'potato': 1,
@@ -25,7 +23,6 @@ ribs_and_potato_ingredients = {
     'garlic_sauce': 0.5,
     'pickles': 1
 }
-
 english_breakfast_ingredients = {
     'ham': 1,
     'egg': 2,
@@ -34,7 +31,6 @@ english_breakfast_ingredients = {
     'tomatos': 1,
     'salad': 0.5
 }
-
 pizza_ingredients = {
     'dough': 1,
     'tomato_sauce': 1,
@@ -42,7 +38,6 @@ pizza_ingredients = {
     'prosciutto': 4,
     'rucola': 0.5
 }
-
 pasta_carbonara_ingredients = {
     'pasta': 2,
     'bacon': 1,
@@ -149,7 +144,7 @@ for recipe in recipes_box:
 print('\n\033[34m CHECK THE FRIDGE \033[0m\n')
 
 viable_recipes_box = check_the_fridge(fridge, recipes_box)
-print(f'For next recipes there are at least half of ingredients in the fridge:\n')
+print(f'For next recipes there has at least half of ingredients in the fridge:\n')
 for recipe in viable_recipes_box:
     print(f'- {recipe}')
 
