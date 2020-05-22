@@ -29,6 +29,7 @@ recipesbox.delete_recipe(recipesbox.pick())
 recipesbox.add_recipe(recipesbox.pick(cheesecake))
 recipesbox.add_recipe(recipesbox.pick())
 
+print("********Fridge**********")
 fridge = Fridge({'milk': 4, 'potato': 3, 'egg': 2, 'banana': 10, 'sugar': 3, 'macaroni': 2, 'cocoa': 2})
 print(fridge)
 fridge.check_ingredient('milk')
@@ -53,9 +54,9 @@ print(recipesbox)
 print('************************')
 check_the_fridge(fridge, recipesbox)
 print('************************')
-print(prepare_shopping_list(fridge, fries))
-print(archived_list)  # archive  shopping list decorator
+prepare_shopping_list(fridge, fries)
+#print(archived_list)  # archive  shopping list decorator
 
 print('************************')
-print(prepare_shopping_list(fridge, cheesecake))
-print(archived_list)
+prepare_shopping_list(fridge, cheesecake)
+

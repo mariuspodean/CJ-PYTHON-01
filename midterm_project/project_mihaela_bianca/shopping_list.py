@@ -1,9 +1,6 @@
 import random
-import pprint
 
 archived_list = []
-
-pp = pprint.PrettyPrinter(indent=4)
 
 __header__ = '''
    ______________________________
@@ -22,11 +19,13 @@ __footer__ = r'''
 
 class PrettyPrinterMixin:
 
-    def pp_print_recipe(self):
-
-        pp.pprint(super().__str__())
-
-
+    def __str__(self):
+        dash = '*' * 30
+        result = ' {} \n{} \n{} \n '.format(dash, 'It contains: ', dash)
+        for index, ingred in enumerate(self.ingredients, start=1):
+            result += '\n{}  {} :{} \n '.format(index, ingred, self.ingredients[ingred])
+        result += '\n {}'.format(dash)
+        return result
 
 
 class Recipe(PrettyPrinterMixin):
@@ -51,15 +50,15 @@ class Recipe(PrettyPrinterMixin):
     def __len__(self):
         return len(self.recipe)
 
-    def __str__(self):
+    # def __str__(self):
 
-        dash = '*' * 30
-        result = ' {} \n{} \n{} \n '.format(dash, 'Famous ' + self.name, dash)
-
-        for index, ingredients in enumerate(self.ingredients, start=1):
-            result += '\n{}  {} :{} \n '.format(index, ingredients, self.ingredients[ingredients])
-        result += '\n {}'.format(dash)
-        return result
+    # dash = '*' * 30
+    # result = ' {} \n{} \n{} \n '.format(dash, 'Famous ' + self.name, dash)
+    #
+    # for index, ingredients in enumerate(self.ingredients, start=1):
+    #     result += '\n{}  {} :{} \n '.format(index, ingredients, self.ingredients[ingredients])
+    # result += '\n {}'.format(dash)
+    # return result
 
     def keys(self):
         return self.recipe.keys()
@@ -141,13 +140,13 @@ class Fridge(PrettyPrinterMixin):
         if len(self.ingredients) < 5:
             raise Exception('The ingredients number should be  at least 5 !')
 
-    def __str__(self):
-        dash = '*' * 30
-        result = ' {} \n{} \n{} \n '.format(dash, 'The fridge contains: ', dash)
-        for index, ingred in enumerate(self.ingredients, start=1):
-            result += '\n{}  {} :{} \n '.format(index, ingred, self.ingredients[ingred])
-        result += '\n {}'.format(dash)
-        return result
+    # def __str__(self):
+    #     dash = '*' * 30
+    #     result = ' {} \n{} \n{} \n '.format(dash, 'The fridge contains: ', dash)
+    #     for index, ingred in enumerate(self.ingredients, start=1):
+    #         result += '\n{}  {} :{} \n '.format(index, ingred, self.ingredients[ingred])
+    #     result += '\n {}'.format(dash)
+    #     return result
 
     def __getitem__(self, item):
         return self.ingredients[item]
@@ -232,13 +231,12 @@ def pretty_print_recipe(fnc):
             __footer__
         ]))
         return fnc(fridge, recipe)
+
     return wrapper
 
 
-
-
-@archive_shopping_list
 @pretty_print_recipe
+@archive_shopping_list
 def prepare_shopping_list(fridge, recipe):
     ingr = fridge.check_recipe(recipe)
     shopping_list = {}
