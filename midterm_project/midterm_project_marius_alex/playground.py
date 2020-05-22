@@ -1,4 +1,5 @@
-from shopping_list import *
+from midterm_project.midterm_project_marius_alex.shopping_list import Recipe, RecipeBox, Fridge, check_fridge, \
+    prepare_shopping_list, shopping_archive
 
 mac_and_cheese_ingredients = {'macaroni': 1, 'cheese': 0.5, 'sour cream': 0.25, 'ham': 0.5}
 pizza_ingredients = {'pizza doe': 1, 'cheese': 0.5, 'peperoni': 0.5, 'tomato': 0.5}
@@ -31,11 +32,12 @@ recipe_box.add_recipe(salsa_chicken)
 recipe_box.del_recipe(fruit_salad)
 
 random_recipe = recipe_box.pick()
-print(f'Random recipe: {random_recipe}')
+print(f'Random recipe: \n{random_recipe}')
+print(recipe_box.pick(name='Pizza'))
 print(recipe_box)
 
 # showcasing Fridge class and implicitly the mixin class
-fridge = Fridge(fridge_content)
+fridge = Fridge("fridge", fridge_content)
 print(fridge)
 
 fridge.add_ingredient({'mold': 3})
@@ -54,3 +56,5 @@ check_fridge(fridge, recipe_box)
 
 prepare_shopping_list(fridge, salsa_chicken)
 prepare_shopping_list(fridge, fruit_salad)
+
+print(f'Shopping archive: {shopping_archive}')
