@@ -45,21 +45,26 @@ class TestRecipesBox(unittest.TestCase):
         print('End testing!')
 
     def test_recipesbox_init(self):
-        recipe = [fries, cheesecake, banana_bread, home_made_chocolate, mac_and_cheese]
-        recipesbox = RecipesBox(recipe)
-        assert hasattr(recipesbox, 'recipe'), 'Recipesbox has no recipe attributes'
+        recipes = fries, cheesecake, banana_bread, home_made_chocolate, mac_and_cheese
+        recipesbox = RecipesBox(recipes)
+        assert hasattr(recipesbox, 'recipes'), 'Recipesbox has no recipe attributes'
 
     def test_pick_named_recipe(self):
         fries = Recipe('Fries', {'potato': 1, 'oil': 1, 'salt': 1, 'cheese': 1})
-        recipesbox = RecipesBox([fries, cheesecake, banana_bread])
-        fries = recipesbox.pick(fries)
-        assert isinstance(fries, Recipe)
+        recipesbox = RecipesBox(fries, cheesecake, banana_bread)
 
-    # def test_pick_random_recipe(self):
-    #     recipesbox = RecipesBox([fries, cheesecake, banana_bread])
-    #     random_recipe = recipesbox.pick()
-    #     if random_recipe in recipesbox.recipe:
-    #         assert isinstance(random_recipe, Recipe)
+        self.assertEqual(recipesbox.pick(fries.name), fries)
+
+    def test_pick_random_recipe(self):
+        fries = Recipe('Fries', {'potato': 1, 'oil': 1, 'salt': 1, 'cheese': 1})
+        cheesecake = Recipe('Cheesecake', {'flour': 1, 'milk': 1, 'egg': 3, 'cocoa': 1, 'sugar': 1, 'strawberry': 2})
+        banana_bread = Recipe('Banana bread',
+                              {'flour': 1, 'yogourt': 1, 'banana': 2, 'honey': 1, 'cocoa': 1, 'sugar': 1})
+
+        recipesbox = RecipesBox(fries, cheesecake, banana_bread)
+        random_recipe = recipesbox.pick()
+
+        self.assertIn(random_recipe,recipesbox)
 
 
 class TestFridge(unittest.TestCase):
@@ -93,7 +98,7 @@ class TestFridge(unittest.TestCase):
         fridge = Fridge(ingredients)
         fries = Recipe('Fries', {'potato': 1, 'oil': 1, 'salt': 1, 'cheese': 1})
 
-        self.assertEqual(fridge.check_recipe(fries),(['potato'], ['oil', 'salt', 'cheese']) )
+        self.assertEqual(fridge.check_recipe(fries), (['potato'], ['oil', 'salt', 'cheese']))
 
 
 class TestIndependentFunctions(unittest.TestCase):
@@ -118,16 +123,17 @@ class TestIndependentFunctions(unittest.TestCase):
 
         ingredients = {'milk': 4, 'potato': 3, 'egg': 2,
                        'banana': 10, 'sugar': 3, 'macaroni': 2, 'cocoa': 2}
-        fridge= Fridge(ingredients)
-        recipesbox= RecipesBox(fries, cheesecake, banana_bread, home_made_chocolate, mac_and_cheese)
-        self.assertNotIsInstance(check_the_fridge(fridge,recipesbox),list)
+        fridge = Fridge(ingredients)
+        recipesbox = RecipesBox(fries, cheesecake, banana_bread, home_made_chocolate, mac_and_cheese)
+        self.assertEqual(type(check_the_fridge(fridge, recipesbox)), list)
 
     def test_prepare_shopping_list(self):
         mac_and_cheese = Recipe('Mac and cheese', {'macaroni': 3, 'egg': 3, 'milk': 0.5, 'cheese': 1, 'sugar': 3})
         ingredients = {'milk': 4, 'potato': 3, 'egg': 2,
                        'banana': 10, 'sugar': 3, 'macaroni': 2, 'cocoa': 2}
         fridge = Fridge(ingredients)
-        self.assertNotIsInstance(prepare_shopping_list(fridge,mac_and_cheese), dict)
+        self.assertEqual(type(prepare_shopping_list(fridge, mac_and_cheese)), dict)
+
 
 
 
