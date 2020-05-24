@@ -1,31 +1,36 @@
-class Polygons(object):
+import math
+
+
+class Polygons:
 
     def __init__(self, *args):
-        self.sides = args
+        self.args = args
 
     def __str__(self):
-        no_of_sides = len(self.sides)
-        return '{} is the number of sides'.format(no_of_sides)
+        return str(len(self.args))
 
     def display(self):
-        for side_index, length in enumerate(self.sides, start=1):
+        for side_index, length in enumerate(self.args, start=1):
             print('Side {} with length: {}'.format(side_index, length))
 
 
 class PerimeterMixin:
     def perimeter(self):
-        return sum(self.sides)
+        return sum(self.args)
 
 
 class Triangle(Polygons, PerimeterMixin):
-    # `s(s-a)(s-b)(s-c) ** 0.5` where s = `(a+b+c) / 2`
+
     def __init__(self, *args):
         super().__init__(*args)
 
     def area(self):
-        s1, s2, s3 = self.sides
-        s_p = sum(self.sides) / 2
-        return (s_p*(s_p - s1)*(s_p - s2)*(s_p - s3))** 0.5
+        if len(self.args) == 3:
+            half_perimeter = sum(self.args) / 2
+            return (half_perimeter * (half_perimeter - self.args[0]) * (half_perimeter - self.args[1]) * (
+                        half_perimeter - self.args[2])) ** 0.5
+        else:
+            return None
 
 
 class Square(Polygons):
@@ -42,9 +47,21 @@ class Square(Polygons):
             to_return += 'Side {} with length: {} \n'.format(side, index)
         return to_return
 
+    def is_valid(self):
+        valid = all(x == self.args[0] for x in self.args)
+        if not valid:
+            return 'Invalid square'
+
     def area(self):
-        side, *_ = self.sides
-        return side ** 2
+        if len(self.args) == 4 and len(set(self.args)) == 1:
+            return self.args[0] ** 2
+        else:
+            return None
+
+    @classmethod
+    def from_area(cls, area):
+        square_side = int(math.sqrt(area))
+        return cls(square_side, square_side, square_side, square_side)
 
 
 random_square = Square(11)
