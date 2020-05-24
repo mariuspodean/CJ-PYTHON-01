@@ -8,7 +8,7 @@ data = {
 }
 
 
-class File:
+class JustSomeExceptions:
     def __init__(self, filename, method):
         self.file = open(filename, method)
 
@@ -27,6 +27,6 @@ class File:
             return True
 
 
-with File("text_file.txt", "w") as f:
+with JustSomeExceptions("text_file.txt", "w") as f:
     print("Middle!")
     f.write("Hello!!")

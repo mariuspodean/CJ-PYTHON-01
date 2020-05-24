@@ -13,7 +13,7 @@ data = {
 
 
 @contextmanager
-def file(filename, method):
+def just_some_exceptions(filename, method):
     print("__enter__")
     file = open(filename, method)
 
