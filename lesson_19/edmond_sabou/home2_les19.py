@@ -17,7 +17,6 @@ class File:
         return self.file
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        print(f"{exc_type}, {exc_val}, {exc_tb}")
         print("Exit")
         self.file.close()
         if exc_type == KeyError:
