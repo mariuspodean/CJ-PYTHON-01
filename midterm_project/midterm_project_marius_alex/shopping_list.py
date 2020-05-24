@@ -116,7 +116,7 @@ class Fridge(PrettyPrinterMixin):
                 available_ingredients.append(ing)
             else:
                 missing_ingredients.append(ing)
-        print(f'Available ingredients for: {available_ingredients} \nMissing ingredients: {missing_ingredients}')
+        print(f'Available ingredients: {available_ingredients} \nMissing ingredients: {missing_ingredients}')
 
 
 def check_fridge(fridge, recipe_box):
