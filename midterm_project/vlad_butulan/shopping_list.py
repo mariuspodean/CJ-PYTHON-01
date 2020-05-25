@@ -1,6 +1,5 @@
 import random
 import pprint
-from collections.abc import Mapping, MutableSequence, MutableMapping
 
 pp = pprint.PrettyPrinter(indent=4)
 
@@ -26,11 +25,10 @@ class PrittyPrinter():
     """a mixin class used by Fridge and Recipe to print nicely their contents"""
     
     def pp_print_recipe(self):
-        global pp
         pp.pprint(super().__str__())
 
 
-class Recipe(PrittyPrinter, Mapping):
+class Recipe(PrittyPrinter):
     """a recipe created from a name and dictionary of ingredients and quantities"""
 
     def __init__(self, name, ingredients):
@@ -67,7 +65,7 @@ class Recipe(PrittyPrinter, Mapping):
         return item in self.ingredients.keys()
 
 
-class RecipesBox(MutableSequence):
+class RecipesBox():
     """a mutable sequence that holds our recipes"""
 
     def __init__(self, recipies=[]):
@@ -94,15 +92,18 @@ class RecipesBox(MutableSequence):
     def insert(self, item, value):
         self.recipies.insert(item, value)
 
+    def append(self, item):
+        self.recipies.append(item)
+
     def pick(self, name=None):
         for recipie in self.recipies:
             if recipie.name == name:
-                return self.recipies.pop(self.recipies.index(recipie))
+                return recipie
             else:
-                return self.recipies.pop(self.recipies.index(random.choice(self.recipies)))
+                return random.choice(self.recipies)
 
 
-class Fridge(PrittyPrinter, MutableMapping):
+class Fridge(PrittyPrinter):
     """a mutable mapping that holds some products together with their quantities"""
 
     def __init__(self, products={}):
@@ -134,6 +135,9 @@ class Fridge(PrittyPrinter, MutableMapping):
 
     def __contains__(self, item):
         return item in self.products
+
+    def update(self, item):
+        self.products.update(item)
     
     def take(self, item, quantity):
         if item in self.products:
@@ -168,8 +172,6 @@ def pretty_print_recipe(fct):
     """print a nice representation of the shopping list"""
 
     def inner(fridge, recipe):
-        global pp_list_header
-        global pp_list_tailer
         result = "    |  "
         for index, item in enumerate(fct(fridge, recipe), start=1):
             buffer = 22 - (len(str(index)) + len(item) + len(str(recipe.ingredients[item])))
