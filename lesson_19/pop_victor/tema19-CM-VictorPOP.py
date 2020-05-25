@@ -6,7 +6,7 @@
 from contextlib import contextmanager
 
 
-class Just_Some_Exceptions_Class:
+class JustSomeExceptionsClass:
 
     def __enter__(self):
         pass
@@ -14,14 +14,13 @@ class Just_Some_Exceptions_Class:
     def __exit__(self, exc_type, exc_value, traceback):
         if exc_type is IndexError:
             print('IndexError found with class')
-            return True
+            return False
         elif exc_type is KeyError:
             print('KeyError found with class')
-            return True
+            return False
         elif exc_type:
             print('other error found with class')
             return True
-
 
 
 @contextmanager
@@ -34,10 +33,10 @@ def just_some_exceptions_function():
     except KeyError:
         error_message = 'KeyError found with function'
     except:
-        error_message = 'other error found with function'
+        print('other error found with function')
     finally:
         if error_message:
-            print(error_message)
+            raise(error_message)
 
 
 the_dict = {'nume': 4}
@@ -52,11 +51,11 @@ with just_some_exceptions_function() as test:
 with just_some_exceptions_function() as test:
     print(the_list(1))
 
-with Just_Some_Exceptions_Class() as test:
+with JustSomeExceptionsClass() as test:
     print(the_dict['Victor'])
 
-with Just_Some_Exceptions_Class() as test:
+with JustSomeExceptionsClass() as test:
     print(the_list[1])
 
-with Just_Some_Exceptions_Class() as test:
+with JustSomeExceptionsClass() as test:
     print(the_list(1))
