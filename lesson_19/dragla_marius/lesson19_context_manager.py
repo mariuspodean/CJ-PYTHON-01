@@ -32,9 +32,9 @@ with just_some_exceptions() as smth:
     print(smth)
 
 # error propagated outside the context manager
-# with just_some_exceptions() as smth:
-#     print(abc)
-#     print(smth)
+with just_some_exceptions() as smth:
+    print(smth)
+    print(abc)
 
 class JustSomeExceptions:
 
@@ -57,7 +57,7 @@ with JustSomeExceptions() as smth:
     print(letters[5])
     print(smth)
 
-#error propagated outside the context manager
-# with JustSomeExceptions() as smth:
-#     print(abcd)
-#     print(smth)
+# error propagated outside the context manager
+with JustSomeExceptions() as smth:
+    print(abcd)
+    print(smth)
