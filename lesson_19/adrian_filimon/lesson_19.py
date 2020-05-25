@@ -10,8 +10,6 @@ Write examples that prove the functionality for all the handled exceptions and f
 is not handled.
 """
 
-
-
 class JustSomeExceptions:
 
     def __enter__(self):
