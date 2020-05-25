@@ -161,7 +161,7 @@ You can have fun with the **pretty_print_recipe** decorator and be creative with
 
 
 **Important!** For each component that we build we have to add use cases and some tests to showcase the functionality and test that it meets all the requirements. We will organize our code as follows: in one file called **shopping_list.py** we will keep all our classes and methods and in another one, called **playground.py** we will have the tests and the showcasing.
-
+f
 The showcase will have at least 5 recipes with a minimum of 4 ingredients and 5 five items in the fridge. We will have to fully exhibit each component's functionality.
 
 
