@@ -55,7 +55,7 @@ class Recipe(PrettyPrinterMixin):
             raise Exception('The ingredients number should be  at least 4 !')
 
     def __iter__(self):
-        yield from self.ingredients.items()
+        yield from iter(self.ingredients.items())
 
     def __getitem__(self, index):
         return self.ingredients[index]
@@ -87,7 +87,7 @@ class RecipesBox:
         self.recipes = list(args)
 
     def __iter__(self):
-        yield from self.recipes
+        yield from iter(self.recipes)
 
     def __repr__(self):
         return ', '.join(repr(rec) for rec in self.recipes)
