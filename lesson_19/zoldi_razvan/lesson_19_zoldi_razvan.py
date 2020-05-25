@@ -4,38 +4,34 @@ import contextlib
 # considering that we should handle KeyError I create a dictionary and because we should also
 #  handle IndexError I took into consideration a LIST of dictionaries
 
-# @contextlib.contextmanager
-# def just_some_exceptions():
-#     print('this is the beginning \n ')
-#     error_message = ''
-#     try:
-#         yield data
-#         x = 1 / 0  # using @contextlib.contextmanager all other exceptions will propagate outside
-#         # example 'ZeroDivisionError
-#     # except (KeyError, IndexError):
-#     #     if KeyError and IndexError:
-#     #         error_message = 'You forget to add key to one dictionary \nList do not have have desired element'
-#     except KeyError:
-#         error_message = 'You forget to add key to one dictionary'
-#     except IndexError:
-#         error_message = 'List do not have have desired element'
-#     finally:
-#         if error_message:
-#             print(error_message)
-#
-#
-# data = [{'name': 'Lavinia', 'age': 32},
-#         {'name': 'Mihai'},  # raise exception for missing key = KeyError
-#         {'name': 'Andrei', 'age': 20}]
-#
-# with just_some_exceptions() as missing_key:
-#     print('flag 1')
-#     for keys in data:
-#         print('name:', keys['name'], ' -- age:', keys['age'])
-#         print(data[3])  # raise exception for IndexError ; append index 3, but starting with 0 we have only 0, 1, 2
-#         # print('*' * data[name])  # NameError
-#     print('flag 2')
+import contextlib
 
+
+@contextlib.contextmanager
+def just_some_exceptions():
+    error_message = ''
+    try:
+        yield data
+    except KeyError:
+        error_message = 'You forget to add key to one dictionary - KeyError'
+    except IndexError:
+        error_message = 'List do not have have desired element - IndexError'
+    finally:
+        if error_message:
+            print(error_message)
+
+
+data = [{'name': 'Lavinia', 'age': 32},
+        {'name': 'Mihai', 'age': 33},
+        {'name': 'Andrei'}]  # raise exception for missing key = KeyError
+
+with just_some_exceptions() as missing_key:
+    for keys in data:
+        print('name:', keys['name'], ' -- age:', keys['age'])
+
+with just_some_exceptions() as missing_key_2:
+    for keys in data:
+        print(data[3])  # raise exception IndexError
 
 #  ******************************** 2nd approach ******************************************
 
@@ -64,7 +60,7 @@ class JustSomeExceptions:
             return True
 
 
-with JustSomeExceptions() as missing_key:
+with JustSomeExceptions() as missing_key_3:
     print('flag 1')
     for keys in data:
         print('name:', keys['name'], ' -- age:', keys['age'])
