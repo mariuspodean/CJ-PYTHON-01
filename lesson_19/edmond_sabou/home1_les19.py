@@ -1,4 +1,3 @@
-
 from contextlib import contextmanager
 
 
@@ -13,25 +12,33 @@ data = {
 
 
 @contextmanager
-def just_some_exceptions(filename, method):
-    print("__enter__")
-    file = open(filename, method)
+def just_some_exceptions():
+    # print("__enter__")
 
     error = ""
 
     try:
-        yield file  # file = object
+        yield "Returned object"  # file = object
     except KeyError:
         error = "Key not found!"
     except IndexError:
         error = "Index error!"
     finally:
-        print("__exit__")
-        file.close()
         if error:
             print(error)
 
 
-with open("text_file.txt", "w") as f:
-    print("middle")
-    f.write(str(data))
+with just_some_exceptions() as f:
+    print(data.keys())
+
+#   KeyError
+with just_some_exceptions() as key:
+    print(data[123])
+
+#   IndexError
+with just_some_exceptions() as index:
+    print(data["Name"][111])
+
+#   Any other error
+with just_some_exceptions() as other:
+    print(data.keys(123))

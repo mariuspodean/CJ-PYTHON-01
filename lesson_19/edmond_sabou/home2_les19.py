@@ -1,4 +1,3 @@
-
 data = {
     "Name": "Ubuntu",
     "Version": "17.10",
@@ -9,24 +8,34 @@ data = {
 
 
 class JustSomeExceptions:
-    def __init__(self, filename, method):
-        self.file = open(filename, method)
 
     def __enter__(self):
-        print("Enter")
-        return self.file
+        return "Does this have to return anything?"
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        print("Exit")
-        self.file.close()
+
         if exc_type == KeyError:
             print("KeyError occurred!")
+            return True
         elif exc_type == IndexError:
             print("IndexError occurred")
-        else:
             return True
+        else:
+            return False
 
 
-with JustSomeExceptions("text_file.txt", "w") as f:
-    print("Middle!")
-    f.write("Hello!!")
+#   No exception
+with JustSomeExceptions() as f:
+    print(data.keys())
+
+#   KeyError
+with JustSomeExceptions() as key:
+    print(data[123])
+
+#   IndexError
+with JustSomeExceptions() as index:
+    print(data["Name"][111])
+
+#   Any other error
+with JustSomeExceptions() as other:
+    print(data.keys(123))
