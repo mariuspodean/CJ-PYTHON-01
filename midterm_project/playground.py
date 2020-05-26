@@ -1,4 +1,4 @@
-from midterm_project import shopping_list_archive
+from midterm_project.shopping_list_archive import *
 
 mac_and_cheese_ingredients = {
     'macaroni': 1,
@@ -27,10 +27,11 @@ burger_ingredients = {
 
 mac_and_cheese = Recipe("Famous Mac and Cheese", mac_and_cheese_ingredients)
 burger = Recipe("Burger Lalala", burger_ingredients)
-pizza = Recipe("Pizza Plm", pizza_ingredients)
+pizza = Recipe("Pizza", pizza_ingredients)
 
 r = RecipeBox()
 print(r.add(burger))
 print(r.add(mac_and_cheese))
 print(r.add(pizza))
 
+f = Fridge()
