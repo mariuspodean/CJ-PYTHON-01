@@ -180,10 +180,13 @@ class Fridge(PrettyPrinterMixin):
         ingredients_in = recipe_ingredients.intersection(fridge_ingredients)
         ingredients_off = recipe_ingredients.difference(fridge_ingredients)
 
-        message = f'There are no missing ingredients for preparing the {recipe.recipe_name}'
-        message_2 = ['No ingredients in fridge']
+        message_1 = ['No ingredients in fridge']
+        message_2 = f'There are no missing ingredients for preparing the {recipe.recipe_name}'
 
-        return ingredients_in if ingredients_in else message_2, ingredients_off if ingredients_off else message
+        result_in = ingredients_in if ingredients_in else message_1
+        result_off = ingredients_off if ingredients_off else message_2
+
+        return result_in, result_off
 
 
 # function check the fridge, for all recipes, if there are in the fridge at least half of the ingredients required
