@@ -1,6 +1,19 @@
 import contextlib
 import sys
 
+class JustSomeExceptions:
+    def __enter__(self):
+        return None
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if exc_type is IndexError:
+            print('Got a KeyError')
+        elif exc_type is KeyError:
+            print('Got an IndexError')
+
+        return True
+
+
 @contextlib.contextmanager
 def printing_ok():
 
@@ -13,7 +26,7 @@ def printing_ok():
     except KeyError:
         # Raised when a mapping (dictionary) key is not found in the set of existing keys.
 
-        print('Got an KeyError ')
+        print('Got a KeyError ')
     except IndexError:
         # Raised when a sequence subscript is out of range. (Slice indices are silently truncated to fall in the allowed range; if an index is not an integer,
         print('Got an IndexError')
@@ -23,12 +36,29 @@ def printing_ok():
             print(error_message)
 
 
+with JustSomeExceptions() :
+    print("Let's check if it works!" )
+    fruits= {'apple': 2, 'avocado':4}
+    print( fruits['mango '])
+
+
+with JustSomeExceptions() :
+    print("Let's check if it works!")
+    list = [23, 44, 23, 32]
+    print(list[4])
+
+with JustSomeExceptions():
+    print("Let's check if it works!")
+    a = 1 / 0
+    print(a)
+
+
+
 with printing_ok() as mirror:
 
     print(mirror)
 
 print(mirror)
-
 
 
 
