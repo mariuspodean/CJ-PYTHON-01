@@ -23,14 +23,6 @@ class Recipe(PrintMixin):
         self._name = name
         self._ingredients = ingredients
 
-    @property
-    def name(self):
-        return self._name
-
-    @property
-    def ingredients(self):
-        return self._ingredients
-
     def keys(self):
         return self._ingredients.keys()
 
@@ -85,12 +77,13 @@ class Fridge:
         found_items = []
         needed_items = []
 
-        for key, _ in recipe.ingredients.items():
+        for key, _ in recipe._ingredients.items():
             if self.items.keys():
                 found_items.append(key)
             else:
                 needed_items.append(key)
-        return found_items, needed_items
+        # return found_items, needed_items
+        return f"Available ingredients: {found_items}", f"Needed ingredients: {needed_items}"
 
     def add_item(self, name, quantity):
         self.items[name] = quantity
