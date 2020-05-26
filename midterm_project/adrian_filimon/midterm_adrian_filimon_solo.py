@@ -2,10 +2,30 @@ import random
 from collections.abc import MutableMapping, MutableSequence, Iterable, Collection, Container, Sized
 
 
-class Recipe:
+class PrinterMixin:
+    def print_recipe(self):
+        print("***********************")
+        print(self._name)
+        print("***********************\n")
+        i = 0
+        for key, value in self._ingredients.items():
+            print(f"{i + 1}. {key}: {value}")
+            i += 1
+        print("\n***********************")
+
+
+class Recipe(PrinterMixin):
     def __init__(self, name, ingredients):
         self._name = name
         self._ingredients = ingredients
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def ingredients(self):
+        return self._ingredients
 
     def __repr__(self):
         return self._name
@@ -26,8 +46,8 @@ class Recipe:
         return self._ingredients.keys()
 
 
-
 class RecipesBox:
+
     def __init__(self):
         self.recipes = []
 
@@ -72,7 +92,7 @@ class RecipesBox:
 
     def list_recipes(self):
         for recipe in self.recipes:
-            print(recipe.name, "\n")
+            print(recipe, "\n")
 
 
 class Fridge:
@@ -105,13 +125,24 @@ class Fridge:
 
     def search(self, ingredient):
         if self.items.get(ingredient):
-            return True
+            return "Yah"
         else:
-            return False
+            return "Nein"
+
+    def check_recipe(self, recipe):
+
+        found_items = []
+        needed_items = []
+        for key, _ in recipe.ingredients.items():
+            if self.items.get(key):
+                found_items.append(key)
+            else:
+                needed_items.append(key)
+        return found_items, needed_items
 
 
 
-cheesee_burger_ingredients = {
+cheese_burger_ingredients = {
     'bun': 1,
     'beef_pork': 1,
     'cedar cheese': 0.5,
@@ -138,9 +169,7 @@ spaghetti_carbonara_ingredients = {
     'egg': 2
 }
 
-
-
-cheese_burger = Recipe('Beef Burger', cheesee_burger_ingredients)
+cheese_burger = Recipe('Beef Cheeseburger', cheese_burger_ingredients)
 submarine_sandwich = Recipe('Submarine Sandwich', submarine_sandwich_ingredients)
 spaghetti_carbonara = Recipe('Spaghetti Carbonara', spaghetti_carbonara_ingredients)
 
@@ -157,8 +186,6 @@ fridge.add('parmesan', 10)
 fridge.add('beef_pork', 5)
 
 print(fridge.search('garlic'))
-
-
 
 ################################################################################################
 recipe_MutSeq = RecipesBox
