@@ -1,3 +1,4 @@
+import itertools
 items = [1, 2, 3, 4, 5]
 
 
@@ -10,5 +11,5 @@ def add(x):
 
 
 my_list = list(map(lambda x: (add(x), multiply(x)), items))
-
-print(my_list)
+my_new_list= list(itertools.chain.from_iterable(my_list))
+print(my_new_list)
