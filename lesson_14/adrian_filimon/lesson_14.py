@@ -14,7 +14,7 @@ class PaymentMixin:
         class_name = type(self).__name__
         print(f'{class_name} initialized.')
 
-        return super().__init__()
+
 
     def calculate_km_payed(self):
         base_km = 10000
