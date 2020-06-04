@@ -14,7 +14,7 @@ class PaymentMixin:
         class_name = type(self).__name__
         print(f'{class_name} initialized.')
 
-        return super().__init__(*args)
+        return super().__init__()
 
     def calculate_km_payed(self):
         base_km = 10000
@@ -30,13 +30,12 @@ class PaymentMixin:
             print(f"This is the diesel cost {diesel_cost}")
             print(f"This are KM driven with outcome {km_driven_with_outcome}")
 
-
             # return self.truck_km
         else:
             km_total = self.truck_km
             bonus_km = km_total - base_km
-            bonus_pay = bonus_km * 1.1     # 2200
-            final_km_pay = base_km *  0.85 + bonus_pay
+            bonus_pay = bonus_km * 1.1  # 2200
+            final_km_pay = base_km * 0.85 + bonus_pay
             diesel_fueled = 0.30 * km_total
             diesel_cost = diesel_price * diesel_fueled
             km_driven_with_outcome = final_km_pay - diesel_cost
@@ -44,7 +43,6 @@ class PaymentMixin:
             print(f"These are payed km before diesel {final_km_pay}")
             print(f"This is the diesel cost {diesel_cost}")
             print(f"This are KM driven with outcome {km_driven_with_outcome}")
-
 
             # return self.truck_km
 
@@ -54,10 +52,8 @@ class PaymentMixin:
         print(km / days)
 
 
-
 # din final_pay  - diesel_price * (0,30 * km_driven)= km_driven_with_outcome
 #
-
 
 
 class Truck(PaymentMixin):
