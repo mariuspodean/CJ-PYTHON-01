@@ -39,7 +39,7 @@ We can add books one by one, delete them, and also  using a pick  method  we can
  Independently,  we will have to check if  books from our collection are   or are not in the  Library
     and to return a list with  books that are missing  from Library.
 
-This  function will  have some loggs also and  it will have a decorator that will store  the common books !
-
+This  function  will have a decorator that will store  the common books !
+Also, using  a context manager, deal with the IndexError, KeyError and DivisionbyZeroError and some logs  !
 
 

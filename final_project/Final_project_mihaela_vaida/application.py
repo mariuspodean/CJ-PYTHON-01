@@ -1,9 +1,14 @@
 import random
 import logging
 
+from contextlib import contextmanager
+
+logger = logging.getLogger(__name__)
+
+
 class WellDisplayMixin:
     def __str__(self):
-        dash = '*'*40
+        dash = '*' * 40
         if hasattr(self, 'name'):
             header_name = '{} for {}'.format(self.__class__.__name__, self.name)
         else:
@@ -16,6 +21,7 @@ class WellDisplayMixin:
             result += '\n{}. {} : {} \n '.format(index, book.ljust(22, ' '), self.info[book])
         result += '\n{}'.format(dash)
         return result
+
 
 class Book(WellDisplayMixin):
     def __init__(self, name, info):
@@ -46,7 +52,7 @@ class DuplicatedBook(Book):
         self.copies_no = copies_no
 
 
-class BooksCollection():
+class BooksCollection:
     books = None
 
     def __init__(self, *args):
@@ -59,7 +65,7 @@ class BooksCollection():
         yield from iter(self.books)
 
     def __repr__(self):
-        return ', \n'.join(repr(book)  for book in self.books)
+        return ', \n'.join(repr(book) for book in self.books)
 
     def __str__(self):
         return repr(self)
@@ -121,9 +127,50 @@ class Library(WellDisplayMixin):
         return item in self.info
 
     def check_book(self, name):
-         if name in self.info:
-             return "Yes"
-         else:
-             return "Nope"
+        if name in self.info:
+            return "Yes"
+        else:
+            return "Nope"
 
 
+class ManageSomeExceptions:
+    def __enter__(self):
+        return
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if exc_type is IndexError:
+            print("This is an IndexError exception")
+        elif exc_type is KeyError:
+            print("This is an KeyError exception")
+        elif exc_type is ZeroDivisionError:
+            print("This is a ZeroDivision exception")
+        return
+
+
+@contextmanager
+def some_exceptions():
+    logger.debug('running mean is starting ...')
+    error = "  "
+    try:
+        yield " Only some exceptions are managed here!"
+    except KeyError:
+        error = "This is an KeyError exception"
+    except IndexError:
+        error = "This is an IndexError exception"
+    except ZeroDivisionError:
+        error = "This is a ZeroDivisionError"
+    finally:
+        print(error)
+        logger.debug(
+            'running mean is closing and returning value ')
+
+
+def check_the_library_books(library, collection):
+    common_books = []
+    missing_books = []
+    for book in collection.books:
+        if book in library.info.keys():
+            common_books.append(book)
+        else:
+            missing_books.append(book)
+    return common_books, missing_books
