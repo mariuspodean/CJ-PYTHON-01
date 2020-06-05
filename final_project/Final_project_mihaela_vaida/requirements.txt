@@ -1,0 +1,45 @@
+
+# Final Project
+
+Let's build an application that  will store our personal books in a books
+collection.
+
+We will with a mutable mapping that describes out books:
+class Book( ...):
+ ...
+
+ Once a book is created , it cannot be updated !
+
+ There is  also another class DuplicatedBook, derrived from Book class (inheritance),
+ which also contains the copy number.
+ class DuplicatedBook(Book):
+ ...
+
+ We will also  have the BooksCollection  that is a  sequence  that holds our
+ personal books .
+
+ class BooksCollection(..):
+ ...
+We can add books one by one, delete them, and also  using a pick  method  we can be able to
+ select a random book or a nominated  one,  from the books collection.
+
+
+ We will also have  a Library  class, which is   mutable mapping that  hold
+   different books .
+
+   class Library():
+   ..
+
+   In this class we should be able to check if a book name is available or not into the library.
+   Also using a context manager and an overloading operator , we should be able to  design
+   some Library  methods ( to be updated).
+
+  We will also  use a mixin class  that will help us to  print   nice the  Book and Library  informations.
+
+ Independently,  we will have to check if  books from our collection are   or are not in the  Library
+    and to return a list with  books that are missing  from Library.
+
+This  function will  have some loggs also and  it will have a decorator that will store  the common books !
+
+
+
