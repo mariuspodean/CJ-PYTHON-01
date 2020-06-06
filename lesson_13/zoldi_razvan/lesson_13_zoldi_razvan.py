@@ -47,26 +47,51 @@ class Triangle(Polygons):
 class Square(Polygons):
     def __init__(self, *args):
         super().__init__(*args)
+        self.area = args
+
+    # overwrite str from Polygons
+    def __str__(self, *args):
+        return '{} is the area desired'.format(self.area[0])
 
     def area(self):
         side, *_ = self.sides
         return side ** 2
 
-    def from_area(self):
+    @classmethod
+    def from_area(cls, area_rectangle):
+        #  starting from known area and using random to generate one side ,
         #  build an Rectangle with same area as square
-        area_rectangle, *_ = self.sides
-        # rectangle area = L x l where we can choose s1 and s2 if we don't know which one is bigger
-        s1 = randrange(1, stop=area_rectangle)  # choose a random number from 1 to area; if number is 1 in
-        # order to obtain area we have to multiply with bigger no. example: at area 8 if s1 = 1 then s2 should be 8
+        s1 = randrange(1, stop=area_rectangle)
         s2 = area_rectangle / s1
         rectangle_sides = (s1, s2, s1, s2)
         for rectangle_side_index, length in enumerate(rectangle_sides, start=1):
             print('Side {} with length: {:.2f}'.format(rectangle_side_index, length))
 
 
-sq = Square(25)
-print(sq.from_area())
-tr = Triangle(8,9,10)
+print('Instantiate Polygons')
+print('-' * 30)
+polygon1 = Polygons(1, 2, 3, 4)
+print(polygon1)
+print(polygon1.display())
+print('*' * 30)
+
+
+print('Instantiate Triangle')
+print('-' * 30)
+tr = Triangle(8, 9, 10)
 tr.display()
 print(f'triangle area is {round(tr.area())}')
 print(tr.perimeter())
+print('*' * 30)
+
+
+print('Instantiate Square')
+print('-' * 30)
+sq = Square(4)
+print(sq)
+# generate random polygons with desired area using @classmethod from Square
+print('random polygon 1')
+Square.from_area(32)
+print('random polygon 2')
+Square.from_area(32)
+print('*' * 30)
