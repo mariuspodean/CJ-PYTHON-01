@@ -16,7 +16,13 @@ class TestPoligons(unittest.TestCase):
 
         i = home1_les13.Polygon(1, 2, 2, 3)
 
-        assert isinstance(i.sides, int)
+        assert isinstance(i.sides, tuple)
+
+    def test_if_value_is_not_string2(self):
+
+        i = home1_les13.Polygon(1, 2, 2, 3)
+
+        assert all([isinstance(side, int) for side in i.sides])
 
     def test_if_triangle_has_3_sides(self):
         i = home1_les13.Triangle(1, 2, 3)
