@@ -41,9 +41,10 @@ class Square(Polygon):
         return side ** 2
 
     @classmethod
-    def from_area(cls, area):
-        sq = sqrt(area)
-        return f"Length of side is {sq}"
+    def from_area(cls, sq):
+        sq = sqrt(sq)
+        return cls(sq, sq, sq, sq)
+
 
 
 
