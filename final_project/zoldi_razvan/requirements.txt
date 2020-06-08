@@ -1,0 +1,112 @@
+Let's build an application that will create a database of users.
+
+
+Regardless type, a new user can be created starting from a dictionary of name, username, 
+email address and type of user(example: basic, expert and premium or maybe using an gametype: Wizard, Archer, Knight).
+
+
+The Basic user (or User) should have some characteristics or can perform some actions, Expert one should have
+all that Basic User has and something extra and Premium one should have all that Expert has and something
+extra.
+
+
+We have also a mutable sequence that holds our users. We can add users to our users database, one by one,
+we can extract and print one user using pick method or we can delete a user from database.
+
+
+We can perform also an upgrade or downgrade of each user from one type to another.
+
+
+Each class must implememnt custom str and repr and one of the following: decorator, context_manager or generator.
+Also we have to have one scenario of operator overloading.
+
+
+We will have a mixin class that will be used by database to print nicely what it contents, using only Name and Type.
+
+
+We will have a function called check_user that will check if user exist in our database using e-mail adress for that.
+The function will have a decorator that will print a nice representation of usertype using ascii art if user exists; 
+
+
+Example: if we're using Wizard
+
+
+
+                                        .@*                                     
+                                      %%,,/&&&&&#.                              
+                                      *@&&&@,      ((                           
+                                      .@&&&%    ,&#%,                ##.        
+                                      ./@&&&%   //,                ##(* ,%      
+                                      #,**&&%.    ,,                #%#  %%     
+                                     %@@@&&&&%                           %*     
+                     ,              /@@@@&&&#*                           #      
+                    @/              @@%*,,,,./@.                        ,&      
+              */ ,&#&&&           ,&*./*/,./,*,(/                       /*      
+               *%&(*@(,%&.      #*(****/*,*,/,.,%(@#                    #       
+               @%&&&%####,     %(/***/**#.,,.,,,.&/%                   .#       
+                %&%%&%(*&#(    #*,%*/(%*,..,( ,*/,#,&                  #(       
+                %%%%%##((&%   &.*,/.,,./%*.%  ,,,#@*,%                 (,       
+                &&%%@#(///.   #.%,/*/&%%&(/(/*..( %../                .#        
+                 (%%%&%##/%%@@@@%,,(,(*//% (**, *.&& %                *%        
+                   %%%&&#@@@@@%*&,,,*,,,.. .  *. *&&&%                //        
+                     %@@@@@@(*(@@*,,*,.#*..  * * (&&**#*&             #.        
+                    @@@@@@@@@@@@@@*..,,,*....  .&%&&&&&&&&&@.         %         
+                  .*%#@@@@@@@@@@@@@,/,,,,.     /%&&@@&&&&&&&&&*,,, ,*(,.,(      
+                 *@@@@@@@@@&@@#*@@&@,(,*/,....///&&@/&&&&&&&&&,,/,#(,%*,..      
+                 @@@@@@@@&@&@@@*@@&@%*****., ,&&&&&&/**@&&&&&*,,,  /#.(%        
+                ./@@@@@@@%**/(@&@@@@@@,,,   &&&&&@&%/@@@@@@@&,,*     (.         
+                 @**@&@@**,(/,*,*(/&@@@(/ (&&&&@&@&&%..&&@@@/**/    .#          
+                  &@@@@/***%*&*/,&//@@&&@*&&&&&,,#&&%%    ,@*,**    ,(          
+                   #@@@*,**(%@@(/@@@@@&&&(&&&&&&@&&&&&              //          
+                     *@*,**(&@@@@@@@@@&&&%&&&&&&&&&&&&&             #,          
+                        *%,#@@@@@@@@@@&@(/,.&&&&&&&&&%%,            #           
+                         @&@@@@@@@@@@@@/// .#&&@@&&&&&%%            #           
+                        (@@@@@@@@@@(**@@*, .&&&@@&&&@&&%.          /,           
+                       ,@@(@@@@@@@@%@@@@@&/&&&@@@&&%%,&&@          &            
+                       @&@**(%@@@@@@@@@@&@&&&@@@&&&&&&&&%.        ,%            
+           ,@. ,&*   ,@@@&@@@@@@@@@@@@@@(%&@@@&&&&&&&&&&%#        &&/(&*        
+          .@&.&%@   #@@@@@@@@@@@@@@@@@#(*(@@@@@@@@&@@@&&&&&&&#.    #. @(        
+           .&&&@@&&@&&@@@&&@@@@@@@@@@@@&@@@@@@@@@@@@&&&&&&&&&&&&&&&&&&&         
+	   |  _____________________________________________________________  |
+	   | |                         User:                               | |
+	   | |                                                             | |
+	   | |                                                             | |
+	   | |  Name: John Smith                                           | |
+	   | |  username: john_smith2020                                   | |
+	   | |  email: john_smith@gmail.com                                | |
+	   | |  Type: Wizard                                               | |
+	   | |                                                             | |
+	   | |_____________________________________________________________| |
+	   |_________________________________________________________________|
+
+
+if user does not exists then function will return 
+
+			  ______ _____  _____   ____  _____  
+			 |  ____|  __ \|  __ \ / __ \|  __ \ 
+			 | |__  | |__) | |__) | |  | | |__) |
+			 |  __| |  _  /|  _  /| |  | |  _  / 
+ 			 | |____| | \ \| | \ \| |__| | | \ \ 
+ 			 |______|_|  \_\_|  \_\\____/|_|  \_\
+                                     
+	   |  _____________________________________________________________  |
+	   | |                    User does NOT exists !                   | |
+	   | |                                                             | |
+	   | |                                                             | |
+	   | |  Name:                                                      | |
+	   | |  username:                                                  | |
+	   | |  email:                                                     | |
+	   | |  Type:                                                      | |
+	   | |                                                             | |
+	   | |_____________________________________________________________| |
+	   |_________________________________________________________________|
+
+
+For each component that we build we have to add some cases and some tests to showcase the functionality.
+
+We will organize our project as follows:
+- appication.py: keep our classes and methods
+- playground.py : we will have tests and showcasing
+- tests.py : the unittests
+
+Use Tkinter GUI to perform actions using a regular window: nice to have, not mandatory !
