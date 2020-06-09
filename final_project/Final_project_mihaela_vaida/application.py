@@ -2,11 +2,28 @@ import random
 import logging
 
 from contextlib import contextmanager
+import pprint
 
+pp = pprint.PrettyPrinter(indent=4)
 logger = logging.getLogger(__name__)
+
+__header = r'''
+   ____________________________________
+ / \                                   \.
+|   |                                   |.
+ \_ |                                   |.
+    |                                   |.
+'''
+__footer = r'''
+    |                                   |.
+    |   _______________________________ |___
+    |  /                                 /.
+    \_/_________________________________/.
+'''
 
 
 class WellDisplayMixin:
+
     def __str__(self):
         dash = '*' * 40
         if hasattr(self, 'name'):
@@ -47,9 +64,32 @@ class Book(WellDisplayMixin):
 
 
 class DuplicatedBook(Book):
-    def __init__(self, name, info, copies_no):
+    def __init__(self, name, info, copies_no, price):
         super().__init__(name, info)
         self.copies_no = copies_no
+        self.price = price
+
+    """
+    Using the overload operator, prices fron DuplicatedBook and Expensive Book, can be added, 
+    or compared if they are equals or not
+    """
+
+    def __add__(self, other):
+        return f'Prices for the  books {self.name} and {other.name} are' \
+               f' {self.price * self.copies_no + other.price * other.copies_no} .'
+
+    def __radd__(self, other):
+        return f'Prices for the  books {other.name} and {self.name} are {other.price * other.copies_no + self.price * self.copies_no} .'
+
+    def __eq__(self, other):
+        return self.price * self.copies_no == other.price * other.copies_no
+
+
+class ExpensiveBook(Book):
+    def __init__(self, name, info, copies_no, price):
+        super().__init__(name, info)
+        self.copies_no = copies_no
+        self.price = price
 
 
 class BooksCollection:
@@ -62,13 +102,14 @@ class BooksCollection:
         self.books = list(args)
 
     def __iter__(self):
+        # generator
         yield from iter(self.books)
 
     def __repr__(self):
-        return ', \n'.join(repr(book) for book in self.books)
+        return self.books
 
     def __str__(self):
-        return repr(self)
+        return ', \n'.join(repr(book) for book in self.books)
 
     def __getitem__(self, item):
         return self.books[item]
@@ -149,7 +190,7 @@ class ManageSomeExceptions:
 
 @contextmanager
 def some_exceptions():
-    logger.debug('running mean is starting ...')
+    logger.debug('running log is starting ...')
     error = "  "
     try:
         yield " Only some exceptions are managed here!"
@@ -162,15 +203,36 @@ def some_exceptions():
     finally:
         print(error)
         logger.debug(
-            'running mean is closing and returning value ')
+            'running log is closing and returning value ')
 
 
+def nice_display(fnc):
+    def wrapper(library, collection):
+        listing = fnc(library, collection)
+        middle_width = 29
+        list_str = "\n".join(["    |   {0} |.".format(
+            book.name.ljust(20, '.'))
+            for book in listing])
+
+        print("".join([
+            __header,
+            "    |{}         |. \n".format(" Existing books:".center(middle_width)),
+            "    |{}         |.\n".format("".center(middle_width)),
+            list_str,
+
+            __footer
+        ]))
+        return fnc(library, collection)
+
+    return wrapper
+
+
+@nice_display
 def check_the_library_books(library, collection):
-    common_books = []
-    missing_books = []
-    for book in collection.books:
-        if book in library.info.keys():
-            common_books.append(book)
-        else:
-            missing_books.append(book)
-    return common_books, missing_books
+    existing_books = []
+
+    for book in collection:
+        if book.name in library.info.keys():
+            existing_books.append(book)
+
+    return existing_books

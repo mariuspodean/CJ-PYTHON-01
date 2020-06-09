@@ -17,21 +17,33 @@ print(book2)
 print(book3)
 print("*********************************************")
 print("My personal duplicated books :")
-duplicated1 = DuplicatedBook("Numele trandafirului", {"author": "Umberto Eco"}, 2)
-duplicated2 = DuplicatedBook("La Rascruce de vanturi", {"author": "Emily Bronte"}, 3)
-duplicated3 = DuplicatedBook("Ocolul pamantului in 80 de zile", {"author": "Jules Verne"}, 2)
+duplicated1 = DuplicatedBook("Numele trandafirului", {"author": "Umberto Eco"},2, 33)
+duplicated2 = DuplicatedBook("La Rascruce de vanturi", {"author": "Emily Bronte"},3, 40)
+duplicated3 = DuplicatedBook("Ocolul pamantului in 80 de zile", {"author": "Jules Verne"},2, 15)
 print(duplicated1)
 print(duplicated2)
 print(duplicated3)
+exp_book1 = ExpensiveBook("La Rascruce de vanturi", {'author':"Emily Bronte", "edition":'limited'}, 1, 250)
+exp_book2 = ExpensiveBook("Biblia", {"author": None}, 1, 1000)
+print(exp_book1)
+print(exp_book2)
+print("*********************************************")
+print("Let's check the adding  prices for  some books:")
+print(duplicated1+exp_book2)
+print(exp_book1+duplicated3 )
+print("Let's compare the prices for some books")
+print(duplicated1==exp_book1)
+print(duplicated1==exp_book2)
 print("*********************************************")
 print("My personal   books collection :")
 print("*********************************************")
 my_books_collection = BooksCollection(book1, book2, book3, book4, book6, book7, book8, book9)
 my_books_collection.__delitem__(0)
 my_books_collection.insert(0, book1)
+my_books_collection.__delitem__(0)
 my_books_collection.insert(10, book10)
 my_books_collection.insert(10, book3)
-my_books_collection.insert(10, duplicated1)
+#my_books_collection.insert(10, duplicated1)
 
 print(my_books_collection)
 
@@ -50,14 +62,14 @@ library = Library({"Ocolul pamantului in 80 de zile": "Jules Verne",
                    "Portretul lui Dorian Gray": "Oscar Wilde",
                    " Un veac de singurătate": "Gabriel Garcia Marquez",
                    "La răsărit de Eden": "John Steinbeck",
-                   " Invitație la vals ": "Mihail Drumeș",
+                   "Invitație la vals ": "Mihail Drumeș",
                    "Lolita": "Vladimir Nabokov",
                    "Fahrenheit 451": "Ray Bradbury",
                    "Marele Gatsby": "Francis Scott Fitzgerald",
                    "Zece negri mititei": "Agatha Christie",
                    "Mizerabilii": "Victor Hugo ",
                    " Aventurile lui Huckleberry Finn": "Mark Twain",
-                   "Contele de Monte-Cristo":"Alexandre Dumas"
+                   "Contele de Monte-Cristo": "Alexandre Dumas"
                    }
                   )
 print(library)
@@ -89,7 +101,4 @@ print("*********************************************")
 
 print("*********************************************")
 
-
-
-
-#print(check_the_library_books(library, my_books_collection))
+print(check_the_library_books(library, my_books_collection))

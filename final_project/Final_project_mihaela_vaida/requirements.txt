@@ -10,10 +10,15 @@ class Book( ...):
 
  Once a book is created , it cannot be updated !
 
- There is  also another class DuplicatedBook, derrived from Book class (inheritance),
- which also contains the copy number.
+ There is  also another classes DuplicatedBook and ExpendiveBook, derrived from Book class (inheritance),
+ which also contains the copy numberand prices.
  class DuplicatedBook(Book):
  ...
+class ExpensiveBook(Book):
+..
+For these 2 previoys  classes, we will use  overloaded operators :"+" in order to  add the costs for 2 books
+( it will return price* no_copies for the first book + price* no_copies for the second ) and "equal" in order to
+compare the prices ( it will return only True or False ).
 
  We will also  have the BooksCollection  that is a  sequence  that holds our
  personal books .
@@ -37,9 +42,9 @@ We can add books one by one, delete them, and also  using a pick  method  we can
   We will also  use a mixin class  that will help us to  print   nice the  Book and Library  informations.
 
  Independently,  we will have to check if  books from our collection are   or are not in the  Library
-    and to return a list with  books that are missing  from Library.
+    and to return a list with  list  from both collections!
 
-This  function  will have a decorator that will store  the common books !
+This  function  will have a decorator that will store  the common books  from bibrary and   books collection!
 Also, using  a context manager, deal with the IndexError, KeyError and DivisionbyZeroError and some logs  !
 
 

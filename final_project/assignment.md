@@ -38,4 +38,4 @@ Components share in grading:
 >
 > * tests: 10%
 
-Deadline: will be updated.
+Deadline: 20.06.2020
