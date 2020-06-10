@@ -1,0 +1,29 @@
+Create a database that will mantain an client list.
+
+client_list=[client_1, client_2 ....]
+
+The client list will have at least 2 types of clients, a "basic_client" class and a "gold_client" class that will
+inherit the "basic_client" class and will have a new discount atribute.
+
+Each of the classes must implement a custom "str" and "repr" methods
+
+A minimum of 1 of the following: decorator, context_manager or generator must be implemented in one of the classes
+
+A mixin class that will be used by database to print nicely what it contents.
+
+
+We will have a function called check_client that will check if the client exist in our database.
+The function will have a decorator that will print a nice representation.
+
+
+For each component that we build we have to add some cases and some tests to showcase the functionality.
+
+The project will consist of three files:
+
+        1. requirements.txt - will store all the requirements of our problem definition,
+
+        2. application.py - the implementation,
+
+        3. playground.py - a file showcasing the functionality and proving it implements fully the requirements, and
+
+        4. tests.py - the unittests
