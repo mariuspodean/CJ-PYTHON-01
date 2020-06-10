@@ -51,7 +51,8 @@ class Square(Polygons):
 
     # overwrite str from Polygons
     def __str__(self, *args):
-        return '{} is the area desired'.format(self.area[0])
+        # return '{} is the area desired'.format(self.area[0])
+        return ''
 
     def area(self):
         side, *_ = self.sides
@@ -61,11 +62,13 @@ class Square(Polygons):
     def from_area(cls, area_rectangle):
         #  starting from known area and using random to generate one side ,
         #  build an Rectangle with same area as square
+        print(f'Desired area to accomplish is: {area_rectangle}')
         s1 = randrange(1, stop=area_rectangle)
         s2 = area_rectangle / s1
         rectangle_sides = (s1, s2, s1, s2)
         for rectangle_side_index, length in enumerate(rectangle_sides, start=1):
             print('Side {} with length: {:.2f}'.format(rectangle_side_index, length))
+        return cls(s1, s2)
 
 
 print('Instantiate Polygons')
@@ -75,7 +78,6 @@ print(polygon1)
 print(polygon1.display())
 print('*' * 30)
 
-
 print('Instantiate Triangle')
 print('-' * 30)
 tr = Triangle(8, 9, 10)
@@ -83,7 +85,6 @@ tr.display()
 print(f'triangle area is {round(tr.area())}')
 print(tr.perimeter())
 print('*' * 30)
-
 
 print('Instantiate Square')
 print('-' * 30)
