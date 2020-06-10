@@ -52,7 +52,7 @@ class Square(Polygons):
     @classmethod
     def from_area(cls, area):
         square_side = sqrt(area)
-        cls(square_side, square_side, square_side, square_side)
+        return cls(square_side, square_side, square_side, square_side)
 
 
 random_square = Square(11)
