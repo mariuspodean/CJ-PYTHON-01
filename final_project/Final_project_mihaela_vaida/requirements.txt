@@ -4,11 +4,36 @@
 Description:
 
 This project classifies my personal books  in regular books, some books that are duplicated
-or some books that were more expensive than an usual book ! Additionally, all of them can be groupped into my
-books collection. Over my books collection, I am able to  pick a random book or a named one !
+or some books that were more expensive than an usual book !
+When discribing a regular book , only the name and the author name  are  offered. When describing  a duplicated or
+ an expendive book, also the  number of copies and  the price are required! Also, for these book categories ( duplicated
+ and expendive ) the  prices can be added (using the formulae number of copies multiplied with the price of the first
+ book, added to the same  informations from the second one ) and  alse can be compared !
+ Additionally, all of the books are  grouped into my books collection.
+ Over my books collection, I am able to  pick a random book or a named one !
 
-Also  in this project I deal with  a different book library, a public one , with more books   and  comparing my perosnal
-books collection , I check  which cooks are  common to both libraries , and are displayed  in a nice maneer !
+Also  in this project I deal with  a different book library, a public one , with more books and some informations about
+the book availability and book category (optional).
+
+  Also ,   comparing my personal books collection  with the  public library described above,I  will check  which books
+  are  common to both libraries , and I will  display them   in a nice maneer !
+
+     ____________________________________
+ / \                                   \.
+|   |                                   |.
+ \_ |                                   |.
+    |                                   |.
+    |        Existing books:            |.
+    |                                   |.
+    |                                   |.
+    |   Marile sperante.....            |.
+    |   La Rascruce de vanturi          |.
+    |   Muntele vrajit......            |.
+    |   Marile sperante.....            |.
+    |                                   |.
+    |   _______________________________ |___
+    |  /                                 /.
+    \_/_________________________________/.
 
 
 
