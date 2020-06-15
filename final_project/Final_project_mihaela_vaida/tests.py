@@ -52,17 +52,17 @@ class TestDuplicatedBook(unittest.TestCase):
     def test_add(self):
         duplicated1 = DuplicatedBook("Numele trandafirului", {"author": "Umberto Eco"}, 2, 33)
         exp_book1 = ExpensiveBook("La Rascruce de vanturi", {'author': "Emily Bronte", "edition": 'limited'}, 1, 250)
-        self.assertEqual(duplicated1+exp_book1, 'Prices for the  books Numele trandafirului and'
-                                                ' La Rascruce de vanturi are 316 .')
+        self.assertEqual(duplicated1 + exp_book1, 'Prices for the  books Numele trandafirului and'
+                                                  ' La Rascruce de vanturi are 316 .')
+
     def test_equal(self):
         duplicated1 = DuplicatedBook("Numele trandafirului", {"author": "Umberto Eco"}, 2, 33)
-        exp_book1 = ExpensiveBook("La Rascruce de vanturi", {'author': "Emily Bronte"}, 1,1000)
+        exp_book1 = ExpensiveBook("La Rascruce de vanturi", {'author': "Emily Bronte"}, 1, 1000)
 
-        self.assertEqual(duplicated1==exp_book1, False)
+        self.assertEqual(duplicated1 == exp_book1, False)
 
 
-
-class Test_ExpensiveBook(unittest.TestCase):
+class TestExpensiveBook(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         print('Start testing!')
@@ -100,11 +100,11 @@ class TestBookCollection(unittest.TestCase):
     def test_collection_init(self):
         books = book1, book2, book3, book4
         collection = BooksCollection(books)
-        assert hasattr(collection,'books'), 'Collection has no books attribute!'
+        assert hasattr(collection, 'books'), 'Collection has no books attribute!'
         self.assertIsInstance(collection, BooksCollection)
 
     def test_pick_named(self):
-        book1 =Book("Ocolul pamantului in 80 de zile", {"author": "Jules Verne"})
+        book1 = Book("Ocolul pamantului in 80 de zile", {"author": "Jules Verne"})
         my_books_collection = BooksCollection(book1, book2, book3)
         self.assertEqual(my_books_collection.pick(book1.name), book1)
 
@@ -115,6 +115,7 @@ class TestBookCollection(unittest.TestCase):
         my_books_collection = BooksCollection(book1, book2, book3)
         random_name = my_books_collection.pick()
         self.assertIn(random_name, my_books_collection)
+
 
 class TestLibrary(unittest.TestCase):
     @classmethod
@@ -127,19 +128,20 @@ class TestLibrary(unittest.TestCase):
 
     def test_library_init(self):
         info = {"Ocolul pamantului in 80 de zile": "Jules Verne",
-                   "Marile sperante": "Umberto Eco",
-                   "La Rascruce de vanturi": "Emily Bronte"}
-        library= Library(info)
+                "Marile sperante": "Umberto Eco",
+                "La Rascruce de vanturi": "Emily Bronte"}
+        library = Library(info)
         assert isinstance(library, Library)
-        assert hasattr( library, "info"), 'Info attribute is missing!'
+        assert hasattr(library, "info"), 'Info attribute is missing!'
 
     def test_check(self):
         info = {"Ocolul pamantului in 80 de zile": "Jules Verne",
-                    "La Rascruce de vanturi":"Emily Bronte"}
-        library = Library (info)
+                "La Rascruce de vanturi": "Emily Bronte"}
+        library = Library(info)
 
         self.assertNotEqual(library.check_book("Fluturi"), "Yes")
         self.assertEqual(library.check_book("Fluturi"), "Nope")
+
 
 class TestIndependentFunction(unittest.TestCase):
     @classmethod
@@ -160,7 +162,7 @@ class TestIndependentFunction(unittest.TestCase):
                            "Muntele vrajit": "John Fowles",
                            "Călătoriile lui Gulliver": "Jonathan Swift",
                            "Portretul lui Dorian Gray": "Oscar Wilde",
-                           "Ocolul pamantului in 80 de zile":"Charles Dickens"})
+                           "Ocolul pamantului in 80 de zile": "Charles Dickens"})
 
         self.assertEqual(type(check_the_library_books(library, my_books_collection)), list)
 

@@ -54,22 +54,22 @@ print("Creating the Library instance:")
 
 print("*********************************************")
 
-library = Library({"Ocolul pamantului in 80 de zile": "Jules Verne",
-                   "Marile sperante": "Umberto Eco",
-                   "La Rascruce de vanturi": "Emily Bronte",
-                   "Muntele vrajit": "John Fowles",
-                   "Călătoriile lui Gulliver": "Jonathan Swift",
-                   "Portretul lui Dorian Gray": "Oscar Wilde",
-                   " Un veac de singurătate": "Gabriel Garcia Marquez",
-                   "La răsărit de Eden": "John Steinbeck",
-                   "Invitație la vals ": "Mihail Drumeș",
-                   "Lolita": "Vladimir Nabokov",
-                   "Fahrenheit 451": "Ray Bradbury",
-                   "Marele Gatsby": "Francis Scott Fitzgerald",
-                   "Zece negri mititei": "Agatha Christie",
-                   "Mizerabilii": "Victor Hugo ",
-                   " Aventurile lui Huckleberry Finn": "Mark Twain",
-                   "Contele de Monte-Cristo": "Alexandre Dumas"
+library = Library({"Ocolul pamantului in 80 de zile": "Jules Verne, available, Universal literature",
+                   "Marile sperante": "Umberto Eco, rented ",
+                   "La Rascruce de vanturi": "Emily Bronte, rented ",
+                   "Muntele vrajit": "John Fowles, rented ",
+                   "Călătoriile lui Gulliver": "Jonathan Swift, rented ",
+                   "Portretul lui Dorian Gray": "Oscar Wilde, rented ",
+                   " Un veac de singurătate": "Gabriel Garcia Marquez, rented ",
+                   "La răsărit de Eden": "John Steinbeck, rented ",
+                   "Invitație la vals ": "Mihail Drumeș, rented ",
+                   "Lolita": "Vladimir Nabokov, rented ",
+                   "Fahrenheit 451": "Ray Bradbury, , rented",
+                   "Marele Gatsby": "Francis Scott Fitzgerald, , rented",
+                   "Zece negri mititei": "Agatha Christie, available ",
+                   "Mizerabilii": "Victor Hugo ,  rented",
+                   " Aventurile lui Huckleberry Finn": "Mark Twain, rented",
+                   "Contele de Monte-Cristo": "Alexandre Dumas, available "
                    }
                   )
 print(library)
