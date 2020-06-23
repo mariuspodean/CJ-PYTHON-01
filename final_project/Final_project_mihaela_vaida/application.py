@@ -69,9 +69,11 @@ class DuplicatedBook(Book):
         self.copies_no = copies_no
         self.price = price
 
+
+
     """
-    Using the overload operator, prices fron DuplicatedBook and Expensive Book, can be added, 
-    or compared if they are equals or not
+    Using the overload operator, prices from DuplicatedBook and Expensive Book, can be added, 
+    or compared if they are equals or not!
     """
 
     def __add__(self, other):
@@ -172,9 +174,6 @@ class Library(WellDisplayMixin):
             return "Yes"
         else:
             return "Nope"
-
-
-
 
 
 class ManageSomeExceptions:

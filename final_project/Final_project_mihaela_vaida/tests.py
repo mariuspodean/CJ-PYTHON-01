@@ -62,6 +62,7 @@ class TestDuplicatedBook(unittest.TestCase):
         self.assertEqual(duplicated1 == exp_book1, False)
 
 
+
 class TestExpensiveBook(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
