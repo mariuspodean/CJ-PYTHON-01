@@ -117,6 +117,38 @@ def get_country_data(data_set, country_arg):
 
 
 # perform_average_country function calculate the average of coverage for a specified country on all years
+
+def dataset_dict(raw_data_in):
+    return {tara2[1]: list_dict_yearcoverage(raw_data_in, tara[0])
+            for tara in raw_data_in
+            for tara2 in countryes_abr_list
+            if tara[0] == tara2[0]
+            }
+
+
+# get_year_data function to retrieve coverage data for a year introduced by user
+
+
+def get_year_data(data_set, year):
+    return {year: [[country, data_coverage['coverage']]
+                   for country in data_set
+                   for data_coverage in data_set[country]
+                   if data_coverage['year'] == str(year)
+                   ]
+            }
+
+
+# get_country_data function to retrieve data for a specific country name introduced by user
+
+
+def get_country_data(data_set, country_arg):
+    return {country_arg: [[data_country['year'], data_country['coverage']]
+                          for data_country in data_set[country_arg]
+                          ]
+            }
+
+
+# perform_average_country function calculate the average of coverage for a specified country on all years
 def perform_average_country(country_year_data, country_in):
     coverage_list = [cover_iter[1] for cover_iter in country_year_data[country_in]]
     coverage_list = [int(cover_iter) for cover_iter in coverage_list if cover_iter]
