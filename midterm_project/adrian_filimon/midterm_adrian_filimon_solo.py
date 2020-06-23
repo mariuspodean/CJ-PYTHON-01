@@ -1,6 +1,10 @@
 import random
 from collections.abc import MutableMapping, MutableSequence, Iterable, Collection, Container, Sized
+from functools import wraps
+import datetime
 
+
+archive = {}
 
 class PrinterMixin:
     def print_recipe(self):
@@ -140,6 +144,30 @@ class Fridge:
                 needed_items.append(key)
         return found_items, needed_items
 
+
+def pretty_print_recipe(f):
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        result = f(*args, **kwargs)
+        return result  # should print in custom representation format
+
+    return wrapper
+
+
+def archive_shopping_list(f):
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        result = f(*args, **kwargs)
+        archive[f'{datetime.datetime.now().strftime("%d/%m/%Y_%H:%M:%S")}'] = result
+        return result
+
+    return wrapper
+
+@archive_shopping_list
+@pretty_print_recipe
+def prepare_shopping_list(fridge, recipe):
+    shopping_list = {}
+    print("this will be implemented")
 
 
 cheese_burger_ingredients = {
