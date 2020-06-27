@@ -1,0 +1,150 @@
+Create a program to monitor work orders for a auto workshop.
+
+data to be processed:
+
+ client:
+    - client identification number ( person or company )
+    - client name
+    - client address
+
+ car:
+    - vin (vehicle identification number)
+    - registration number of car
+    - car brand
+    - car type
+    - car year production
+
+ auto parts:
+    - part code
+    - part name
+    - part brand
+    - part price
+
+ operations:
+    - operation name
+    - labor time
+    - operation parts , each operation will hold all the parts neded ( from auto parts ) and the number of pieces
+
+ order( will get input data from data to be processed):
+    - order_no ( this will be an unique self generated number for each instance of order )
+        -this number wil have the form '200610007':
+            - '20' form year 2020
+            - '06' from month june
+            - '10' from 10-th of june
+            - '007' the 7-th order today , each new day will start from '001'
+    - client_id_no ( for identification of client ):
+        - if client registered will get client datas from clients_data_base else will register the new client
+    - vin ( car vehicle identification number for indentification of car):
+        - if car registered will get car datas from cars_data_base else will register the new car
+    - operations requested by the client ( identify the operations in the operations_data_base )
+    - entry date get from system when the order is opened
+    - release date get from the system when all the operations are finished, the order is closed and the invoice can be
+        handed to client (at the opening of the order is None, will act also as a flag to differentiate the open
+        orders from closed orders )
+    - labor total time is the sum of all oerations time in this order
+    - labor cost
+    - parts cost
+    - total cost
+    - discount
+
+
+primary input data (at the opening order):
+ - vin (vehicle identification number)
+ - client id
+ - operations
+
+system data:
+- entry date (at the opening order)
+- release date (at the closing order)
+
+last input data (at the closing order):
+
+automatically generated data:
+- order number
+- labor total time
+- labor cost
+- parts cost
+- total cost
+
+features:
+- create new car , client , part , operation instance and add them in  cars , clients , parts , operations data base
+- opening a new order and add into orders database
+- close an open order and flag it to differentiate it from open orders
+- ensure that all the necessary data are in when a order is closed
+- ensure that any order closed can not be deleted
+- display all the open / closed work orders
+- check if a car has open / closed orders (by registration number) , display it / them , and calculate all costs
+- check if a client has open / closed orders (by registration number) , display it / them , and calculate all costs
+
+
+class Car: -> collection -> [vin, reg_no, brand, model, year of production]
+car obj -> class Cars obj -> mapping -> vin: [reg_no, brand, model, year of production]
+
+car_1 = Car('wdb456', 'cj45kkl', 'Mercedes', 'C-class', 2010)
+car_2 = Car('vf1234', 'cj75ppo', 'Renault', 'Megane', 2004)
+
+cars = Cars()
+
+cars = [car_1, car_2 ... ]
+cars = [car_1.vin -> 'wdb456', car_2.vin ... ]
+cars = {
+        car_1.vin -> 'wdb456': ['cj45kkl', 'Mercedes', 'C-class', 2010],
+        car_2.vin -> 'vf1234': ['cj75ppo', 'Renault', 'Megane', 2004]
+        }
+
+class Client: -> collection -> [id_no , name , adress]
+client obj -> class Clients obj -> mapping -> id_no: [name, adress]
+
+class Part: -> mapping -> {part_code:
+                               'name': part_name
+                               'brand': part_brand
+                               'price': part_price
+                           }
+part obj -> class Parts obj -> mapping
+
+Final project
+
+Based on a topic of your choosing, create a problem definition that properly describes the requirements of an
+application from the chosen topic. You can use as an example the problem definition given for the midterm project.
+Make sure the requirements are specific enough and the described problem is not too wide.
+
+The problem definition must take into consideration the use of the followings in the implementation:
+
+        a minimum of two custom collections (mandatory a sequence and a mutable mapping),
+
+        each class must implement custom str and repr methods,
+
+        a minimum of one of the following: decorator, context manager, and generator,
+
+        mixin, inheritance, and one scenario of operator overloading,
+
+        logging (using the standard logging), and
+
+        unit testing.
+
+For each component that we build, we have to add use cases and some tests to showcase the functionality and test
+that it meets all the requirements.
+
+In a new file, separated from the showcasing code, you will add tests for the implementation.
+
+The project will consist of three files:
+
+        requirements.txt - will store all the requirements of our problem definition,
+
+        application.py - the implementation,
+
+        playground.py - a file showcasing the functionality and proving it implements fully the requirements, and
+
+        tests.py - the unittests.
+
+Components share in grading:
+
+        problem description and requirements: 20%
+
+        implementation: 40%
+
+        showcasing the implemantation: 30%
+
+        tests: 10%
+
+Deadline: 21.06.2020

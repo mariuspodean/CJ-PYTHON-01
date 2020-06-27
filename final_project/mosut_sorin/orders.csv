@@ -1,0 +1,8 @@
+order_number,vin_number,client_id,operations_list,just_parts_dict,open_time,close_date,offer_number
+200625001,WDB45236DF9874328,1750603124555,Engine Oil Replace,{},1589104800.0,27 06 2020 13:00,
+200625002,WBA458HJ856789451,457874,Brake Discs Replace|Engine Oil Replace,{},1590314400.0,,
+200626001,VF1JSH72459415489,RO35894,Brake Discs Replace|Brake Pads Replace,"{'tex689': 4, 'bbu447': 1}",1592215200.0,26 06 2020 17:12,
+200626002,UU85412JH65478654,1820512578974,Engine Oil Replace|Brake Discs Replace|Brake Pads Replace,{},1593123199.0,,
+200626003,WBA458HJ856789451,RO35894,Brake Discs Replace|Brake Pads Replace,{},1593125090.0,27 06 2020 13:00,OF200626001
+200626004,VF1JSH72459415489,RO35894,Engine Oil Replace,"{'tex689': 1, 'mahu2525': 1, 'bbu447': 10}",1593178785.0,,
+200626005,VF1JSH72459415489,RO35894,Brake Discs Replace|Brake Pads Replace|Engine Oil Replace,"{'tex689': 6, 'bbu447': 1, 'mahu2525': 1}",1593180771.0,,
