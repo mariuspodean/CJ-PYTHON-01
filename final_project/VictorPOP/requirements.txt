@@ -1,0 +1,29 @@
+Final Project Requirements
+
+the task: Create a program that will generate custom computer builds using a given list of parts and a given keywords list.
+
+you will have a custom class [PCpart] to define each computer part, the class will have the following attributes :
+name, part_type, speed, ram, maxram, socket, m2 and price.
+there will be a number of 5 types for part_type: 'MTB', 'VID', 'PRO', 'RAM', 'SSD' where:
+'MTB' = motherboard, 'VID' = video card, 'PRO' = processor, 'RAM' = random access memory, 'SSD' = solid state drive
+
+you will have a mutable sequence [PartsList] to keep all the PC parts and it will have a method to "pick" different part types using a score.
+
+you will have a custom class [ComputerConfig] to define each computer build and to verifiy that each build has one of each part types
+
+you will have a muttable mapping [KeyWords_Map] to keep you keywords and the value for each component like below : 
+
+keywords = KeyWords_Map('keywords', {
+    # 'name':[pro,mtb,vid,ram,ssd]
+    'gaming':[100,100,100,69,78],
+}
+
+each class must implement custom str and repr methods,
+
+a minimum of one of the following: decorator, context manager, and generator, mixin, inheritance, and one scenario of operator overloading, logging (using the standard logging), and unit testing.
+
+the project will consist of three files:
+	requirements.txt - will store all the requirements of our problem definition,
+	application.py - the implementation,
+	playground.py - a file showcasing the functionality and proving it implements fully the requirements
+	tests.py - the unittests.
