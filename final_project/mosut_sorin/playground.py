@@ -1,7 +1,7 @@
-from final_project.mosut_sorin.basic_data import *
-from final_project.mosut_sorin.main_data import *
-from pprint import pprint
 import os
+from pprint import pprint
+
+from final_project.mosut_sorin.main_data import *
 
 
 def clear_screen():
@@ -444,7 +444,6 @@ while menu != '6':
                 print(cars)
                 enter_to_continue()
                 clear_screen()
-        # menu == '0'
     elif menu == '3':
         # menu Clients
         while menu != '5':
@@ -465,7 +464,6 @@ while menu != '6':
                 print(clients)
                 enter_to_continue()
                 clear_screen()
-        # menu == '0'
 
     elif menu == '4':
         # menu Operations
@@ -485,7 +483,6 @@ while menu != '6':
                 print(operations)
                 enter_to_continue()
                 clear_screen()
-        # menu == '0'
     elif menu == '5':
         # menu Spare Parts
         menu = '0'
@@ -504,5 +501,3 @@ while menu != '6':
                 pprint(parts)
                 enter_to_continue()
                 clear_screen()
-
-        # menu == '0'

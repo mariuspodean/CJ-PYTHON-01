@@ -5,7 +5,6 @@ import datetime
 import time
 
 
-# noinspection PyUnresolvedReferences
 class PrintFormatMixin:
 
     def __str__(self):
@@ -327,24 +326,6 @@ class Offer(OfferOrderStructure):
         return print_value
 
 
-# class OffersArchive(OrdersArchive):
-#     pass
-
-# def update_total_values(self):
-#     self.total_labor_time = 0
-#     self.total_labor_cost = 0
-#     self.total_parts_cost = 0
-#     self.total_just_parts_cost = 0
-#     self.total_cost = 0
-#     for offer_item in self._orders_archive.values():
-#         if not offer.close_date:
-#             self.total_labor_time += offer_item.total_labor_time
-#             self.total_labor_cost += offer_item.total_labor_cost
-#             self.total_parts_cost += offer_item.total_parts_cost
-#             self.total_just_parts_cost += offer_item.just_parts_cost
-#             self.total_cost = self.total_labor_cost + self.total_parts_cost + self.total_just_parts_cost
-
-
 def unique_number_genrator(data_base):
     open_time = time.localtime()
     open_time_seconds = time.mktime(open_time)
@@ -574,8 +555,6 @@ def write_in_file(file, data_base):
                 writer.writeheader()
 
                 for key, value in data_base.items():
-                    # print(value.operations_titles)
-                    # print(type(value.operations_titles))
                     operations_titles_string = '|'.join(value.operations_titles)
                     just_parts = value.just_parts
                     just_parts_code_pieces = {key: value[3] for key, value in just_parts.items()}

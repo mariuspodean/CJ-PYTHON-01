@@ -366,5 +366,6 @@ brake_pads_replace_parts = {
 brake_pads_replace = Operation('Brake Pads Replace', 1.6, brake_pads_replace_parts)
 save_operation(brake_pads_replace, operations)
 
+logger.info('data base files')
 cars = open_cars_file('cars.csv', CarsDataBase)
 clients = open_clients_file('clients.csv', ClientsDataBase)
