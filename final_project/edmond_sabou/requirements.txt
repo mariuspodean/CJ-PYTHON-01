@@ -1,0 +1,31 @@
+Company XYZ is struggling to have a concise way of organizing clients, the services they provide and the contracts they
+sign with their customers.
+They wish to have a unique platform where they can store clients, services and contracts where this can be easily
+managed, viewed and updated if necessary.
+
+The application will consist of a user friendly menu where you can quickly access the customers, deals and services.
+
+Customers menu should have the following items:
+* ability to add a new client
+* search for clients
+	in case there are more than one customers with the same name, duplicate search results should be avoided
+		customers are searchable after unique ID like CNP
+* remove existing client
+* update existing clients
+* view the list of customers
+	in case there are several hundreds of customers you do no want your screen to be flooded with information, this
+	should retrieve customers in small, manageable stacks
+
+Services should have the following items:
+* add new service
+* search after service
+* view all services
+	just like in case of customers this should return small manageable stacks of products
+* update existing services
+
+Contracts would be managed based on existing clients and existing services
+* ability to create a contract ONLY with the combination of an existing client and existing service
+* contracts are searchable after contract IDs
+* contracts are stored in the format of IDs, e.g. contract id, service id, service name, client's unique CNP
+* ability to remove contract
+* ability to view the list of contracts based on the same criteria as customers and services
