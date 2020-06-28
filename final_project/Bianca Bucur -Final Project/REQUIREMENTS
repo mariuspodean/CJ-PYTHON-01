@@ -1,0 +1,88 @@
+FINAL PROJECT
+
+Description:
+-Application that will create a database of all highschool's students and teachers.
+
+This project will hold and display all students and teachers. When describing a person, his status will show up (Student or teacher).
+
+
+Create an application for managing the highschool people with the following features:
+ - display all people;
+ - manage existing people (deleting or adding someone);
+ - check if a person exists, if they don't't exist a message with "error" will pop up, if they exist then all their personal information will be displayed;
+
+class Person(...):
+
+once a person is created it cannot be updated.
+
+there are the classes Student and Teacher that derive from the main class Person.
+
+Each of the classes created must implement a custom "str" and "repr" methods
+
+
+A mixin class that will be used by database add custom print of it's content.
+This will appear to display everyone:
+                _
+              _|=|__________
+             /              \
+            /   HIGH SCHOOL  \
+           /__________________\
+            ||  || /--\ ||  ||
+            ||[]|| | .| ||[]||
+          ()||__||_|__|_||__||()
+         ( )|-|-|-|====|-|-|-|( ) 
+         ^^^^^^^^^^====^^^^^^^^^^^
+.------------------------------------------.
+| .--------------------------------------. |
+| |                Info :                | |
+| |                                      | |
+| |1. Surname,Name, age, status          | |
+| |2. Surname,Name, age, status          | |
+| |                                      | |
+| |                                      | |
+| |                                      | |
+| |                                      | |
+| |                                      | |
+| |                                      | |
+| |                                      | |
+| |                                      | |
+| |                                      | |
+| |______________________________________| |
+|__________________________________________|
+
+
+If you search for a certain person and they don't exist, this will pop up:
+
+
+
+    _.-'`'-._     ███████╗██████╗ ██████╗  ██████╗ ██████╗ 
+ .-'    _    '-.  ██╔════╝██╔══██╗██╔══██╗██╔═══██╗██╔══██╗
+  `-.__  `\_.-'   █████╗  ██████╔╝██████╔╝██║   ██║██████╔╝
+    |  `-``\|     ██╔══╝  ██╔══██╗██╔══██╗██║   ██║██╔══██╗
+    `-.....-A     ███████╗██║  ██║██║  ██║╚██████╔╝██║  ██║
+            #     ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝
+            #     !! no person found with this surname !!       
+
+
+Python requirements:
+ - a minimum of two custom collections (mandatory a sequence and a mutable mapping),
+ - each class must implement custom str and repr methods,
+ - a minimum of one of the following: decorator, context manager, and generator,
+ - mixin, inheritance, and one scenario of operator overloading,
+ - logging (using the standard logging), and
+ - unit testing.
+
+The project will consist of three files:
+ - requirements.txt - will store all the requirements of our problem definition,
+ - application.py - the app implementation,
+ - playground.py - a file showcasing the functionality and proving it implements fully the requirements, and
+ - tests.py - the unittest
+
+
+
+
+
+
+
+
+
