@@ -50,7 +50,7 @@ zones = {
         'INSPECT':  "You feel a barrel next to you.\nWhat do you do?",
         'ANSWERS_INSPECT': ['move the barrel', 'move barrel', 'inspect barrel'],
         'PUZZLE': 'The barrel rolls aside and you find a secret tunnel.\nWhat do you do?',
-        'ANSWERS_PUZZLE': ['enter the tunnel', 'enter tunnel'],
+        'ANSWERS_PUZZLE': ['enter the tunnel', 'enter tunnel', 'go inside'],
         'STAY': 'Are you sure you want to stay here with your friend?',
         'ANSWERS_STAY': ['stay', 'stay with my friend'],
     },
@@ -60,9 +60,9 @@ zones = {
                        'You realise your friend is too weak to go with you..\nWhat do you do?',
         'FRIEND': 'When you are about to leave..your friend grasped your arm and gave you a note.\nWhat do you do ?',
         'ANSWERS_INSPECT': ['read note', 'read', 'read the note', 'inspect', 'inspect note'],
-        'ANSWERS_PUZZLE': ['leave', 'leave your friend behind', 'leave friend', 'leave without friend'],
+        'ANSWERS_PUZZLE': ['leave', 'leave your friend behind', 'leave friend', 'leave without friend', 'enter tunnel'],
         'PUZZLE': 'It is too dark to read the note.\nWhat do you do?',
-        'ANSWERS_LEAVE': ['leave', 'leave friend', 'go', 'run', 'leave your friend'],
+        'ANSWERS_LEAVE': ['leave', 'leave friend', 'go', 'run', 'leave your friend', 'enter tunnel'],
         'STAY': 'Are you sure you want to stay here with your friend?\n',
         'ANSWERS_STAY': ['stay', 'stay with my friend'],
     },
@@ -75,10 +75,10 @@ zones = {
         'PUZZLE': 'In the boat you find a lantern\nWhat do you do ?',
         'ANSWERS_PUZZLE': ['take the lantern', 'pick lantern', 'take lantern', 'inspect lantern'],
         'FRIEND': 'Are you sure you want to go back for your friend?\n',
-        'ANSWERS_ENDING': ['leave', 'sail', 'sail away', ],
+        'ANSWERS_ENDING': ['leave', 'sail', 'escape', ],
         'DECISION': 'Are you a 0 or are you a 1?\nDo you leave? or do you stay?',
-        'ANSWERS_LEAVE': ['leave', '0'],
-        'ANSWERS_STAY': ['stay', '1'],
+        'ANSWERS_LEAVE': ['leave', '0', 'zero'],
+        'ANSWERS_STAY': ['stay', '1', 'one'],
         'BAD_ENDING': 'There it is again..that feeling slowly creeping in..\n'
                       'The overwhelming fear building.. the burrowing.. the nesting.. the scream..\n'
                       'Next my consciousness will go..\n'
@@ -155,8 +155,8 @@ def help_menu():
     print('###|    |__\  ___/ / __ \\\   /\  ___/  (  <_> )  | \/  \___ \  |  |  / __ \\\___  |######')
     print('###|_______ \___  >____  /\_/  \___  >  \____/|__|    /____  > |__| (____  / ____|######')
     print('##########\/##\/######\/##########\/######################\/############\/\/############')
-    print('#####%%#####%%#####> Play - #####%%#####- Help -#####%%##### - Quit <#####%%#####%%##### ')
-    print('#####%%#####%%#####>>#####>>Type in your commands to do them<<#####<<#####%%#####%%#####')
+    print('#####%%#####%%#####> Play - #####%%#####- Help -#####%%##### - Quit <#####%%#####%%#####')
+    print('#####%%#####%##>>Type in your commands to do them but try to be specific <<##%####%%####')
     print('#####%%#####%%#####>> Use the "inspect" command and look for clues <<#####%%#####%%#####')
     print('#####%%#####%%#####>>  Solve the riddle and find the "key" to win  <<#####%%#####%%#####')
     print('####################################>Have fun !<########################################')
@@ -231,7 +231,7 @@ def good_ending():
 def generate_pressure():
     yield_str = '''
     \x1B[3mThe ceiling started to crack dropping a piece of debris..\x1B[23m
-    \x1B[3mIt has destroyed the telephone...luckily it wasn't you..\x1B[23m
+    \x1B[3mIt has destroyed the telephone.. luckily it wasn't you but that was very close..\x1B[23m
     '''
     yield yield_str
     yield_str = '\t\x1B[3mThe earth is trembling..and you hear loud sirens from outside the room..\x1B[23m\n'
@@ -258,7 +258,6 @@ def time_pressure():
         elif player1.completion == 2.5 and array[3] is False:
             array[3] = True
             print(next(string_object))
-        time.sleep(1)
 
 
 def start_game():

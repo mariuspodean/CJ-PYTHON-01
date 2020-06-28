@@ -23,7 +23,8 @@ class Player:
         return self.name
 
     def __len__(self):
-        return len(self.location)
+        if len(self.name) > 15:
+            return False
 
     def __repr__(self):
         return self.completion
@@ -31,6 +32,10 @@ class Player:
     def __str__(self):
         if hasattr(self, 'name'):
             return self.name
+        elif '' in self.name:
+            return False
+        elif self.name.islower():
+            return False
 
     def level_up(self):
         self.completion += 0.5
