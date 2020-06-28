@@ -296,7 +296,7 @@ class AddressManager:
     def calculate_distance(current_point, next_point):
         url = 'https://maps.googleapis.com/maps/api/distancematrix/json?origins=' + str(current_point[0]) + ',' + str(
             current_point[1]) + '&destinations=' + str(next_point[0]) + ',' + str(
-            next_point[1]) + '&key=AIzaSyCB8LXmmzza62FoDNE25BgMz1CHU1P0Tn4'
+            next_point[1]) + '&key=CUSTOM_API_KEY_NEEDED_HERE'
         response = requests.get(url).json()
         distance = response["rows"][0]["elements"][0]["distance"]["value"] / 1000  # distance in kms
 
