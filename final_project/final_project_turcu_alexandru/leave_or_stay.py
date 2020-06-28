@@ -50,7 +50,7 @@ zones = {
         'INSPECT':  "You feel a barrel next to you.\nWhat do you do?",
         'ANSWERS_INSPECT': ['move the barrel', 'move barrel', 'inspect barrel'],
         'PUZZLE': 'The barrel rolls aside and you find a secret tunnel.\nWhat do you do?',
-        'ANSWERS_PUZZLE': ['enter the tunnel', 'enter tunnel', 'go inside'],
+        'ANSWERS_PUZZLE': ['enter the tunnel', 'enter tunnel', 'go inside', 'inspect tunnel'],
         'STAY': 'Are you sure you want to stay here with your friend?',
         'ANSWERS_STAY': ['stay', 'stay with my friend'],
     },
