@@ -35,7 +35,7 @@ zones = {
         'PUZZLE2': 'The computer seems to have a button on it.\nWhat do you do?',
         'PUZZLE3': 'You answer the telephone to a robotic voice that says:\n'
                    'The code for the nuclear reactor bunker room is 1 3 3 7..\nWhat do you do?',
-        'ANSWERS_PUZZLE': ['press button', 'press the button', 'push it', 'push the button', 'push button'],
+        'ANSWERS_PUZZLE': ['press button', 'push it', 'press it', 'push button', 'inspect button'],
         'ANSWERS_ENDING': ['type code', 'enter code', 'enter code into door', 'type code into door', 'insert code'],
         'GAME_WITHIN_GAME': 'The computer boots up and it starts a text-based adventure game\n'
                             'Its title says: "Leave or Stay"\n',
@@ -89,9 +89,10 @@ zones = {
     'Hello Friend': {
         'DESCRIPTION': 'You run back to the secret tunnel, slowly crawling your way back to the dark dungeon\n'
                        'Your friend was here waiting for you all along..\nWhat do you do?',
-        'INSPECT': 'Your friend hands you back the note...\n '
+        'ANSWERS_FRIEND': ['talk with friend', 'inspect', 'comfort friend', 'inspect note', 'ask for the note'],
+        'INSPECT': 'Your friend hands you the note..\n'
                    'The lantern provides enough light allowing you to read the note\nWhat do you do?',
-        'ANSWERS_INSPECT': ['read', 'read the note', 'read note'],
+        'ANSWERS_INSPECT': ['read', 'read the note', 'read note', 'inspect note'],
         'PUZZLE': "The note says: 'Please don't leave me here alone..'\nWhat do you do?",
         'ANSWERS_ENDING': ['leave', 'stay'],
         'BAD_ENDING': 'There it is again..that feeling slowly creeping in..\n'
@@ -106,9 +107,9 @@ CREDITS = {
                    "Saving a world that is made to divide us.. so its easier to rule us?\n"
                    "Are we crazy enough to believe this.. distortion of reality?\n"
                    'The key to a better world... you.. me.. this is how we own it\n'
-                   'Because friendship is not a weakness but a power\n'
+                   'Because friendship is not a weakness but a power!\n'
                    'And if we manage to harness this power..nothing can stop us\n'
-                   "It's an exciting time in the world...\nThank you for playing..THE END\n"
+                   "It's an exciting time in the world...\nThank you for playing..\nTHE END\n"
 
 }
 
@@ -156,7 +157,7 @@ def help_menu():
     print('###|_______ \___  >____  /\_/  \___  >  \____/|__|    /____  > |__| (____  / ____|######')
     print('##########\/##\/######\/##########\/######################\/############\/\/############')
     print('#####%%#####%%#####> Play - #####%%#####- Help -#####%%##### - Quit <#####%%#####%%#####')
-    print('#####%%#####%##>>Type in your commands to do them but try to be specific <<##%####%%####')
+    print('####%%#####%##>> Type in your commands to do them but try to be specific <<##%####%%####')
     print('#####%%#####%%#####>> Use the "inspect" command and look for clues <<#####%%#####%%#####')
     print('#####%%#####%%#####>>  Solve the riddle and find the "key" to win  <<#####%%#####%%#####')
     print('####################################>Have fun !<########################################')

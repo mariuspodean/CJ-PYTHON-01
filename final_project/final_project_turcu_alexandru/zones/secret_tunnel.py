@@ -49,7 +49,7 @@ def secret_tunnel_puzzle():
     if player1.choice in zones['Secret Tunnel']['ANSWERS_INSPECT']:
         player_decision_tunnel()
         player1.level_up()
-    elif player1.choice in 'ANSWERS_STAY':
+    elif player1.choice in zones['Secret Tunnel']['ANSWERS_STAY']:
         player_stay()
     elif player1.choice in zones['Secret Tunnel']['ANSWERS_LEAVE']:
         player1.location = 'Beach'
@@ -69,7 +69,7 @@ def player_decision_tunnel():
         print(__header)
         player1.level_up()
         start_beach()
-    elif player1.choice in 'ANSWERS_STAY':
+    elif player1.choice in zones['Secret Tunnel']['ANSWERS_STAY']:
         player_stay()
     else:
         print('Nothing happens..')
@@ -82,9 +82,7 @@ def player_stay():
     if player1.choice == 'yes':
         good_ending()
     elif player1.choice == 'no':
-        player1.level_up()
-        player1.location = 'Beach'
-        start_beach()
+        secret_tunnel_puzzle()
     else:
         print('Nothing happens..')
         player_stay()

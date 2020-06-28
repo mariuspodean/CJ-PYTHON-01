@@ -75,7 +75,7 @@ def player_decision_binary():
     player1.choice = input("> ")
     if player1.choice in zones['Beach']['ANSWERS_LEAVE']:
         bad_ending()
-    elif player1.choice == zones['Beach']['ANSWERS_STAY']:
+    elif player1.choice in zones['Beach']['ANSWERS_STAY']:
         player1.location = 'Hello Friend'
         player1.level_up()
         player_friend()

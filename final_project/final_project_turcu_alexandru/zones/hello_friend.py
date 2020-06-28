@@ -13,7 +13,7 @@ good_ending = leave_or_stay.good_ending
 @typewriter_decorator(zones['Hello Friend']['DESCRIPTION'])
 def start_hello_friend():
     player1.choice = input("> ")
-    if player1.choice == 'inspect':
+    if player1.choice in zones['Hello Friend']['ANSWERS_FRIEND']:
         friend_puzzle()
     else:
         print('Nothing happens')
