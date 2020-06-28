@@ -26,7 +26,7 @@ The game is meant to have dead ends and take you in a loop until the time runs o
 However the game can be solved very fast as long as you realise what the key to win is.
 
 
-We will have Player.py for the functionality of player1
+We will have Player.py for the functionality of player1, location iterator, context manager
 We will have leave_or_stay.py for the application
 We will have zones folder for the playground
 We will have unittests.py for the tests
