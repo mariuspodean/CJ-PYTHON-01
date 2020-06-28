@@ -1,0 +1,5 @@
+Any wise business decision has to be made based on facts and data.
+Sales managers need good tools for processing and analyzing data and turning it into business insights.
+
+Desing a Business Intelligence application that allows monthly sales data coming from an external source to be processed,
+summarized and stored on customer accounts. Implement functionalities to provide different reports and for management use.
