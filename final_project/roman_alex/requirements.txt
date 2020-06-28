@@ -1,39 +1,63 @@
-Create a database that will mantain an client list.
+Description:
 
-client_list=[client_1, client_2 ....]
+Create a client database that were the price of the bought items will be adjusted by the loyalty
+displayed by the client (amount spent). 
+The following information should be retained in regards to the client: 
+First Name, Last Name, Country, Telephone Number, and company.
 
-The client list will have at least 2 types of clients, a "basic_client" class and a "gold_client" class that will
-inherit the "basic_client" class and will have a new discount atribute.
+In order to showcase the functionality of the client database a secondary database will be created
+to store the products/services that the client will be purchasing, for example if the client is
+purchasing a product we should have the product name, the price, the quantity in stock, and a short 
+description of the product.
 
-ex.
-client_1 = Client("Joe", "Smith", "USA", "(001)4444-4444", "HoneyWell")
-client_2 = Gold_Client("Jake", "fisher", "USA", "(001)4444-4444", "J.Walker", "20")
+All purchases should be written in an external file for easier access.
 
-Each of the classes created must implement a custom "str" and "repr" methods
-
-A minimum of 1 of the following: decorator, context_manager, generator (ex. for the client ID) must be implemented in one of the classes.
-
-
-A mixin class that will be used by database add custom print of it's content.
-
-class PrittyPrinter:
-    ...
+The implementation should follow these general terms:
+A new client will have to pay full price for a product, once the client spending have past a certain limit
+(ex. 2000, ... ) the client loyalty status will change from Basic to Silver and a discount will be applied.
+Furthermore once a Silver client spending will pass a secondary limit the client loyalty status will change 
+to Gold and the discount amount will increase.
 
 
-A function called "check_client" that will check if the client exist in our database.
-The function will have a decorator that will print a nice representation.
 
-def check_client():
-    ...
+Tech Description:
 
-Each of the function, clases and methods mentioned above should have their functionality shown in the 
+The Clients will be created using a Client class.
 
-The project will consist of three files:
+class Client(....)
 
-        1. requirements.txt - will store all the requirements of our problem definition,
+A mixin will be used to add the custom __str__ and __repr__
+methods.
 
-        2. application.py - the implementation,
+All the clients will be kept in collection named Client_List that will be a mutable sequence.The collection
+will allow to add new clients and delete clients.
 
-        3. playground.py - a file showcasing the functionality and proving it implements fully the requirements, and
+class Client_List
 
-        4. tests.py - the unittests
+The products will be created using a Product class. The product class will allow operator overloading.
+
+class Product
+
+The products will be kept inside a collection named Inventory that will be a mutable mapping.The collection
+will allow to add new products, delete products and edit the available quantity of a product.
+
+class Inventory
+   
+A function will be used to generate the purchase taking in account the available products and the amount
+the client has spent until now and a log will be created with name of the client and the purchased item. 
+
+def purchase(...):
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
