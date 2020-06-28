@@ -1,4 +1,4 @@
-from FINAL_PROJ.application import *
+from final_project.edmond_sabou.application import *
 
 # clients
 client = Client(12, "Name", "Surname", "6663338889365")

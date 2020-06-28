@@ -1,4 +1,4 @@
-from FINAL_PROJ.application import *
+from final_project.edmond_sabou.application import *
 import unittest
 import random
 rand_cnp = "".join(random.choices(string.digits, k=13))

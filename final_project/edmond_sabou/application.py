@@ -543,7 +543,6 @@ class ClientTools:
 
     def update_client(self, cnp, new_name, new_surname, new_cnp):
         """Updates an existing client"""
-        # TODO: add confirmation message
         client_list = self.file.get_all_clients()
         for client in client_list:
             if client.cnp == cnp:
