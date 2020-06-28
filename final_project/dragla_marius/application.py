@@ -1,8 +1,8 @@
 import csv
 from collections.abc import MutableMapping, Sequence
 import logging
-import matplotlib.pyplot as plt
 from faker import Faker
+# from matplotlib import pyplot as plt
 
 # Logging
 logger = logging.getLogger(__name__)
@@ -205,16 +205,17 @@ class ReportGenerator:
                 total_sales = self.sales.get_total_sales()
                 total_customers = len(self.sales)
                 category_sales = self.sales.category_sales
-                sales_percentages = AllCategorySales.get_category_sales_perc(category_sales, total_sales)
 
-                labels = sales_percentages.keys()
-                sizes = sales_percentages.values()
-                explode = (0, 0.1, 0, 0, 0, 0, 0, 0, 0, 0)
+                # Below code does not work on Git (works fine on local). It seems the issues is related to importing
+                # Matplotlib, but I was not able to fix it in due time:(
 
-                plt.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%', shadow=True, startangle=140)
-
-                plt.axis('equal')
-                plt.show()
+                # sales_percentages = AllCategorySales.get_category_sales_perc(category_sales, total_sales)
+                # labels = sales_percentages.keys()
+                # sizes = sales_percentages.values()
+                # explode = (0, 0.1, 0, 0, 0, 0, 0, 0, 0, 0)
+                # plt.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%', shadow=True, startangle=140)
+                # plt.axis('equal')
+                # plt.show()
 
                 self.file.write(f'Totals Report \n\n')
                 self.file.write(f'Total accounts: {total_customers} \nTotal sales: {round(total_sales, 2)} '
