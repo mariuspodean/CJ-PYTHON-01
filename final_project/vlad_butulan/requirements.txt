@@ -1,0 +1,39 @@
+Hotel manager application v1.0
+
+Create an application for a hotel manager with the following features:
+ - check-in/check-out process for new clients
+ - manage existing registered clients
+ - verify room availability at a specific period of time
+ - check room ocupation status
+   not mandatory but the app should display the status in a table format of: Room number, Room type, reserved by, and ocupation period
+ - any new clinet should be registerd when the actual check-in is taking place
+ - every checkin should be logged
+
+The hotel holds initialy the following rooms:
+ - 2 single rooms on the first floor
+ - 2 double rooms on the second floor
+
+The rooms should have at least the below facilities:
+  - "dishwasher"
+  - "toaster"
+  - "dining table"
+  - "alarm clock"
+  - "TV"
+  - "radio"
+  - "air_conditioning"
+Each room should have at least 4 items from facilities listed above
+
+Python requirements:
+ - a minimum of two custom collections (mandatory a sequence and a mutable mapping),
+ - each class must implement custom str and repr methods,
+ - a minimum of one of the following: decorator, context manager, and generator,
+ - mixin, inheritance, and one scenario of operator overloading,
+ - logging (using the standard logging), and
+ - unit testing.
+
+The project will consist of three files:
+ - requirements.txt - will store all the requirements of our problem definition,
+ - application.py - the app implementation,
+ - playground.py - a file showcasing the functionality and proving it implements fully the requirements, and
+ - tests.py - the unittests.
+

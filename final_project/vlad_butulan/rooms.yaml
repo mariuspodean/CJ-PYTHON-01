@@ -1,0 +1,44 @@
+#all rooms
+---
+room1:
+  nr: 1
+  type: "single_room"
+  floor: 0
+  facilities:
+  - "dishwasher"
+  - "toaster"
+  - "dining table"
+  - "alarm clock"
+  - "TV"
+room2:
+  nr: 2
+  type: "single_room"
+  floor: 0
+  facilities: 
+  - "dishwasher"
+  - "toaster"
+  - "dining table"
+  - "alarm clock"
+  - "TV"
+room3:
+  nr: 3
+  type: "double_room"
+  floor: 1
+  facilities: 
+  - "dishwasher"
+  - "toaster"
+  - "dining table"
+  - "alarm clock"
+  - "TV"
+  - "radio"
+  - "air_conditioning"
+room4:
+  nr: 4
+  type: "double_room"
+  floor: 1
+  facilities:
+  - "dishwasher"
+  - "toaster"
+  - "dining table"
+  - "alarm clock"
+  - "TV"
