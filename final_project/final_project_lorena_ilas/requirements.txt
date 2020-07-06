@@ -1,0 +1,69 @@
+Requirements of the problem
+
+Create a Parcel delivery App.
+
+
+- create a menu from which one can login or exit
+- create 2 classes: Client and Driver that will inherit their attributes from a User class
+- create one login for clients and one for drivers (store their credentials in a txt file)
+- use a context manager to read the credentials from the txt file
+- on the User class implement a str that will display both for clients and drivers a welcome message on the screen of their app
+
+
+             ________________________________________________     
+           /                                                  \          
+           |    _________________________________________     |
+           |   |                                         |    |
+           |   |                                         |    |
+           |   |                                         |    |
+           |   |                                         |    |
+           |   |                                         |    |     
+		   |   | Welcome back Lorena!					 |	  |
+		   |   | You are logged in as a Client!			 |	  |
+           |   |                                         |    |
+           |   |                                         |    |
+           |   |                                         |    |
+           |   |                                         |    |
+           |   |                                         |    |
+           |   |                                         |    |
+           |   |_________________________________________|    |
+           |                                                  |
+            \_________________________________________________/
+                   \___________________________________/
+
+
+
+             ________________________________________________     
+           /                                                  \          
+           |    _________________________________________     |
+           |   |                                         |    |
+           |   |                                         |    |
+           |   |                                         |    |
+           |   |                                         |    |
+           |   |                                         |    |
+		   |   | Welcome back Mihai!					 |	  |
+		   |   | You are logged in as a Driver!			 |	  |
+           |   |                                         |    |
+           |   |                                         |    |
+           |   |                                         |    |
+           |   |                                         |    |
+           |   |                                         |    |
+           |   |                                         |    |
+           |   |_________________________________________|    |
+           |                                                  |
+            \_________________________________________________/
+                   \___________________________________/
+
+
+
+
+- for the clients create a menu from which they will be able to choose if they want to deliver a single parcel or more
+- after choosing their option clients should be able to input dimensions, weight and address of their parcels, so there should be a method to check if the inputs are ok or not and so let the client know if their parcel is accepted or not
+- if certain conditions are accomplished clients will recieve in the end the  total price to pay 
+
+- the drivers once they logged in, like for the clients they will see displayed on the screen of their app a welcome message
+- there should be a sequence where all addresses are appended from that sequence the addresses should be transformed into two other sequences of latitudes and longitudes using openstreetmap API geocoding
+- with these sequences google Map plotter you should be able to draw a html map with the driver's route
+
+
+
