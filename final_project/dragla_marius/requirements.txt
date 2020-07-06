@@ -1,0 +1,28 @@
+Any wise business decision has to be made based on facts and data.
+Sales managers need good tools for processing and analyzing data and turning it into business insights.
+
+Desing a Business Intelligence application that allows monthly sales data coming from an external source to be processed,
+summarized and stored on customer accounts. Implement functionalities to provide different reports and for management use.
+
+The application will implement a function that allows processing of sales data from csv files and summarizing it into
+sales per customers and categories of products.
+
+The individual customer data will be logged on CustomerAccount objects and stored into a Sales collection, which will
+also store the sales per categories of products.
+
+The CustomerAccount class object instantiation will be done through a function that generates the customer details and
+gets the customer sales already obtained from the csv file, and will also store these objects into the Sales collection.
+
+
+class CustomerAccount:
+- will hold individual account identification details as well as total sales and sales per category for each customer
+
+class CategorySales:
+- will hold the total category sales
+
+class Sales:
+- will inherit from CategorySales and will be a collection of customer accounts and total sales per category that will
+be used for generating reports and charts.
+
+class ReportGenerator:
+- will be a content manager for creating and saving reports and charts.
