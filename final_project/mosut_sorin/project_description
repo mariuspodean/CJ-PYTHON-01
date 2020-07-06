@@ -1,0 +1,197 @@
+    Tema aleas de mine pentru priectul final a fost realizarea unui program sub forma de aplicatie desktop care
+sa gestioneze ofertele si comenzile de lucru dintr-un atelier de tip service auto.
+
+    Fluxul de lucru intr-un service auto se bazeaza pe organizarea informatiei in documente de tip comanda de lucru,
+care inmagazineaza toti pasii procesului de la intrare pana la iesire, astfel dintre informatiile inmagazinate sunt:
+
+    - detalii cu privire la client:
+                - numar unic de inregistrare (cui, cnp ... )
+                - denumire sau nume
+                - adresa
+                - etc
+    - detalii cu privire la automobil:
+                - numar de inrregistrare sau serie de sasiu ( care e unic )
+                - numar de inmatriculare
+                - marca
+                - model
+                - an de fabricatie
+                - cilindree
+                - putere
+                - etc
+    - detalii cu privire la operatiile solicitate:
+                - denumire operatie:
+                - piese de schimb folosite
+                        - denuire piesa
+                        - cod piesa
+                        - brand
+                        - cost
+                        - numar de bucati folosite
+                - timp de lucru
+                - cost manopera
+                - cost piese
+                - cost total pe operatie
+    - detalii ale pieselor de schimb nearondae unei operatii anume:
+                - denumire piesa
+                - cod piesa
+                - brand
+                - cost
+                - numa de bucati
+    - detalii comanda de lucru:
+                - numar unic generat automat
+                - data deschidere comanda
+                - data inchidere comanda sau status 'comanda deschisa'
+                - costuri:
+                        - cost total manopera
+                        - cost total piese din operatii
+                        - cost total piese fara operatii
+                        - cost total lucrare
+
+    Ca si mod de lucru, am structurat proiectul astfel:
+
+                - baze de date in fisiere de tip .csv pentru urmatoarele date:
+                        - 'cars.csv' - baza de date pentru detalii autovehicule
+                        - 'clients.csv' - baza de date pentru detalii clienti
+                        - 'parts.csv' - baza de date cu piese de schimb
+                        - 'offers.csv' - baza de date pentru oferte
+                        - 'orders.csv' - baza de date pentru comenzile de lucru
+                - fiisere .py:
+                        - 'basic-data.py' -  prelucreaza toate datele si structurile de date pentru automobile,
+                                            clienti, operatii si piese de schimb
+                        - 'main_data.py' - prelucreaza toate datele , structurile de date , metodele si functiile
+                                          pentru oferte si comenzi de lucru
+                        - 'playground.py' - in acest fisier este codul care asigura interfata , meniurile si legaturile
+                                            dintre bazele de date si structurle de date din fisierele precedente
+                        - 'test.py' - inmagazineaza functiile de testare automata
+
+    'basic_data.py' - acest fisier gestioneaza informatiile deste autovehicule, clienti, operatii si piese de schimb:
+
+            - class CarClient - clasa parinte pentru clasele Car si Client, care detine metodele comune celor 2 clase
+                                care o mostenesc
+                              - 'if id_no in data_base:
+                                    raise Exception('Duplicate id_no')'
+                                # aceasta secventa blocheza inregistrarea a 2 vehicule sau 2 clienti cu acelasi
+                                numar de identificare. Ridica o exceptie care va fi apelata in functia
+                                'build_car_client_instance(class_name, id_no, *args, data_base)', care are ca efect
+                                crearea unei instante a clasei 'class_name', in speta Car sau Client.
+                              - obiectul rezultat este de tip collection
+
+            - class Car - returneaza instante pentru fiecare automobil inregistrat care inmagazineaza toate datele
+                          necesare deschiderii, prelucrarii si inchiderii unei comenzi de lucru
+                        -  '@property
+                            def vin_number(self):
+                                return self.__vin_number
+
+                            @vin_number.setter
+                            def vin_number(self, value):
+                                if len(value) == 17:
+                                    self.__vin_number = value.upper()
+                                else:
+                                    raise ValueError('vin number must have 17 lenght')'
+
+                             # secventa testeaza daca stringul introdus pentru atributul 'vin_number' respecta conditia
+                             de a fi construit din 17 caractere, daca e indeplinita contitia, pe string se apeleaza
+                             metoda .upper() si apoi se asigneza pe self, daca nu e indeplinita conditia se arunca o
+                             eroare de tip 'ValueError'
+
+            - class CarsDataBase - este clasa care returneza o instanta de tip mapping care actioneaza ca o baza de date
+                                   pentru  detaliile automobilelor si in acelasi timp creaza o instanta pentru
+                                   detaliile clientilor , deoarece clasa ClientsDataBase o mosteneste.
+                                 - totodata din instantele claselor CarsDataBase si ClientsDataBase, care inmagazineaza
+                                   datele automobilelori si a clientilor inregistrati, sunt argumete ale functiilor care
+                                   asigura trabnspunerea celor doua baze de date in fisiere de tip .cvs unde vor fi
+                                   salvate toate datele.
+                                 - metode customizate:
+                                        - __str__() - returneza un string customizat pentru a printa toate elementele
+                                                      dintr-o instanta
+                                        - contains_check() - este oarecum o rescriere a metodei __contains__() care
+                                                        verifica prezenta elementului 'item' in atributul de tip mapping
+                                                        al obiectului, returnand True sau 'raise Exception(f'No item
+                                                        with {item} identification number in data base !!!')' daca 'item'
+                                                        nu e prezent, metoda e folosita in playground in functia
+                                                        check_value() care verifica prezenta valorii unei variabile
+                                                        intr-o baza de date.
+                                        - update() - este metoda care incarca valorile dorite in obiect
+                                        - search() - este metoda care retureneaza o lista cu valorile de identificare
+                                                     ale clientilor sau automobilelor in functie de elementul cautata
+                                                     search_data
+
+            - class Operation - este clasa care returneaza o instanta in care se incarca datele necesare unei operatii
+                                si are ca atribute pe self:
+                                        - title - denumirea operatiei
+                                        - labor_time - timpul de lucru necesar operatiei
+                                        - parts - dictionar care are key = cod de piesa si value = numar de bucati - va
+                                                  contine toate piesele necesare operatiei
+                                        - parts_cost - costul total al pieselor pentru operatia in cauza
+                                        - labor_cost - costul manoperei aferente
+                                        - total-cost - sum costurilor operatiei
+
+            - class Operations - returneaza un obiect de tip collection in care se vor incarca toate obiectele de tip
+                                 instanta de Operation(), devenind un containder pentru toate operatiile care se pot
+                                 executa in atelier.
+                               - metode customizate:
+                                        - __str__() - idem class CarsDataBase
+                                        - contains_check() - idem class CarsDataBase
+                                        - search() - idem class CarsDataBase
+                                        - append() - adauga o instanta Operation in baza de date de tip Operations
+
+            - functii :
+                    - build_car_client_instance(class_name, id_no, *args, data_base) functia returneaza o instanta a
+                                clasei 'calss_name' care poate fi 'Car' sau 'Client' daca trece conditia din __init__,
+                                daca nu trece se creaza o exceptie.
+                    - save_instance(obj, data_base) - adauga atributele obiectului 'obj' in baza de date 'data_base'
+                    - cars_file_header(file) - functia scrie in fisierul 'cars.csv' primul rand care are rol de header
+                    - clients_file_header(file) - functia scrie in fisierul 'clients.csv' primul rand care are rol
+                                de header
+                    - write_in_cars_file(file, data_base) - functia scrie informatia din variabila 'cars' (data_base)
+                                in fisierul 'cars.csv'(file)
+                    - write_in_clients_file(file, data_base) - functia scrie informatia din variabila 'clients'(data_base)
+                                in fisierul 'clients.csv'(file)
+                    - open_cars_file(file, data_base_class) - este functia care asigura transpunerea informatiei pastrate
+                                in fisierul baza de date 'cars.csv' in variabila 'cars' care e o instanta a clasei
+                                CarsDataBase.
+                    - open_clients_file(file, data_base_class) - idem - open_cars_file din fisierul 'clients.csv'
+                                in baza de date 'clients'
+                    - open_parts_file(file) - idem - open_cars_file din fisierul 'parts.csv' in dictionarul 'parts',
+                                presupunem ca fisierul 'parts.csv' il primim de la furnizorul de piese completat si
+                                updatat cu toate informatiile necesare.
+                    - create_parts_dict(parts_in, parts_dict) - functia este apelata in __init__ ul clasei Operation,
+                                returneaza 'parts_dict' dupa ce il updateaza cu valorile din 'parts' selectate in dupa
+                                valorile din 'parts_in', 'parts_in' fiind un dictionar cu key = cod de piesa si value
+                                = numarul de bucati. Functia mai returneaza si valoarea 'parts_cost' care reprezita suma
+                                pieselor din 'parts_in'.
+                                'parts_dict' si 'parts_cost' se vor incarca pe 'self.parts' repectiv pe 'self.parts_cost'
+                    - save_operation(operation, data_base) - adauga 'opeartion' la baza de date 'data_base'
+                    - search_client_by_name(name) si  search_car_by_reg_number(reg_number) - sunt doua functii care
+                                returneaza liste cu id-urile inregistrarilor care respecta conditia , de exemplu lista
+                                cu id-urile clientilor cu acelasi prenume. Totodata functiile sunt decorate de functia
+                                get_results(fnc) care gestioneaza cazul in care coditiia nu se indeplineste, adica nu
+                                se gaseste nici o inregistrare pentru acel prenume cautat.
+
+            In concluzie fisierul 'basic_data.py' pune la dispozitie obiectele 'cars', 'clients', 'operations' si 'parts'
+            updatate, astefel ca datele inmagazinate sa poata fi folosite in 'main_data.py' si 'playground'.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

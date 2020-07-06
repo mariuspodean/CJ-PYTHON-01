@@ -1,0 +1,4 @@
+offer_number,vin_number,client_id,operations_list,just_parts_dict,open_time,close_date,order_number
+OF200626001,WBA458HJ856789451,RO35894,Brake Discs Replace|Brake Pads Replace,{},1593119644.0,,
+OF200626002,UU85412JH65478654,1750603125487,Engine Oil Replace,{'bbu447': 7},1593120288.0,,
+OF200626003,VF1JSH72459415489,457874,nan,{},1593120417.0,,
