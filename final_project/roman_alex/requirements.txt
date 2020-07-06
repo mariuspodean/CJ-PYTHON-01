@@ -1,0 +1,63 @@
+Description:
+
+Create a client database that were the price of the bought items will be adjusted by the loyalty
+displayed by the client (amount spent). 
+The following information should be retained in regards to the client: 
+First Name, Last Name, Country, Telephone Number, and company.
+
+In order to showcase the functionality of the client database a secondary database will be created
+to store the products/services that the client will be purchasing, for example if the client is
+purchasing a product we should have the product name, the price, the quantity in stock, and a short 
+description of the product.
+
+All purchases should be written in an external file for easier access.
+
+The implementation should follow these general terms:
+A new client will have to pay full price for a product, once the client spending have past a certain limit
+(ex. 2000, ... ) the client loyalty status will change from Basic to Silver and a discount will be applied.
+Furthermore once a Silver client spending will pass a secondary limit the client loyalty status will change 
+to Gold and the discount amount will increase.
+
+
+
+Tech Description:
+
+The Clients will be created using a Client class.
+
+class Client(....)
+
+A mixin will be used to add the custom __str__ and __repr__
+methods.
+
+All the clients will be kept in collection named Client_List that will be a mutable sequence.The collection
+will allow to add new clients and delete clients.
+
+class Client_List
+
+The products will be created using a Product class. The product class will allow operator overloading.
+
+class Product
+
+The products will be kept inside a collection named Inventory that will be a mutable mapping.The collection
+will allow to add new products, delete products and edit the available quantity of a product.
+
+class Inventory
+   
+A function will be used to generate the purchase taking in account the available products and the amount
+the client has spent until now and a log will be created with name of the client and the purchased item. 
+
+def purchase(...):
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
