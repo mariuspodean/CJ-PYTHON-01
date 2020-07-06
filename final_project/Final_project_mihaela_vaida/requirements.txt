@@ -1,0 +1,93 @@
+
+# Final Project
+
+Description:
+
+This project classifies my personal books  in regular books, some books that are duplicated
+or some books that were more expensive than an usual book !
+When discribing a regular book , only the name and the author name  are  offered. When describing  a duplicated or
+ an expendive book, also the  number of copies and  the price are required! Also, for these book categories ( duplicated
+ and expendive ) the  prices can be added (using the formulae number of copies multiplied with the price of the first
+ book, added to the same  informations from the second one ) and  alse can be compared !
+ Additionally, all of the books are  grouped into my books collection.
+ Over my books collection, I am able to  pick a random book or a named one !
+
+Also  in this project I deal with  a different book library, a public one , with more books and some informations about
+the book availability and book category (optional).
+
+  Also ,   comparing my personal books collection  with the  public library described above,I  will check  which books
+  are  common to both libraries , and I will  display them   in a nice maneer !
+
+     ____________________________________
+ / \                                   \.
+|   |                                   |.
+ \_ |                                   |.
+    |                                   |.
+    |        Existing books:            |.
+    |                                   |.
+    |                                   |.
+    |   Marile sperante.....            |.
+    |   La Rascruce de vanturi          |.
+    |   Muntele vrajit......            |.
+    |   Marile sperante.....            |.
+    |                                   |.
+    |   _______________________________ |___
+    |  /                                 /.
+    \_/_________________________________/.
+
+
+
+
+
+
+Technical approach :
+
+Let's build an application that  will store our personal books in a books
+collection.
+
+We will with a mutable mapping that describes out Book:
+class Book( ...):
+ ...
+
+ Once a book is created , it cannot be updated !
+ There is  also another classes DuplicatedBook and ExpendiveBook, derrived from Book class (inheritance),
+ which also contains the copy numberand prices.class DuplicatedBook(Book):
+ ...
+class ExpensiveBook(Book) :
+..
+For these 2 previous  classes, we will use  overloaded operators :"+" in order to  add the costs for 2 books
+( it will return price * no_copies for the first book + price* no_copies for the second ) and "equal" in order to
+compare the prices ( it will return only True or False ).
+
+ We will also  have the BooksCollection  that is a  sequence  that holds our
+ personal books .
+
+ class BooksCollection(..):
+ ...
+We can add books one by one, delete them, and also  using a pick  method  we can be able to
+ select a random book or a nominated  one,  from the books collection.
+
+
+ We will also have  a Library  class, which is   mutable mapping that  hold
+   different books .
+
+   class Library(..):
+   ..
+
+   In this class we should be able to check if a book name is available or not into the library.
+   Also using a context manager and an overloading operator , we should be able to  design
+   some Library  methods ( a method that  check if a book title belongs to library or not ,
+   and specific methods for a mutable mapping structure).
+
+
+
+  We will also  use a mixin class  that will help us to  display a  nice printing for   Book and Library  informations.
+
+ Independently,  we will have to check if  books from our collection are   or are not in the  Library
+    and to return a list with  list  from both collections!
+
+This  function  will have a decorator  that will dispay  in a nice maneer   the common books  from library and
+books collection!
+Also, using  a context manager, deal with the IndexError, KeyError and DivisionbyZeroError and some logs  !
+
+
